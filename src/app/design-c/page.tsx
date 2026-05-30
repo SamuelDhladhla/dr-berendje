@@ -1,11 +1,12 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { projects } from '@/data/projects'
 
-// ─── SIMANTIC CLONE — ACADEMIC IDENTITY LAYER ────────────────────────────────
-// Images fill ~80% of viewport height
-// Custom crosshair cursor in #C8553D — academic / specimen-examination aesthetic
+// ─── DESIGN C — Academic Carousel ────────────────────────────────────────────
+// Wide navigation bar · tall image carousel (70-80% vh) · custom crosshair cursor
+// Images use next/image for correct basePath on GitHub Pages
 
 const MONO = "'DM Mono', 'Courier New', monospace"
 const SANS = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
@@ -79,9 +80,9 @@ const WORK = [
 ]
 
 export default function DesignC() {
-  const [active, setActive]   = useState(0)
-  const [cursorX, setCursorX] = useState(-200)
-  const [cursorY, setCursorY] = useState(-200)
+  const [active, setActive]     = useState(0)
+  const [cursorX, setCursorX]   = useState(-200)
+  const [cursorY, setCursorY]   = useState(-200)
   const [hovering, setHovering] = useState(false)
 
   const activeItem = WORK[active]
@@ -129,11 +130,7 @@ export default function DesignC() {
             width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
             height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
             opacity 0.3s ease;
-        }
-        .sim-img-wrap img {
-          width: 100%; height: 100%;
-          object-fit: cover; display: block;
-          transition: filter 0.35s ease;
+          position: relative;
         }
       `}</style>
 
@@ -167,7 +164,7 @@ export default function DesignC() {
           background: ACCENT,
           transform: 'translateX(-50%)',
         }} />
-        {/* Center dot — grows on hover */}
+        {/* Center dot */}
         <div style={{
           position: 'absolute',
           top: '50%', left: '50%',
@@ -216,13 +213,13 @@ export default function DesignC() {
         </div>
       </nav>
 
-      {/* ── SMALL SPACER — keeps a sliver of white above images ── */}
+      {/* ── SPACER ── */}
       <div style={{ height: '1.5vh', flexShrink: 0 }} />
 
-      {/* ── IMAGE STRIP + INFO + FOOTER — fills all remaining height ── */}
+      {/* ── IMAGE STRIP + INFO + FOOTER ── */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 0 }}>
 
-        {/* Image row — fills this container's height */}
+        {/* Image row — fills available height */}
         <div style={{
           flex: 1,
           display: 'flex',
@@ -242,19 +239,21 @@ export default function DesignC() {
                 className="sim-img-wrap"
                 onClick={() => setActive(i)}
                 style={{
-                  // Active image fills 100% of the container height
-                  // Inactive images sit at ~82% so the active stands clearly taller
                   width: isActive ? 260 : 170,
                   height: isActive ? '100%' : '82%',
                   opacity: isActive ? 1 : 0.55,
                 }}
               >
                 {proj && (
-                  <img
+                  <Image
                     src={proj.coverImage}
                     alt={item.label}
-                    style={{ filter: isActive ? 'none' : 'grayscale(30%)' }}
-                    onError={e => { (e.currentTarget as HTMLImageElement).style.opacity = '0' }}
+                    fill
+                    style={{
+                      objectFit: 'cover',
+                      filter: isActive ? 'none' : 'grayscale(30%)',
+                      transition: 'filter 0.35s ease',
+                    }}
                   />
                 )}
               </div>
@@ -271,7 +270,7 @@ export default function DesignC() {
           </div>
         </div>
 
-        {/* ── PROJECT INFO below strip ── */}
+        {/* ── PROJECT INFO ── */}
         <div style={{
           padding: '12px 20px 10px',
           display: 'flex',

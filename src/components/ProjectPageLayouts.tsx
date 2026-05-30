@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Project } from '@/types'
 
 // ─── 8 UNIQUE PROJECT PAGE LAYOUTS ───────────────────────────────────────────
@@ -21,10 +22,19 @@ export interface LayoutProps {
 
 // ── Shared micro-components ───────────────────────────────────────────────────
 
-function SafeImg({ src, alt, style }: { src: string; alt: string; style: React.CSSProperties }) {
+// FillImg: wraps next/image with fill in a properly-sized container.
+// basePath is handled automatically by next/image.
+function FillImg({
+  src, alt, wrapStyle, imgStyle,
+}: {
+  src: string; alt: string;
+  wrapStyle?: React.CSSProperties;
+  imgStyle?: React.CSSProperties;
+}) {
   return (
-    <img src={src} alt={alt} style={style}
-      onError={e => { (e.currentTarget as HTMLImageElement).style.opacity = '0' }} />
+    <div style={{ position: 'relative', overflow: 'hidden', ...wrapStyle }}>
+      <Image src={src} alt={alt} fill style={{ objectFit: 'cover', ...imgStyle }} />
+    </div>
   )
 }
 
@@ -82,7 +92,7 @@ function PageFooter() {
   )
 }
 
-function MetaBlock({ project }: { project: Project; color?: string }) {
+function MetaBlock({ project }: { project: Project }) {
   const statusLabel = project.status === 'complete' ? 'Complete'
     : project.status === 'in-progress' ? 'In Progress' : 'Ongoing'
   const statusColor = project.status === 'ongoing' ? '#8b6914'
@@ -116,20 +126,15 @@ function Paras({ text, style }: { text: string; style?: React.CSSProperties }) {
 }
 
 // ─── LAYOUT 1: The Ecologies of Repair ── Journal Article ─────────────────────
-// Full-width hero · title + abstract centered · two-column body (text + sidebar)
 
 export function LayoutEcologies({ project, prev, next, designPrefix, font, color }: LayoutProps) {
   return (
     <main style={{ background: '#fff', minHeight: '100vh' }}>
       <ProjectNav designPrefix={designPrefix} />
 
-      {/* Full-width hero */}
-      <div style={{ width: '100%', height: '62vh', overflow: 'hidden', background: '#f5f5f5' }}>
-        <SafeImg src={project.coverImage} alt={project.title}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-      </div>
+      <FillImg src={project.coverImage} alt={project.title}
+        wrapStyle={{ width: '100%', height: '62vh', background: '#f5f5f5' }} />
 
-      {/* Centered title + abstract */}
       <div style={{ maxWidth: 780, margin: '0 auto', padding: '52px 28px 40px', textAlign: 'center', borderBottom: '1px solid #e8e8e8' }}>
         {project.subtitle && (
           <p style={{ fontFamily: MONO, fontSize: '10px', color, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 12 }}>{project.subtitle}</p>
@@ -142,24 +147,20 @@ export function LayoutEcologies({ project, prev, next, designPrefix, font, color
         </p>
       </div>
 
-      {/* Two-column journal body */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 280px', gap: '0 52px', padding: '52px 32px 0', maxWidth: 1100, margin: '0 auto', alignItems: 'start' }}>
-        {/* Left: article text + inline extra images */}
         <div>
           <Paras text={project.description} />
           {project.images.slice(1).map((img, i) => (
             <div key={i} style={{ margin: '32px 0' }}>
-              <div style={{ background: '#f5f5f5', overflow: 'hidden', marginBottom: 6 }}>
-                <SafeImg src={img} alt={`Fig. ${i + 2}`} style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: 440 }} />
-              </div>
-              <p style={{ fontFamily: MONO, fontSize: '9px', color: '#bbb', letterSpacing: '0.06em' }}>Fig. {i + 2} — {project.location}</p>
+              <FillImg src={img} alt={`Fig. ${i + 2}`}
+                wrapStyle={{ width: '100%', height: 440, background: '#f5f5f5' }} />
+              <p style={{ fontFamily: MONO, fontSize: '9px', color: '#bbb', letterSpacing: '0.06em', marginTop: 6 }}>Fig. {i + 2} — {project.location}</p>
             </div>
           ))}
         </div>
-        {/* Right: citation sidebar */}
         <div style={{ borderLeft: '1px solid #f0f0f0', paddingLeft: 32 }}>
           <p style={{ fontFamily: MONO, fontSize: '9px', color: '#ccc', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 20 }}>Citation</p>
-          <MetaBlock project={project} color={color} />
+          <MetaBlock project={project} />
         </div>
       </div>
 
@@ -170,7 +171,6 @@ export function LayoutEcologies({ project, prev, next, designPrefix, font, color
 }
 
 // ─── LAYOUT 2: Obroni Wa Wu ── Research Report ────────────────────────────────
-// Large title left (55%) · images stacked right (45%) like a research report figure panel
 
 export function LayoutDWMC({ project, prev, next, designPrefix, font, color }: LayoutProps) {
   return (
@@ -178,7 +178,6 @@ export function LayoutDWMC({ project, prev, next, designPrefix, font, color }: L
       <ProjectNav designPrefix={designPrefix} />
 
       <div style={{ display: 'grid', gridTemplateColumns: '55fr 45fr', minHeight: 'calc(100vh - 57px)', alignItems: 'start' }}>
-        {/* Left: title block + body */}
         <div style={{ padding: '60px 48px 80px 32px', borderRight: '1px solid #f0f0f0' }}>
           {project.subtitle && (
             <p style={{ fontFamily: MONO, fontSize: '10px', color, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 16 }}>{project.subtitle}</p>
@@ -187,7 +186,7 @@ export function LayoutDWMC({ project, prev, next, designPrefix, font, color }: L
             {project.title}
           </h1>
           <div style={{ borderTop: '1px solid #e8e8e8', paddingTop: 24, marginBottom: 28 }}>
-            <MetaBlock project={project} color={color} />
+            <MetaBlock project={project} />
           </div>
           <p style={{ fontFamily: SERIF, fontSize: '1.05rem', fontStyle: 'italic', color: '#333', lineHeight: 1.8, marginBottom: 32 }}>
             {project.excerpt}
@@ -197,13 +196,11 @@ export function LayoutDWMC({ project, prev, next, designPrefix, font, color }: L
           </div>
         </div>
 
-        {/* Right: stacked figure images */}
         <div style={{ padding: '60px 28px 60px 32px', display: 'flex', flexDirection: 'column', gap: 3 }}>
           {project.images.map((img, i) => (
             <div key={i}>
-              <div style={{ background: '#f5f5f5', overflow: 'hidden' }}>
-                <SafeImg src={img} alt={`Fig. ${i + 1}`} style={{ width: '100%', display: 'block', objectFit: 'cover', aspectRatio: '4/5' }} />
-              </div>
+              <FillImg src={img} alt={`Fig. ${i + 1}`}
+                wrapStyle={{ width: '100%', height: 280, background: '#f5f5f5' }} />
               <p style={{ fontFamily: MONO, fontSize: '9px', color: '#ccc', padding: '5px 0 12px', letterSpacing: '0.06em' }}>Fig. {i + 1}</p>
             </div>
           ))}
@@ -217,31 +214,26 @@ export function LayoutDWMC({ project, prev, next, designPrefix, font, color }: L
 }
 
 // ─── LAYOUT 3: Sender – Receiver ── Exhibition Catalog ────────────────────────
-// Image grid across full width at top · catalog number · narrow centered text column
 
 export function LayoutSender({ project, prev, next, designPrefix, font, color }: LayoutProps) {
   const n = project.images.length
   const cols = n >= 3 ? 3 : n === 2 ? 2 : 1
+  const imgH = cols === 1 ? '62vh' : '52vh'
   return (
     <main style={{ background: '#fff', minHeight: '100vh' }}>
       <ProjectNav designPrefix={designPrefix} />
 
-      {/* Image grid */}
       <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, 1fr)`, gap: 2 }}>
         {project.images.map((img, i) => (
-          <div key={i} style={{ background: '#f0f0f0', overflow: 'hidden', height: cols === 1 ? '62vh' : '52vh' }}>
-            <SafeImg src={img} alt={`${project.title} ${i + 1}`}
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-          </div>
+          <FillImg key={i} src={img} alt={`${project.title} ${i + 1}`}
+            wrapStyle={{ width: '100%', height: imgH, background: '#f0f0f0' }} />
         ))}
       </div>
 
-      {/* Catalog divider */}
       <div style={{ textAlign: 'center', padding: '36px 0 0', borderBottom: '1px solid #e8e8e8' }}>
         <span style={{ fontFamily: MONO, fontSize: '10px', color: '#ccc', letterSpacing: '0.14em', textTransform: 'uppercase' }}>— Exhibition Catalog —</span>
       </div>
 
-      {/* Centered narrow column */}
       <div style={{ maxWidth: 620, margin: '0 auto', padding: '48px 28px 80px' }}>
         {project.subtitle && (
           <p style={{ fontFamily: MONO, fontSize: '10px', color, letterSpacing: '0.1em', textTransform: 'uppercase', textAlign: 'center', marginBottom: 12 }}>{project.subtitle}</p>
@@ -250,7 +242,7 @@ export function LayoutSender({ project, prev, next, designPrefix, font, color }:
           {project.title}
         </h1>
         <div style={{ borderTop: '1px solid #f0f0f0', paddingTop: 20, marginBottom: 24 }}>
-          <MetaBlock project={project} color={color} />
+          <MetaBlock project={project} />
         </div>
         <p style={{ fontFamily: SERIF, fontSize: '1.05rem', fontStyle: 'italic', color: '#333', lineHeight: 1.8, marginBottom: 28, textAlign: 'center' }}>
           {project.excerpt}
@@ -267,31 +259,27 @@ export function LayoutSender({ project, prev, next, designPrefix, font, color }:
 }
 
 // ─── LAYOUT 4: T-Shirt Tales ── Zine ──────────────────────────────────────────
-// Horizontal scrolling image strip · oversized title · two-column body
 
 export function LayoutTShirt({ project, prev, next, designPrefix, font, color }: LayoutProps) {
   return (
     <main style={{ background: '#fff', minHeight: '100vh' }}>
       <ProjectNav designPrefix={designPrefix} />
 
-      {/* Horizontal scroll strip */}
       <div style={{ overflowX: 'auto', scrollbarWidth: 'none', borderBottom: '2px solid #000' }}>
         <div style={{ display: 'flex', gap: 0 }}>
           {project.images.map((img, i) => (
             <div key={i} style={{
-              flexShrink: 0,
+              flexShrink: 0, position: 'relative',
               width: project.images.length === 1 ? '100vw' : '68vw',
               height: '64vh',
               background: '#f0f0f0', overflow: 'hidden',
             }}>
-              <SafeImg src={img} alt={`${project.title} ${i + 1}`}
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              <Image src={img} alt={`${project.title} ${i + 1}`} fill style={{ objectFit: 'cover' }} />
             </div>
           ))}
         </div>
       </div>
 
-      {/* Zine text area */}
       <div style={{ padding: '48px 32px 80px', maxWidth: 1100 }}>
         {project.subtitle && (
           <p style={{ fontFamily: MONO, fontSize: '10px', color, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 10 }}>{project.subtitle}</p>
@@ -303,7 +291,7 @@ export function LayoutTShirt({ project, prev, next, designPrefix, font, color }:
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 80px', borderTop: '1px solid #e8e8e8', paddingTop: 32 }}>
           <div>
             <p style={{ fontFamily: SERIF, fontSize: '1.1rem', fontStyle: 'italic', color: '#333', lineHeight: 1.8, marginBottom: 28 }}>{project.excerpt}</p>
-            <MetaBlock project={project} color={color} />
+            <MetaBlock project={project} />
           </div>
           <div>
             <Paras text={project.description} />
@@ -318,7 +306,6 @@ export function LayoutTShirt({ project, prev, next, designPrefix, font, color }:
 }
 
 // ─── LAYOUT 5: Black Botanicals ── Pull Quotes in Margins ─────────────────────
-// Full-bleed hero with white title overlay · three-column body (margin/text/keywords)
 
 export function LayoutBotanicals({ project, prev, next, designPrefix, font, color }: LayoutProps) {
   const paras = project.description.split('\n\n')
@@ -328,23 +315,26 @@ export function LayoutBotanicals({ project, prev, next, designPrefix, font, colo
     <main style={{ background: '#fff', minHeight: '100vh' }}>
       <ProjectNav designPrefix={designPrefix} />
 
-      {/* Full-bleed hero with title + side images */}
+      {/* Full-bleed hero with side images */}
       <div style={{ position: 'relative', width: '100%', height: '76vh', overflow: 'hidden', background: '#111' }}>
-        <SafeImg src={project.coverImage} alt={project.title}
-          style={{ width: project.images.length > 1 ? '70%' : '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: 0.88 }} />
+        <div style={{
+          position: 'absolute', top: 0, left: 0,
+          width: project.images.length > 1 ? '70%' : '100%',
+          height: '100%',
+        }}>
+          <Image src={project.coverImage} alt={project.title} fill style={{ objectFit: 'cover', opacity: 0.88 }} />
+        </div>
 
-        {/* Side images */}
         {project.images.length > 1 && (
           <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '30%', display: 'flex', flexDirection: 'column', gap: 2 }}>
             {project.images.slice(1, 3).map((img, i) => (
-              <div key={i} style={{ flex: 1, overflow: 'hidden' }}>
-                <SafeImg src={img} alt={`Fig. ${i + 2}`} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: 0.88 }} />
+              <div key={i} style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+                <Image src={img} alt={`Fig. ${i + 2}`} fill style={{ objectFit: 'cover', opacity: 0.88 }} />
               </div>
             ))}
           </div>
         )}
 
-        {/* White title overlay */}
         <div style={{
           position: 'absolute', bottom: 0, left: 0,
           width: project.images.length > 1 ? '70%' : '100%',
@@ -360,9 +350,7 @@ export function LayoutBotanicals({ project, prev, next, designPrefix, font, colo
         </div>
       </div>
 
-      {/* Three-column body */}
       <div style={{ display: 'grid', gridTemplateColumns: '190px 1fr 190px', gap: '0 40px', padding: '60px 32px 80px', maxWidth: 1200, margin: '0 auto', alignItems: 'start' }}>
-        {/* Left margin: pull quote + meta */}
         <div>
           <div style={{ borderLeft: `2px solid ${color}`, paddingLeft: 14, marginBottom: 36 }}>
             <p style={{ fontFamily: SERIF, fontSize: '0.85rem', fontStyle: 'italic', color: '#888', lineHeight: 1.75 }}>"{pullQuote}"</p>
@@ -373,7 +361,6 @@ export function LayoutBotanicals({ project, prev, next, designPrefix, font, colo
           </div>
         </div>
 
-        {/* Center: body text */}
         <div>
           <p style={{ fontFamily: SERIF, fontSize: '1.1rem', fontStyle: 'italic', color: '#333', lineHeight: 1.8, marginBottom: 32 }}>{project.excerpt}</p>
           <div style={{ borderTop: '1px solid #f0f0f0', paddingTop: 28 }}>
@@ -382,13 +369,11 @@ export function LayoutBotanicals({ project, prev, next, designPrefix, font, colo
             ))}
           </div>
           {project.images.slice(3).map((img, i) => (
-            <div key={i} style={{ margin: '32px 0', background: '#f5f5f5' }}>
-              <SafeImg src={img} alt={`Fig. ${i + 4}`} style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: 400 }} />
-            </div>
+            <FillImg key={i} src={img} alt={`Fig. ${i + 4}`}
+              wrapStyle={{ margin: '32px 0', width: '100%', height: 400, background: '#f5f5f5' }} />
           ))}
         </div>
 
-        {/* Right margin: keywords */}
         <div>
           <p style={{ fontFamily: MONO, fontSize: '9px', color: '#ccc', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 16 }}>Keywords</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
@@ -406,7 +391,6 @@ export function LayoutBotanicals({ project, prev, next, designPrefix, font, colo
 }
 
 // ─── LAYOUT 6: The New Fake is Real ── Book Page ──────────────────────────────
-// Centered narrow column · alternating image / text like a book
 
 export function LayoutFakery({ project, prev, next, designPrefix, font, color }: LayoutProps) {
   const paras = project.description.split('\n\n')
@@ -426,33 +410,28 @@ export function LayoutFakery({ project, prev, next, designPrefix, font, color }:
         <div style={{ display: 'flex', justifyContent: 'center', gap: 16, marginBottom: 40, fontFamily: MONO, fontSize: '10px', color: '#bbb', letterSpacing: '0.06em' }}>
           <span>{project.year}</span><span>·</span><span>{project.location}</span>
         </div>
-
         <p style={{ fontFamily: SERIF, fontSize: '1.1rem', fontStyle: 'italic', color: '#333', lineHeight: 1.8, marginBottom: 36, textAlign: 'center' }}>
           {project.excerpt}
         </p>
 
-        {/* First image */}
         {project.images[0] && (
-          <div style={{ margin: '0 0 8px' }}>
-            <div style={{ background: '#f5f5f5', overflow: 'hidden' }}>
-              <SafeImg src={project.images[0]} alt={project.title} style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: 500 }} />
-            </div>
+          <div style={{ marginBottom: 8 }}>
+            <FillImg src={project.images[0]} alt={project.title}
+              wrapStyle={{ width: '100%', height: 500, background: '#f5f5f5' }} />
             <p style={{ fontFamily: MONO, fontSize: '9px', color: '#bbb', padding: '6px 0', letterSpacing: '0.06em' }}>Fig. 1</p>
           </div>
         )}
 
-        <div style={{ borderTop: '1px solid #e8e8e8', padding: '36px 0 0', marginBottom: 0 }}>
+        <div style={{ borderTop: '1px solid #e8e8e8', padding: '36px 0 0' }}>
           {paras.slice(0, half).map((p, i) => (
             <p key={i} style={{ fontFamily: MONO, fontSize: '13px', color: '#444', lineHeight: 2.1, marginBottom: '22px' }}>{p}</p>
           ))}
         </div>
 
-        {/* Second image */}
         {project.images[1] && (
-          <div style={{ margin: '8px 0 8px' }}>
-            <div style={{ background: '#f5f5f5', overflow: 'hidden' }}>
-              <SafeImg src={project.images[1]} alt={`${project.title} 2`} style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: 420 }} />
-            </div>
+          <div style={{ margin: '8px 0' }}>
+            <FillImg src={project.images[1]} alt={`${project.title} 2`}
+              wrapStyle={{ width: '100%', height: 420, background: '#f5f5f5' }} />
             <p style={{ fontFamily: MONO, fontSize: '9px', color: '#bbb', padding: '6px 0', letterSpacing: '0.06em' }}>Fig. 2</p>
           </div>
         )}
@@ -475,7 +454,6 @@ export function LayoutFakery({ project, prev, next, designPrefix, font, color }:
 }
 
 // ─── LAYOUT 7: Blueprint ── 60/40 Split Screen ────────────────────────────────
-// Sticky image left (60%) · scrollable details right (40%)
 
 export function LayoutBlueprint({ project, prev, next, designPrefix, font, color }: LayoutProps) {
   return (
@@ -483,13 +461,10 @@ export function LayoutBlueprint({ project, prev, next, designPrefix, font, color
       <ProjectNav designPrefix={designPrefix} />
 
       <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr' }}>
-        {/* Left 60%: sticky image */}
         <div style={{ position: 'sticky', top: 57, height: 'calc(100vh - 57px)', overflow: 'hidden', background: '#f5f5f5' }}>
-          <SafeImg src={project.coverImage} alt={project.title}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <Image src={project.coverImage} alt={project.title} fill style={{ objectFit: 'cover' }} />
         </div>
 
-        {/* Right 40%: scrollable project details */}
         <div style={{ padding: '56px 36px 80px 40px', borderLeft: '1px solid #f0f0f0', minHeight: '100vh' }}>
           {project.subtitle && (
             <p style={{ fontFamily: MONO, fontSize: '10px', color, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 14 }}>{project.subtitle}</p>
@@ -498,7 +473,7 @@ export function LayoutBlueprint({ project, prev, next, designPrefix, font, color
             {project.title}
           </h1>
           <div style={{ borderTop: '1px solid #e8e8e8', paddingTop: 24, marginBottom: 28 }}>
-            <MetaBlock project={project} color={color} />
+            <MetaBlock project={project} />
           </div>
           <p style={{ fontFamily: SERIF, fontSize: '1rem', fontStyle: 'italic', color: '#333', lineHeight: 1.8, marginBottom: 28 }}>
             {project.excerpt}
@@ -507,9 +482,9 @@ export function LayoutBlueprint({ project, prev, next, designPrefix, font, color
             <Paras text={project.description} />
           </div>
           {project.images[1] && (
-            <div style={{ marginTop: 32, overflow: 'hidden', background: '#f5f5f5' }}>
-              <SafeImg src={project.images[1]} alt={`${project.title} 2`}
-                style={{ width: '100%', display: 'block', objectFit: 'cover', aspectRatio: '4/3' }} />
+            <div style={{ marginTop: 32 }}>
+              <FillImg src={project.images[1]} alt={`${project.title} 2`}
+                wrapStyle={{ width: '100%', height: 280, background: '#f5f5f5' }} />
               <p style={{ fontFamily: MONO, fontSize: '9px', color: '#bbb', padding: '6px 0', letterSpacing: '0.06em' }}>Fig. 2</p>
             </div>
           )}
@@ -523,29 +498,21 @@ export function LayoutBlueprint({ project, prev, next, designPrefix, font, color
 }
 
 // ─── LAYOUT 8: Post Fossils ── Masonry Grid + White Card ──────────────────────
-// Alternating-height image grid · white description card overlapping from below
 
 export function LayoutPostFossils({ project, prev, next, designPrefix, font, color }: LayoutProps) {
   return (
     <main style={{ background: '#fff', minHeight: '100vh' }}>
       <ProjectNav designPrefix={designPrefix} />
 
-      {/* Masonry-style grid — alternating heights */}
       {project.images.length > 0 && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 2 }}>
           {project.images.map((img, i) => (
-            <div key={i} style={{
-              background: '#f0f0f0', overflow: 'hidden',
-              height: i % 2 === 0 ? '56vh' : '44vh',
-            }}>
-              <SafeImg src={img} alt={`${project.title} ${i + 1}`}
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-            </div>
+            <FillImg key={i} src={img} alt={`${project.title} ${i + 1}`}
+              wrapStyle={{ width: '100%', height: i % 2 === 0 ? '56vh' : '44vh', background: '#f0f0f0' }} />
           ))}
         </div>
       )}
 
-      {/* Elevated white description card */}
       <div style={{ position: 'relative', margin: '-52px 52px 0', zIndex: 10 }}>
         <div style={{ background: '#fff', border: '1px solid #e8e8e8', padding: '52px 48px', boxShadow: '0 4px 40px rgba(0,0,0,0.06)' }}>
           {project.subtitle && (
@@ -554,7 +521,6 @@ export function LayoutPostFossils({ project, prev, next, designPrefix, font, col
           <h1 style={{ fontFamily: font, fontSize: 'clamp(1.8rem, 3.5vw, 3.2rem)', color, lineHeight: 1.0, letterSpacing: '-0.02em', marginBottom: 32, textTransform: 'uppercase' }}>
             {project.title}
           </h1>
-
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 60px', alignItems: 'start' }}>
             <div>
               <p style={{ fontFamily: SERIF, fontSize: '1.05rem', fontStyle: 'italic', color: '#333', lineHeight: 1.8, marginBottom: 28 }}>
@@ -563,7 +529,7 @@ export function LayoutPostFossils({ project, prev, next, designPrefix, font, col
               <Paras text={project.description} />
             </div>
             <div style={{ borderLeft: '1px solid #f0f0f0', paddingLeft: 40 }}>
-              <MetaBlock project={project} color={color} />
+              <MetaBlock project={project} />
             </div>
           </div>
         </div>
@@ -576,18 +542,17 @@ export function LayoutPostFossils({ project, prev, next, designPrefix, font, col
   )
 }
 
-// ─── Fallback layout for any project without a specific layout ────────────────
+// ─── Fallback ─────────────────────────────────────────────────────────────────
 export function LayoutDefault({ project, prev, next, designPrefix, font, color }: LayoutProps) {
   return (
     <main style={{ background: '#fff', minHeight: '100vh' }}>
       <ProjectNav designPrefix={designPrefix} />
-      <div style={{ width: '100%', height: '60vh', overflow: 'hidden', background: '#f5f5f5' }}>
-        <SafeImg src={project.coverImage} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-      </div>
+      <FillImg src={project.coverImage} alt={project.title}
+        wrapStyle={{ width: '100%', height: '60vh', background: '#f5f5f5' }} />
       <div style={{ maxWidth: 800, margin: '0 auto', padding: '52px 28px 80px' }}>
         <h1 style={{ fontFamily: font, fontSize: 'clamp(2rem, 5vw, 4rem)', color, lineHeight: 1.05, marginBottom: 20, fontStyle: 'italic' }}>{project.title}</h1>
         <div style={{ borderTop: '1px solid #e8e8e8', paddingTop: 24, marginBottom: 28 }}>
-          <MetaBlock project={project} color={color} />
+          <MetaBlock project={project} />
         </div>
         <p style={{ fontFamily: SERIF, fontSize: '1.05rem', fontStyle: 'italic', color: '#333', lineHeight: 1.8, marginBottom: 28 }}>{project.excerpt}</p>
         <div style={{ borderTop: '1px solid #f0f0f0', paddingTop: 24 }}>

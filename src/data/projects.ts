@@ -196,6 +196,8 @@ The programme includes a series of workshops and methodological tools: the Cloth
 The residency connects participants across geographies, tracing the journeys that clothes make and asking what responsibility looks like at each step.`,
     images: [
       '/images/sender/1.jpg',
+      '/images/sender/2.jpg',
+      '/images/sender/3.jpg',
     ],
     coverImage: '/images/sender/1.jpg',
     fieldSize: 'medium',
