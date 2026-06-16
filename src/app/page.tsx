@@ -36,7 +36,7 @@ PORTFOLIO PRESENTATION — CLIENT REVIEW
 Date: ${new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}
 
 ════════════════════════════════════════
-TWO DESIGN DIRECTIONS ARE PRESENTED:
+THREE DESIGN DIRECTIONS ARE PRESENTED:
 ════════════════════════════════════════
 
 [Design A] — THE LIST VIEW
@@ -55,6 +55,14 @@ TWO DESIGN DIRECTIONS ARE PRESENTED:
 
    Double-click "Design C" icon to open.
 
+[Design E] — EXPERIMENT SPACE
+   Scattered floating images across the
+   full viewport. Preloader counter.
+   Custom cursor. Editorial title.
+   Click any image to open focus panel.
+
+   Double-click "Design E" icon to open.
+
 ════════════════════════════════════════
 ABOUT
 ════════════════════════════════════════
@@ -72,7 +80,7 @@ ABOUT
    © Linda Valkeman 2025
 ════════════════════════════════════════`
 
-type WinId = 'notepad' | 'design-a' | 'design-c' | 'about' | 'recyclebin'
+type WinId = 'notepad' | 'design-a' | 'design-c' | 'design-e' | 'about' | 'recyclebin'
 
 interface Win {
   id: WinId
@@ -282,6 +290,7 @@ export default function DesktopPage() {
           {win.id === 'notepad' && <NotepadContent />}
           {win.id === 'design-a' && <BrowserContent src="/dr-berendje/design-a" title="Design A — The List" />}
           {win.id === 'design-c' && <BrowserContent src="/dr-berendje/design-c" title="Design C — The Carousel" />}
+          {win.id === 'design-e' && <BrowserContent src="/dr-berendje/design-e" title="Design E — Experiment Space" />}
           {win.id === 'about' && <AboutContent />}
           {win.id === 'recyclebin' && <RecycleBinContent />}
         </div>
@@ -510,6 +519,10 @@ export default function DesktopPage() {
           onDoubleClick={() => openOrFocus('design-c', 'Design C — The Carousel [Internet Explorer]', 860, 560, 120, 60)}
         />
         <DesktopIcon
+          icon="🎨" label="Design E" id="design-e"
+          onDoubleClick={() => openOrFocus('design-e', 'Design E — Experiment Space [Internet Explorer]', 900, 580, 160, 80)}
+        />
+        <DesktopIcon
           icon="📝" label="README.txt" id="notepad"
           onDoubleClick={() => openOrFocus('notepad', 'README.txt - Notepad', 520, 380, 280, 60)}
         />
@@ -557,6 +570,7 @@ export default function DesktopPage() {
             {[
               { label: '🖥️  Design A', action: () => openOrFocus('design-a', 'Design A — The List [Internet Explorer]', 860, 560, 80, 40) },
               { label: '🖼️  Design C', action: () => openOrFocus('design-c', 'Design C — The Carousel [Internet Explorer]', 860, 560, 120, 60) },
+              { label: '🎨  Design E', action: () => openOrFocus('design-e', 'Design E — Experiment Space [Internet Explorer]', 900, 580, 160, 80) },
               { label: '📝  README.txt', action: () => openOrFocus('notepad', 'README.txt - Notepad', 520, 380, 280, 60) },
               { label: '🌿  About', action: () => openOrFocus('about', 'dr Berendje — About', 360, 340, 340, 120) },
             ].map(item => (
@@ -627,6 +641,7 @@ export default function DesktopPage() {
             {win.id === 'notepad' ? '📝 ' :
              win.id === 'design-a' ? '🖥️ ' :
              win.id === 'design-c' ? '🖼️ ' :
+             win.id === 'design-e' ? '🎨 ' :
              win.id === 'about' ? '🌿 ' : '🗑️ '}
             {win.title.split(' — ')[0].split(' - ')[0]}
           </button>

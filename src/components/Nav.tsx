@@ -13,7 +13,8 @@ export default function Nav() {
     pathname.startsWith('/design-a') ||
     pathname.startsWith('/design-b') ||
     pathname.startsWith('/design-c') ||
-    pathname.startsWith('/design-d')
+    pathname.startsWith('/design-d') ||
+    pathname.startsWith('/design-e')
   ) return null
 
   return (
