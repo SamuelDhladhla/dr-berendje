@@ -14,8 +14,8 @@ export default function LandingPage() {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '80px 24px',
+      position: 'relative',
     }}>
-      {/* Wordmark */}
       <h1 style={{
         fontFamily: HEADING,
         fontSize: 'clamp(72px, 14vw, 140px)',
@@ -28,17 +28,15 @@ export default function LandingPage() {
         dr<span style={{ color: ACCENT }}>.</span>B
       </h1>
 
-      {/* Repair mark */}
       <div style={{
         fontSize: '10px',
-        color: ACCENT,
+        color: '#000',
         letterSpacing: '0.4em',
         marginBottom: 52,
       }}>
         — — —
       </div>
 
-      {/* Statement */}
       <p style={{
         fontFamily: HEADING,
         fontSize: 'clamp(18px, 2.5vw, 28px)',
@@ -54,9 +52,8 @@ export default function LandingPage() {
         Material, Environmental &amp; Social Healing
       </p>
 
-      {/* Entry link */}
       <Link
-        href="/design-a"
+        href="/archive"
         style={{
           fontFamily: BODY,
           fontSize: '13px',
@@ -71,7 +68,6 @@ export default function LandingPage() {
         Enter Archive →
       </Link>
 
-      {/* Footer */}
       <div style={{
         position: 'absolute',
         bottom: 36,
@@ -80,7 +76,7 @@ export default function LandingPage() {
       }}>
         <div style={{
           fontSize: '10px',
-          color: ACCENT,
+          color: '#000',
           letterSpacing: '0.4em',
           marginBottom: 12,
         }}>

@@ -9,7 +9,6 @@ interface Props {
   prev?: Project
   next?: Project
   designPrefix: string
-  variant: string
 }
 
 export default function ProjectPageShared({ project, prev, next, designPrefix }: Props) {

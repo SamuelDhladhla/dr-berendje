@@ -5,7 +5,7 @@ import ProjectPageShared from '@/components/ProjectPageShared'
 type Props = { params: Promise<{ slug: string }> }
 export async function generateStaticParams() { return projects.map(p => ({ slug: p.slug })) }
 
-export default async function DesignCProject({ params }: Props) {
+export default async function ArchiveProject({ params }: Props) {
   const { slug } = await params
   const project = getProjectBySlug(slug)
   if (!project) notFound()
@@ -15,8 +15,7 @@ export default async function DesignCProject({ params }: Props) {
       project={project}
       prev={projects[idx - 1]}
       next={projects[idx + 1]}
-      designPrefix="/design-c"
-      variant="c"
+      designPrefix="/archive"
     />
   )
 }

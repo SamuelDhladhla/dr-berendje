@@ -36,10 +36,10 @@
 
 ## Color
 - All text: `#000000` (black) — no grey, no colored text
-- Accent mark only: `#C8553D` (terracotta) — used for:
-  - The dot in "dr.B" wordmark
-  - Repair mark stitch `— — —`
-  - Custom cursor dot (at 60% opacity)
+- The ONLY color on the site:
+  - The dot in "dr.B" wordmark: `#C8553D`
+  - Custom cursor dot: `rgba(200, 85, 61, 0.6)`
+  - Project images (natural color)
 
 ## Hierarchy (by visual weight)
 1. **Title** — Instrument Serif, italic, large (2–9rem), weight 400
@@ -55,4 +55,4 @@
 - Hierarchy established through size + weight, not color
 - Instrument Serif chosen for its clean, refined quality at display sizes
 - Inter chosen for its precision and readability at small sizes
-- Both fonts can be swapped if you prefer alternatives — just let us know
+- Both fonts can be swapped — just let us know

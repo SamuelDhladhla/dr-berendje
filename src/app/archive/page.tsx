@@ -22,7 +22,7 @@ const WORK = [
   { slug: 'paper-making',              cat: 'Material · Process',     year: '2018 —',       status: 'Ongoing' },
 ]
 
-export default function DesignA() {
+export default function ArchivePage() {
   const [hovered, setHovered] = useState<string | null>(null)
   const [mouseX, setMouseX]   = useState(0)
   const [mouseY, setMouseY]   = useState(0)
@@ -116,11 +116,11 @@ export default function DesignA() {
               <div key={item.slug}>
                 {i > 0 && (
                   <div style={{ textAlign: 'center', padding: '0' }}>
-                    <span style={{ fontSize: '9px', color: ACCENT, letterSpacing: '0.4em' }}>— — —</span>
+                    <span style={{ fontSize: '9px', color: '#000', letterSpacing: '0.4em' }}>— — —</span>
                   </div>
                 )}
                 <Link
-                  href={`/design-a/project/${item.slug}`}
+                  href={`/archive/${item.slug}`}
                   className="da-row"
                   style={{ padding: '28px 32px 24px', display: 'block' }}
                   onMouseEnter={() => setHovered(item.slug)}
@@ -198,7 +198,7 @@ export default function DesignA() {
             return (
               <Link
                 key={item.slug}
-                href={`/design-a/project/${item.slug}`}
+                href={`/archive/${item.slug}`}
                 className="da-grid-item"
                 style={{
                   aspectRatio: '3/4',
@@ -260,7 +260,7 @@ export default function DesignA() {
         alignItems: 'center',
         gap: 12,
       }}>
-        <span style={{ fontSize: '9px', color: ACCENT, letterSpacing: '0.4em' }}>— — —</span>
+        <span style={{ fontSize: '9px', color: '#000', letterSpacing: '0.4em' }}>— — —</span>
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
