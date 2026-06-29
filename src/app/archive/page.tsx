@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import Img from '@/components/Img'
 import { projects } from '@/data/projects'
 
 const HEADING = "'Instrument Serif', Georgia, serif"
@@ -96,7 +96,7 @@ export default function ArchivePage() {
           boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
         }}>
           <div style={{ position: 'relative', width: '100%', height: '100%', background: '#f5f5f5', overflow: 'hidden' }}>
-            <Image
+            <Img
               src={hoveredProj.coverImage}
               alt={hoveredProj.title}
               fill
@@ -209,7 +209,7 @@ export default function ArchivePage() {
                   position: 'relative',
                 }}
               >
-                <Image
+                <Img
                   src={proj.coverImage}
                   alt={proj.title}
                   fill

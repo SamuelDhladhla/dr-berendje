@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import Img from '@/components/Img'
 import { Project } from '@/types'
 
 const HEADING = "'Instrument Serif', Georgia, serif"
@@ -26,7 +26,7 @@ function FillImg({
 }) {
   return (
     <div style={{ position: 'relative', overflow: 'hidden', ...wrapStyle }}>
-      <Image src={src} alt={alt} fill style={{ objectFit: 'cover', ...imgStyle }} />
+      <Img src={src} alt={alt} fill style={{ objectFit: 'cover', ...imgStyle }} />
     </div>
   )
 }
@@ -273,7 +273,7 @@ export function LayoutTShirt({ project, prev, next, designPrefix, font }: Layout
               width: project.images.length === 1 ? '100vw' : '68vw',
               height: '64vh', background: '#f0f0f0', overflow: 'hidden',
             }}>
-              <Image src={img} alt={`${project.title} ${i + 1}`} fill style={{ objectFit: 'cover' }} />
+              <Img src={img} alt={`${project.title} ${i + 1}`} fill style={{ objectFit: 'cover' }} />
             </div>
           ))}
         </div>
@@ -320,14 +320,14 @@ export function LayoutBotanicals({ project, prev, next, designPrefix, font }: La
           width: project.images.length > 1 ? '70%' : '100%',
           height: '100%',
         }}>
-          <Image src={project.coverImage} alt={project.title} fill style={{ objectFit: 'cover', opacity: 0.88 }} />
+          <Img src={project.coverImage} alt={project.title} fill style={{ objectFit: 'cover', opacity: 0.88 }} />
         </div>
 
         {project.images.length > 1 && (
           <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '30%', display: 'flex', flexDirection: 'column', gap: 2 }}>
             {project.images.slice(1, 3).map((img, i) => (
               <div key={i} style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
-                <Image src={img} alt={`Fig. ${i + 2}`} fill style={{ objectFit: 'cover', opacity: 0.88 }} />
+                <Img src={img} alt={`Fig. ${i + 2}`} fill style={{ objectFit: 'cover', opacity: 0.88 }} />
               </div>
             ))}
           </div>
@@ -460,7 +460,7 @@ export function LayoutBlueprint({ project, prev, next, designPrefix, font }: Lay
       <ProjectNav designPrefix={designPrefix} />
       <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr' }}>
         <div style={{ position: 'sticky', top: 57, height: 'calc(100vh - 57px)', overflow: 'hidden', background: '#f5f5f5' }}>
-          <Image src={project.coverImage} alt={project.title} fill style={{ objectFit: 'cover' }} />
+          <Img src={project.coverImage} alt={project.title} fill style={{ objectFit: 'cover' }} />
         </div>
 
         <div style={{ padding: '56px 36px 80px 40px', borderLeft: '1px solid #000', minHeight: '100vh' }}>

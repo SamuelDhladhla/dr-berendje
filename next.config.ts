@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
     remotePatterns: [],
     unoptimized: true,
   },
+  env: {
+    NEXT_PUBLIC_BASE_PATH: isProd ? '/dr-berendje' : '',
+  },
 };
 
 export default nextConfig;
