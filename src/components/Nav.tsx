@@ -1,13 +1,14 @@
 'use client'
-import Logo from './Logo'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+const HEADING = "'Instrument Serif', Georgia, serif"
+const BODY = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+const ACCENT = '#C8553D'
+
 export default function Nav() {
   const pathname = usePathname()
-  const isHome = pathname === '/'
 
-  // Desktop and design pages manage their own nav
   if (
     pathname === '/' ||
     pathname.startsWith('/design-a') ||
@@ -18,53 +19,32 @@ export default function Nav() {
   ) return null
 
   return (
-    <nav
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 500,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '20px 28px',
-        background: isHome
-          ? 'linear-gradient(to bottom, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0) 100%)'
-          : 'rgba(10,10,10,0.95)',
-        backdropFilter: isHome ? 'none' : 'blur(8px)',
-        borderBottom: isHome ? 'none' : '1px solid rgba(255,255,255,0.06)',
-      }}
-    >
-      <Logo />
+    <nav style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      zIndex: 500,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: '20px 32px',
+      background: '#fff',
+      borderBottom: '1px solid #000',
+    }}>
+      <Link href="/" style={{ textDecoration: 'none' }}>
+        <span style={{ fontFamily: HEADING, fontSize: '18px', fontWeight: 400, color: '#000' }}>
+          dr<span style={{ color: ACCENT }}>.</span> Berendje
+        </span>
+      </Link>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '28px' }}>
-        <Link
-          href="/about"
-          style={{
-            fontFamily: 'DM Mono, monospace',
-            fontSize: '11px',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            color: pathname === '/about' ? '#F5FF00' : '#888',
-            transition: 'color 0.2s ease',
-          }}
-        >
-          About
-        </Link>
-        <a
-          href="mailto:linda@drberendje.com"
-          style={{
-            fontFamily: 'DM Mono, monospace',
-            fontSize: '11px',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            color: '#888',
-            transition: 'color 0.2s ease',
-          }}
-        >
-          Contact
-        </a>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
+        <Link href="/design-a" style={{ fontFamily: BODY, fontSize: '13px', fontWeight: 400, color: '#000', textDecoration: 'none' }}>Research Projects</Link>
+        <Link href="/about" style={{
+          fontFamily: BODY, fontSize: '13px', fontWeight: 400, color: '#000', textDecoration: 'none',
+          borderBottom: pathname === '/about' ? '1px solid #000' : 'none',
+          paddingBottom: 1,
+        }}>About</Link>
       </div>
     </nav>
   )
