@@ -180,20 +180,17 @@ export default function ArchivePage() {
                   </span>
                 </div>
 
-                {/* Title — full width in project's own font */}
-                <div style={{ padding: '8px 32px 0', overflow: 'hidden' }}>
+                {/* Title — centred in project's own font */}
+                <div style={{ padding: '8px 40px 0', textAlign: 'center' }}>
                   <h2 style={{
                     fontFamily: item.font,
-                    fontSize: 'clamp(3.5rem, 9.5vw, 10.5rem)',
+                    fontSize: 'clamp(2.2rem, 5.5vw, 6rem)',
                     fontWeight: item.weight,
                     fontStyle: item.style as 'normal' | 'italic',
                     color: '#000',
-                    lineHeight: 0.88,
-                    letterSpacing: item.style === 'normal' ? '-0.03em' : '-0.02em',
+                    lineHeight: 1.0,
+                    letterSpacing: item.style === 'normal' ? '-0.02em' : '-0.01em',
                     margin: 0,
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
                   }}>
                     {proj.title}
                   </h2>
