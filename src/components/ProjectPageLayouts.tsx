@@ -109,9 +109,9 @@ function MetaBlock({ project }: { project: Project }) {
     <div style={{ fontFamily: BODY, fontSize: '11px', fontWeight: 300, color: '#000', lineHeight: 2, marginBottom: 16 }}>
       <div>{project.year} · {project.location}</div>
       <div style={{ fontWeight: 400 }}>{project.status === 'complete' ? 'Complete' : project.status === 'in-progress' ? 'In Progress' : 'Ongoing'}</div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, marginTop: 12 }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 16 }}>
         {project.tags.map(t => (
-          <span key={t} style={{ border: '1px solid #000', padding: '2px 8px', fontSize: '10px', letterSpacing: '0.04em' }}>{t}</span>
+          <span key={t} style={{ fontSize: '10px', letterSpacing: '0.06em', textTransform: 'uppercase' as const }}>{t}</span>
         ))}
       </div>
     </div>
@@ -132,15 +132,15 @@ function PrevNext({ prev, next, designPrefix }: { prev?: Project; next?: Project
   const pPf = prev ? (PROJECT_FONT[prev.slug] ?? { font: "'Instrument Serif'", style: 'italic' }) : null
   const nPf = next ? (PROJECT_FONT[next.slug] ?? { font: "'Instrument Serif'", style: 'italic' }) : null
   return (
-    <div style={{ borderTop: '1px solid #000', display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', marginTop: 80 }}>
       {prev && pPf ? (
-        <Link href={`${designPrefix}/${prev.slug}`} style={{ textDecoration: 'none', padding: '32px 40px', borderRight: '1px solid #000' }}>
+        <Link href={`${designPrefix}/${prev.slug}`} style={{ textDecoration: 'none', padding: '40px 40px' }}>
           <p style={{ fontFamily: BODY, fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#000', marginBottom: 10 }}>← Previous</p>
           <p style={{ fontFamily: pPf.font, fontSize: '1.4rem', fontStyle: pPf.style as 'normal'|'italic', color: '#000' }}>{prev.title}</p>
         </Link>
       ) : <div />}
       {next && nPf ? (
-        <Link href={`${designPrefix}/${next.slug}`} style={{ textDecoration: 'none', padding: '32px 40px', textAlign: 'right' }}>
+        <Link href={`${designPrefix}/${next.slug}`} style={{ textDecoration: 'none', padding: '40px 40px', textAlign: 'right' }}>
           <p style={{ fontFamily: BODY, fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#000', marginBottom: 10 }}>Next →</p>
           <p style={{ fontFamily: nPf.font, fontSize: '1.4rem', fontStyle: nPf.style as 'normal'|'italic', color: '#000' }}>{next.title}</p>
         </Link>
@@ -151,7 +151,7 @@ function PrevNext({ prev, next, designPrefix }: { prev?: Project; next?: Project
 
 function PageFooter() {
   return (
-    <footer style={{ borderTop: '1px solid #000', padding: '20px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <footer style={{ padding: '60px 40px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <span style={{ fontFamily: BODY, fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#000' }}>— — —</span>
       <span style={{ fontFamily: BODY, fontSize: '10px', color: '#000' }}>PhD Design Research · ArtEZ University of the Arts</span>
       <a href="mailto:linda@drberendje.com" style={{ fontFamily: BODY, fontSize: '10px', color: '#000', textDecoration: 'none', borderBottom: '1px solid #000', paddingBottom: 1 }}>
@@ -171,17 +171,15 @@ export function LayoutEcologies({ project, prev, next, designPrefix }: LayoutPro
       <div ref={ref} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
 
         {/* Left — all text */}
-        <div style={{ padding: '60px 48px 80px 40px', borderRight: '1px solid #000' }}>
+        <div style={{ padding: '80px 64px 80px 40px' }}>
           <TitleBlock project={project} />
-          <div style={{ borderTop: '1px solid #000', margin: '36px 0 28px' }}>
+          <div style={{ margin: '40px 0 32px' }}>
             <MetaBlock project={project} />
           </div>
-          <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 36 }}>
+          <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 40 }}>
             {project.excerpt}
           </p>
-          <div style={{ borderTop: '1px solid #000', paddingTop: 28 }}>
-            <Paras text={project.description} />
-          </div>
+          <Paras text={project.description} />
         </div>
 
         {/* Right — image stack */}
@@ -208,17 +206,15 @@ export function LayoutDWMC({ project, prev, next, designPrefix }: LayoutProps) {
     <main style={{ background: '#fff', minHeight: '100vh' }}>
       <ProjectNav designPrefix={designPrefix} project={project} />
       <div ref={ref} style={{ display: 'grid', gridTemplateColumns: '55fr 45fr' }}>
-        <div style={{ padding: '60px 48px 80px 40px', borderRight: '1px solid #000' }}>
+        <div style={{ padding: '80px 64px 80px 40px' }}>
           <TitleBlock project={project} />
-          <div style={{ borderTop: '1px solid #000', margin: '36px 0 28px' }}>
+          <div style={{ margin: '40px 0 32px' }}>
             <MetaBlock project={project} />
           </div>
-          <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 36 }}>
+          <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 40 }}>
             {project.excerpt}
           </p>
-          <div style={{ borderTop: '1px solid #000', paddingTop: 28 }}>
-            <Paras text={project.description} />
-          </div>
+          <Paras text={project.description} />
         </div>
         <div style={{ padding: '60px 40px', display: 'flex', flexDirection: 'column', gap: 2 }}>
           {project.images.map((img, i) => (
@@ -246,7 +242,7 @@ export function LayoutSender({ project, prev, next, designPrefix }: LayoutProps)
       <ProjectNav designPrefix={designPrefix} project={project} />
       <div ref={ref}>
         {/* Header — two columns: title left, excerpt right */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 80px', padding: '60px 40px 40px', borderBottom: '1px solid #000' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 80px', padding: '80px 40px 60px' }}>
           <div>
             <TitleBlock project={project} />
             <div style={{ marginTop: 28 }}>
@@ -261,7 +257,7 @@ export function LayoutSender({ project, prev, next, designPrefix }: LayoutProps)
         </div>
 
         {/* Image strip */}
-        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(n, 3)}, 1fr)`, gap: 2, borderBottom: '1px solid #000' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(n, 3)}, 1fr)`, gap: 2 }}>
           {project.images.map((img, i) => (
             <div key={i} style={{ position: 'relative', width: '100%', height: '55vh', background: '#f0f0f0', overflow: 'hidden' }}>
               <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${img}`} alt={`Fig. ${i + 1}`}
@@ -271,7 +267,7 @@ export function LayoutSender({ project, prev, next, designPrefix }: LayoutProps)
         </div>
 
         {/* Body text */}
-        <div style={{ maxWidth: 680, margin: '0 auto', padding: '52px 40px 80px' }}>
+        <div style={{ maxWidth: 680, margin: '0 auto', padding: '72px 40px 100px' }}>
           <Paras text={project.description} />
         </div>
       </div>
@@ -290,7 +286,7 @@ export function LayoutTShirt({ project, prev, next, designPrefix }: LayoutProps)
       <ProjectNav designPrefix={designPrefix} project={project} />
       <div ref={ref}>
         {/* Title header */}
-        <div style={{ padding: '48px 40px 32px', borderBottom: '1px solid #000' }}>
+        <div style={{ padding: '72px 40px 48px' }}>
           {project.subtitle && (
             <p style={{ fontFamily: BODY, fontSize: '10px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#000', marginBottom: 16 }}>{project.subtitle}</p>
           )}
@@ -300,7 +296,7 @@ export function LayoutTShirt({ project, prev, next, designPrefix }: LayoutProps)
         </div>
 
         {/* Horizontal scroll images */}
-        <div style={{ overflowX: 'auto', scrollbarWidth: 'none', borderBottom: '1px solid #000' }}>
+        <div style={{ overflowX: 'auto', scrollbarWidth: 'none' }}>
           <div style={{ display: 'flex', gap: 2 }}>
             {project.images.map((img, i) => (
               <div key={i} style={{ flexShrink: 0, position: 'relative', width: project.images.length === 1 ? '100vw' : '70vw', height: '65vh', background: '#f0f0f0', overflow: 'hidden' }}>
@@ -312,7 +308,7 @@ export function LayoutTShirt({ project, prev, next, designPrefix }: LayoutProps)
         </div>
 
         {/* Two-column body */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 80px', padding: '52px 40px 80px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 80px', padding: '72px 40px 100px' }}>
           <div>
             <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 32 }}>{project.excerpt}</p>
             <MetaBlock project={project} />
@@ -336,8 +332,8 @@ export function LayoutBotanicals({ project, prev, next, designPrefix }: LayoutPr
       <ProjectNav designPrefix={designPrefix} project={project} />
       <div ref={ref}>
         {/* Header: title + first image side by side */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderBottom: '1px solid #000' }}>
-          <div style={{ padding: '60px 48px 60px 40px', borderRight: '1px solid #000', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+          <div style={{ padding: '80px 64px 80px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <TitleBlock project={project} />
             <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.05rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginTop: 32 }}>{project.excerpt}</p>
           </div>
@@ -350,7 +346,7 @@ export function LayoutBotanicals({ project, prev, next, designPrefix }: LayoutPr
         {/* Three-column body */}
         <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr 200px', gap: '0 48px', padding: '60px 40px 80px', alignItems: 'start' }}>
           <div>
-            <div style={{ borderLeft: '2px solid #000', paddingLeft: 16, marginBottom: 40 }}>
+            <div style={{ marginBottom: 40 }}>
               <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '0.9rem', fontStyle: 'italic', color: '#000', lineHeight: 1.75 }}>"{project.excerpt.slice(0, 130)}…"</p>
             </div>
             {project.images[1] && (
@@ -361,7 +357,7 @@ export function LayoutBotanicals({ project, prev, next, designPrefix }: LayoutPr
             )}
           </div>
           <div>
-            <div style={{ borderTop: '1px solid #000', paddingTop: 28 }}>
+            <div style={{ paddingTop: 8 }}>
               {paras.map((p, i) => (
                 <p key={i} style={{ fontFamily: BODY, fontSize: '14px', fontWeight: 400, color: '#000', lineHeight: 1.9, marginBottom: 22 }}>{p}</p>
               ))}
@@ -376,7 +372,7 @@ export function LayoutBotanicals({ project, prev, next, designPrefix }: LayoutPr
           <div>
             <p style={{ fontFamily: BODY, fontSize: '10px', fontWeight: 500, letterSpacing: '0.10em', textTransform: 'uppercase', color: '#000', marginBottom: 20 }}>Keywords</p>
             {project.tags.map(t => (
-              <span key={t} style={{ display: 'block', fontFamily: BODY, fontSize: '11px', fontWeight: 300, color: '#000', borderBottom: '1px solid #000', paddingBottom: 8, marginBottom: 8, letterSpacing: '0.04em' }}>{t}</span>
+              <span key={t} style={{ display: 'block', fontFamily: BODY, fontSize: '10px', fontWeight: 300, color: '#000', marginBottom: 12, letterSpacing: '0.06em', textTransform: 'uppercase' as const }}>{t}</span>
             ))}
             <div style={{ marginTop: 32 }}>
               <MetaBlock project={project} />
@@ -399,7 +395,7 @@ export function LayoutFakery({ project, prev, next, designPrefix }: LayoutProps)
       <ProjectNav designPrefix={designPrefix} project={project} />
       <div ref={ref} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
         {/* Left — stacked images */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 2, borderRight: '1px solid #000' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           {project.images.map((img, i) => (
             <div key={i} style={{ position: 'relative', flex: 1, minHeight: 320, background: '#f0f0f0', overflow: 'hidden' }}>
               <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${img}`} alt={`Fig. ${i + 1}`}
@@ -409,20 +405,13 @@ export function LayoutFakery({ project, prev, next, designPrefix }: LayoutProps)
         </div>
 
         {/* Right — all text */}
-        <div style={{ padding: '60px 40px 80px 48px' }}>
+        <div style={{ padding: '80px 40px 80px 64px' }}>
           <TitleBlock project={project} />
-          <div style={{ borderTop: '1px solid #000', margin: '32px 0 28px' }}>
+          <div style={{ margin: '40px 0 32px' }}>
             <MetaBlock project={project} />
           </div>
-          <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 32 }}>{project.excerpt}</p>
-          <div style={{ borderTop: '1px solid #000', paddingTop: 28 }}>
-            <Paras text={project.description} />
-          </div>
-          <div style={{ marginTop: 32, display: 'flex', flexWrap: 'wrap', gap: 4 }}>
-            {project.tags.map(t => (
-              <span key={t} style={{ fontFamily: BODY, fontSize: '10px', fontWeight: 300, color: '#000', border: '1px solid #000', padding: '2px 8px', letterSpacing: '0.04em' }}>{t}</span>
-            ))}
-          </div>
+          <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 40 }}>{project.excerpt}</p>
+          <Paras text={project.description} />
         </div>
       </div>
       <PrevNext prev={prev} next={next} designPrefix={designPrefix} />
@@ -443,15 +432,13 @@ export function LayoutBlueprint({ project, prev, next, designPrefix }: LayoutPro
           <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${project.coverImage}`} alt={project.title}
             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
-        <div style={{ padding: '60px 40px 80px', borderLeft: '1px solid #000', minHeight: '100vh' }}>
+        <div style={{ padding: '80px 40px 80px 64px', minHeight: '100vh' }}>
           <TitleBlock project={project} />
-          <div style={{ borderTop: '1px solid #000', margin: '32px 0 28px' }}>
+          <div style={{ margin: '40px 0 32px' }}>
             <MetaBlock project={project} />
           </div>
-          <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 32 }}>{project.excerpt}</p>
-          <div style={{ borderTop: '1px solid #000', paddingTop: 28 }}>
-            <Paras text={project.description} />
-          </div>
+          <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 40 }}>{project.excerpt}</p>
+          <Paras text={project.description} />
           {project.images[1] && (
             <div style={{ marginTop: 32, position: 'relative', height: 280, background: '#f0f0f0', overflow: 'hidden' }}>
               <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${project.images[1]}`} alt="Fig. 2"
@@ -483,15 +470,15 @@ export function LayoutPostFossils({ project, prev, next, designPrefix }: LayoutP
           ))}
         </div>
         <div style={{ position: 'relative', margin: '-52px 48px 0', zIndex: 10 }}>
-          <div style={{ background: '#fff', border: '1px solid #000', padding: '52px 48px' }}>
+          <div style={{ background: '#fff', padding: '72px 48px' }}>
             <TitleBlock project={project} />
-            <div style={{ borderTop: '1px solid #000', margin: '28px 0' }} />
+            <div style={{ height: 40 }} />
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 64px' }}>
               <div>
-                <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.05rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 28 }}>{project.excerpt}</p>
+                <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.05rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 36 }}>{project.excerpt}</p>
                 <Paras text={project.description} />
               </div>
-              <div style={{ borderLeft: '1px solid #000', paddingLeft: 40 }}>
+              <div style={{ paddingLeft: 40 }}>
                 <MetaBlock project={project} />
               </div>
             </div>
@@ -513,15 +500,13 @@ export function LayoutDefault({ project, prev, next, designPrefix }: LayoutProps
     <main style={{ background: '#fff', minHeight: '100vh' }}>
       <ProjectNav designPrefix={designPrefix} project={project} />
       <div ref={ref} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-        <div style={{ padding: '60px 48px 80px 40px', borderRight: '1px solid #000' }}>
+        <div style={{ padding: '80px 64px 80px 40px' }}>
           <TitleBlock project={project} />
-          <div style={{ borderTop: '1px solid #000', margin: '32px 0 28px' }}>
+          <div style={{ margin: '40px 0 32px' }}>
             <MetaBlock project={project} />
           </div>
-          <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 32 }}>{project.excerpt}</p>
-          <div style={{ borderTop: '1px solid #000', paddingTop: 28 }}>
-            <Paras text={project.description} />
-          </div>
+          <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 40 }}>{project.excerpt}</p>
+          <Paras text={project.description} />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           {project.images.slice(0, 2).map((img, i) => (

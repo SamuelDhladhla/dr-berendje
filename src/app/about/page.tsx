@@ -48,7 +48,7 @@ export default function AboutPage() {
       {/* ══ OKRA EDITORIAL GRID ══ */}
 
       {/* Section 1 — Full-width header, editorial pacing */}
-      <div style={{ padding: '80px 40px 0', borderBottom: '1px solid #000' }}>
+      <div style={{ padding: '100px 40px 0' }}>
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
@@ -101,12 +101,11 @@ export default function AboutPage() {
       <div style={{
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
-        borderBottom: '1px solid #000',
+        gap: '0 80px',
       }}>
         {/* Left — Research focus */}
         <div style={{
-          padding: '60px 40px 60px 40px',
-          borderRight: '1px solid #000',
+          padding: '80px 0 80px 40px',
         }}>
           <p style={{ fontFamily: BODY, fontSize: '10px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#000', marginBottom: 28 }}>
             Research Focus
@@ -117,19 +116,18 @@ export default function AboutPage() {
           <p style={{ fontFamily: BODY, fontSize: '14px', fontWeight: 400, color: '#000', lineHeight: 1.85, marginBottom: 40 }}>
             Grounded in third space theory and decolonial praxis, the research moves and mediates between geographies, disciplines, and multiple ways of knowing.
           </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
             {['Repair', 'Decolonial Fashion', 'Waste Colonialism', 'Material Culture', 'Pedagogy', 'Policy Design', 'Globalisation'].map(t => (
               <span key={t} style={{
                 fontFamily: BODY, fontSize: '10px', fontWeight: 400, color: '#000',
-                border: '1px solid #000', padding: '3px 10px',
-                letterSpacing: '0.04em',
+                letterSpacing: '0.06em', textTransform: 'uppercase',
               }}>{t}</span>
             ))}
           </div>
         </div>
 
         {/* Right — Affiliations + Education */}
-        <div style={{ padding: '60px 40px 60px 40px' }}>
+        <div style={{ padding: '80px 40px 80px 0' }}>
           <p style={{ fontFamily: BODY, fontSize: '10px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#000', marginBottom: 28 }}>
             Position
           </p>
@@ -139,7 +137,7 @@ export default function AboutPage() {
             { role: 'Co-founder, Stop Waste Colonialism', org: 'Policy Design Lead', period: '2020 — ongoing' },
             { role: 'Research Partner', org: 'Kantamanto Social Club, Accra', period: 'Ongoing' },
           ].map(e => (
-            <div key={e.role} style={{ marginBottom: 28, paddingBottom: 28, borderBottom: '1px solid #000' }}>
+            <div key={e.role} style={{ marginBottom: 40 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
                 <span style={{ fontFamily: BODY, fontSize: '13px', fontWeight: 500, color: '#000' }}>{e.role}</span>
                 <span style={{ fontFamily: BODY, fontSize: '11px', fontWeight: 300, color: '#000', letterSpacing: '0.04em' }}>{e.period}</span>
@@ -151,7 +149,7 @@ export default function AboutPage() {
       </div>
 
       {/* Section 3 — Selected publications, full width */}
-      <div style={{ padding: '60px 40px 60px' }}>
+      <div style={{ padding: '80px 40px 80px' }}>
         <p style={{ fontFamily: BODY, fontSize: '10px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#000', marginBottom: 40 }}>
           Selected Publications &amp; Lectures
         </p>
@@ -163,7 +161,7 @@ export default function AboutPage() {
               { title: 'Sender–Receiver: A Curriculum for Repair', venue: 'ArtEZ Press', year: '2023' },
               { title: 'Stop Waste Colonialism — Policy Brief', venue: 'EU Textile Strategy Working Group', year: '2022' },
             ].map(p => (
-              <div key={p.title} style={{ paddingBottom: 24, marginBottom: 24, borderBottom: '1px solid #000' }}>
+              <div key={p.title} style={{ paddingBottom: 0, marginBottom: 40 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 }}>
                   <span style={{ fontFamily: HEADING, fontSize: '14px', fontStyle: 'italic', color: '#000', fontWeight: 400 }}>{p.title}</span>
                   <span style={{ fontFamily: BODY, fontSize: '11px', fontWeight: 300, color: '#000', letterSpacing: '0.04em', flexShrink: 0, marginLeft: 16 }}>{p.year}</span>
@@ -179,7 +177,7 @@ export default function AboutPage() {
               { title: 'Secondhand Speculation', venue: 'Berlin · Arnhem · Accra · Johannesburg', year: '2019 —' },
               { title: 'Post Fossils', venue: 'Material Speculations Exhibition', year: '2015' },
             ].map(p => (
-              <div key={p.title} style={{ paddingBottom: 24, marginBottom: 24, borderBottom: '1px solid #000' }}>
+              <div key={p.title} style={{ paddingBottom: 0, marginBottom: 40 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 }}>
                   <span style={{ fontFamily: HEADING, fontSize: '14px', fontStyle: 'italic', color: '#000', fontWeight: 400 }}>{p.title}</span>
                   <span style={{ fontFamily: BODY, fontSize: '11px', fontWeight: 300, color: '#000', letterSpacing: '0.04em', flexShrink: 0, marginLeft: 16 }}>{p.year}</span>
@@ -192,7 +190,7 @@ export default function AboutPage() {
       </div>
 
       {/* Section 4 — Contact, full-width minimal */}
-      <div style={{ borderTop: '1px solid #000', padding: '40px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ padding: '80px 40px 60px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <p style={{ fontFamily: BODY, fontSize: '10px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#000', marginBottom: 8 }}>Contact</p>
           <a href="mailto:linda@drberendje.com" style={{

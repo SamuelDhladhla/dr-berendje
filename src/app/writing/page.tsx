@@ -173,7 +173,7 @@ export default function WritingPage() {
       {view === 'text' && (
         <div style={{ maxWidth: 820, margin: '0 auto', padding: '80px 40px 120px' }}>
           {/* Issue / section header — e-flux style */}
-          <div style={{ borderBottom: '2px solid #000', paddingBottom: 24, marginBottom: 60 }}>
+          <div style={{ paddingBottom: 24, marginBottom: 72 }}>
             <p style={{ fontFamily: BODY, fontSize: '10px', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#000', marginBottom: 16 }}>
               Writing — Linda Valkeman
             </p>
@@ -186,8 +186,7 @@ export default function WritingPage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
             {filtered.map((w, i) => (
               <div key={w.slug}>
-                {i > 0 && <div style={{ height: 1, background: '#000', margin: '0 0 40px' }} />}
-                <div style={{ marginBottom: 40, display: 'grid', gridTemplateColumns: '80px 1fr', gap: '0 32px' }}>
+                <div style={{ marginBottom: 72, display: 'grid', gridTemplateColumns: '80px 1fr', gap: '0 32px' }}>
                   {/* Date column */}
                   <div>
                     <span style={{
@@ -252,8 +251,7 @@ export default function WritingPage() {
               gridTemplateColumns: '80px 1fr auto',
               gap: '0 24px',
               alignItems: 'baseline',
-              padding: '14px 0',
-              borderBottom: '1px solid #000',
+              padding: '20px 0',
             }}>
               <span style={{
                 fontFamily: BODY,
@@ -296,7 +294,7 @@ export default function WritingPage() {
       )}
 
       {/* ── FOOTER ── */}
-      <footer style={{ borderTop: '1px solid #000', padding: '20px 40px', display: 'flex', justifyContent: 'space-between' }}>
+      <footer style={{ padding: '60px 40px 40px', display: 'flex', justifyContent: 'space-between' }}>
         <Link href="/archive" style={{ fontFamily: BODY, fontSize: '10px', letterSpacing: '0.06em', color: '#000', textDecoration: 'none' }}>← Research Projects</Link>
         <span style={{ fontFamily: BODY, fontSize: '10px', letterSpacing: '0.06em', color: '#000' }}>PhD Design Research · ArtEZ University of the Arts</span>
       </footer>

@@ -110,7 +110,7 @@ export default function ArchivePage() {
 
       {/* ── NAV ── */}
       <nav style={{ borderBottom: '1px solid #000', position: 'sticky', top: 0, background: '#fff', zIndex: 50 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 40px', borderBottom: '1px solid #e8e8e8' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 40px' }}>
           <Link href="/" style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '15px', fontWeight: 400, color: '#000', textDecoration: 'none', fontStyle: 'italic' }}>
             dr<span style={{ color: ACCENT }}>.</span> Berendje
           </Link>
@@ -166,16 +166,16 @@ export default function ArchivePage() {
                 key={item.slug}
                 href={`/archive/${item.slug}`}
                 className="ct-item"
-                style={{ display: 'block', textDecoration: 'none', borderBottom: '1px solid #000' }}
+                style={{ display: 'block', textDecoration: 'none' }}
                 onMouseEnter={() => setHovered(item.slug)}
                 onMouseLeave={() => setHovered(null)}
               >
                 {/* Meta row — exactly like "4 Styles · CLASSICS" */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '16px 40px 0' }}>
-                  <span style={{ fontFamily: BODY, fontSize: '11px', fontWeight: 400, color: '#888', letterSpacing: '0.04em' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '36px 40px 0' }}>
+                  <span style={{ fontFamily: BODY, fontSize: '11px', fontWeight: 400, color: '#000', letterSpacing: '0.04em' }}>
                     {item.cat}
                   </span>
-                  <span style={{ fontFamily: BODY, fontSize: '11px', fontWeight: 400, color: '#888', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                  <span style={{ fontFamily: BODY, fontSize: '11px', fontWeight: 400, color: '#000', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                     {item.year}
                   </span>
                 </div>
@@ -205,7 +205,7 @@ export default function ArchivePage() {
 
                 {/* Spacer when not hovering */}
                 <div className="ct-sub" style={{ display: 'none' }} />
-                <div style={{ height: 20 }} />
+                <div style={{ height: 48 }} />
               </Link>
             )
           })}
@@ -236,7 +236,7 @@ export default function ArchivePage() {
       )}
 
       {/* ── FOOTER ── */}
-      <footer style={{ borderTop: '1px solid #000', padding: '20px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <footer style={{ padding: '60px 40px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ fontFamily: BODY, fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#000' }}>— — —</span>
         <span style={{ fontFamily: BODY, fontSize: '10px', letterSpacing: '0.06em', color: '#000' }}>PhD Design Research · ArtEZ University of the Arts</span>
         <a href="mailto:linda@drberendje.com" style={{ fontFamily: BODY, fontSize: '10px', letterSpacing: '0.06em', color: '#000', textDecoration: 'none', borderBottom: '1px solid #000', paddingBottom: 1 }}>
