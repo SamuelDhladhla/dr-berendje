@@ -4,22 +4,25 @@ import Link from 'next/link'
 import Img from '@/components/Img'
 import { Project } from '@/types'
 
-const BODY = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+const BODY = "'Suisse Intl', 'Neue Haas Grotesk Text', Inter, -apple-system, Arial, sans-serif"
 const ACCENT = '#C8553D'
 
 // Per-project font identity
 const PROJECT_FONT: Record<string, { font: string; weight: number; style: string }> = {
-  'the-ecologies-of-repair':   { font: "'Instrument Serif', Georgia, serif",           weight: 400, style: 'italic'  },
-  'dead-white-mans-clothes':   { font: "'Space Grotesk', Arial, sans-serif",            weight: 700, style: 'normal' },
-  'sender-receiver-residence': { font: "'Courier Prime', 'Courier New', monospace",     weight: 700, style: 'normal' },
-  'secondhand-speculation':    { font: "'DM Sans', 'Helvetica Neue', sans-serif",       weight: 700, style: 'normal' },
-  'black-botanicals':          { font: "'Libre Baskerville', Georgia, serif",           weight: 700, style: 'italic' },
-  'the-fine-art-of-fakery':    { font: "'Playfair Display', Georgia, serif",            weight: 700, style: 'italic' },
-  'blueprint':                 { font: "'Archivo Black', 'Arial Black', sans-serif",    weight: 400, style: 'normal' },
-  'post-fossils':              { font: "'Source Serif 4', Georgia, serif",              weight: 600, style: 'italic' },
-  'waste-colonialism':         { font: "'Syne', sans-serif",                            weight: 800, style: 'normal' },
-  'moving-material-museum':    { font: "'IBM Plex Sans', 'Helvetica Neue', sans-serif", weight: 700, style: 'normal' },
-  'paper-making':              { font: "'EB Garamond', Georgia, serif",                 weight: 400, style: 'italic' },
+  'in-no-particular-order':    { font: "'Instrument Serif', Georgia, serif",              weight: 400, style: 'italic'  },
+  'tsht-tales':                { font: "'Big Shoulders Display', 'Arial Black', sans-serif", weight: 900, style: 'normal' },
+  'the-ecologies-of-repair':   { font: "'Cormorant Garamond', Georgia, serif",            weight: 400, style: 'italic'  },
+  'dead-white-mans-clothes':   { font: "'Space Grotesk', Arial, sans-serif",              weight: 700, style: 'normal' },
+  'sender-receiver-residence': { font: "'Courier Prime', 'Courier New', monospace",       weight: 700, style: 'normal' },
+  'secondhand-speculation':    { font: "'DM Sans', 'Helvetica Neue', sans-serif",         weight: 700, style: 'normal' },
+  'black-botanicals':          { font: "'Libre Baskerville', Georgia, serif",             weight: 700, style: 'italic' },
+  'the-fine-art-of-fakery':    { font: "'Jost', 'Futura', Arial, sans-serif",             weight: 700, style: 'normal' },
+  'blueprint':                 { font: "'Archivo Black', 'Arial Black', sans-serif",      weight: 400, style: 'normal' },
+  'textile-trade-book':        { font: "'Great Vibes', cursive",                          weight: 400, style: 'normal' },
+  'post-fossils':              { font: "Inter, 'Helvetica Neue', Arial, sans-serif",      weight: 300, style: 'normal' },
+  'waste-colonialism':         { font: "'Syne', sans-serif",                              weight: 800, style: 'normal' },
+  'moving-material-museum':    { font: "'IBM Plex Sans', 'Helvetica Neue', sans-serif",   weight: 700, style: 'normal' },
+  'paper-making':              { font: "'EB Garamond', Georgia, serif",                   weight: 400, style: 'italic' },
 }
 
 export interface LayoutProps {
@@ -65,18 +68,30 @@ function BwImg({ src, alt, wrapStyle, reveal = true }: { src: string; alt: strin
   )
 }
 
-function ProjectNav({ designPrefix, project }: { designPrefix: string; project: Project }) {
-  const pf = PROJECT_FONT[project.slug] ?? { font: "'Instrument Serif', Georgia, serif", weight: 400, style: 'italic' }
+function ProjectNav({ designPrefix }: { designPrefix: string; project: Project }) {
   return (
-    <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 40px', borderBottom: '1px solid #000', background: '#fff', position: 'sticky', top: 0, zIndex: 100 }}>
-      <Link href={designPrefix} style={{ fontFamily: BODY, fontSize: '11px', fontWeight: 400, color: '#000', letterSpacing: '0.04em', textDecoration: 'none' }}>
-        ← All Projects
-      </Link>
-      <Link href={designPrefix} style={{ textDecoration: 'none' }}>
-        <span style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '15px', fontWeight: 400, color: '#000', fontStyle: 'italic' }}>
-          dr<span style={{ color: ACCENT }}>.</span> Berendje
-        </span>
-      </Link>
+    <nav style={{ borderBottom: '1px solid #000', background: '#fff', position: 'sticky', top: 0, zIndex: 100 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 40px' }}>
+        <Link href={designPrefix} style={{ fontFamily: BODY, fontSize: '11px', fontWeight: 400, color: '#000', letterSpacing: '0.04em', textDecoration: 'none' }}>
+          ← Research Projects
+        </Link>
+        <Link href="/" style={{ textDecoration: 'none' }}>
+          <span style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '15px', fontWeight: 400, color: '#000', fontStyle: 'italic' }}>
+            dr<span style={{ color: ACCENT }}>.</span> Berendje
+          </span>
+        </Link>
+        <div style={{ display: 'flex', gap: 24 }}>
+          {[
+            { label: 'Writing', href: '/writing' },
+            { label: 'Education', href: '/education' },
+            { label: 'About', href: '/about' },
+          ].map(n => (
+            <Link key={n.label} href={n.href} style={{ fontFamily: BODY, fontSize: '11px', fontWeight: 400, color: '#000', textDecoration: 'none', letterSpacing: '0.04em', opacity: 0.5 }}>
+              {n.label}
+            </Link>
+          ))}
+        </div>
+      </div>
     </nav>
   )
 }

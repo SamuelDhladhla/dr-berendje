@@ -20,14 +20,14 @@ export default function CustomCursor() {
     const onOver = (e: MouseEvent) => {
       const t = e.target as HTMLElement
       if (t.closest('a, button, [role="button"]')) {
-        dot.style.width = '12px'
-        dot.style.height = '12px'
+        dot.style.width = '22px'
+        dot.style.height = '22px'
       }
     }
 
     const onOut = () => {
-      dot.style.width = '8px'
-      dot.style.height = '8px'
+      dot.style.width = '14px'
+      dot.style.height = '14px'
     }
 
     window.addEventListener('mousemove', onMove)

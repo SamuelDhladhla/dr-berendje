@@ -2,6 +2,44 @@ import { Project } from '@/types'
 
 export const projects: Project[] = [
   {
+    slug: 'in-no-particular-order',
+    title: 'In No Particular Order',
+    subtitle: 'Visual Essays & Film',
+    year: '2008 —',
+    location: 'Global',
+    status: 'ongoing',
+    category: 'studio',
+    tags: ['visual essay', 'film', 'archive', 'photography'],
+    excerpt: 'An ongoing visual archive — personal, political, poetic. Images and film collected in no particular order, across no particular geography.',
+    description: `In No Particular Order is a long-running visual essay practice — a parallel archive that runs alongside all other projects, collecting images and film without a predetermined structure or hierarchy.
+
+Started in 2008, it grows continuously. It is not organised by project or theme. It follows attention, curiosity, and the image as a form of thinking.
+
+It includes stills, film fragments, found photographs, and documentation that doesn't belong anywhere else — and therefore belongs here.`,
+    images: ['/images/ecologies/1.jpg', '/images/ecologies/2.jpg'],
+    coverImage: '/images/ecologies/1.jpg',
+    fieldSize: 'large',
+  },
+  {
+    slug: 'tsht-tales',
+    title: 'TSHT Tales',
+    subtitle: 'T-Shirt Tales',
+    year: '2025 —',
+    location: 'Global',
+    status: 'in-progress',
+    category: 'studio',
+    tags: ['t-shirt', 'archive', 'textile trade', 'video essay', 'exhibition'],
+    excerpt: 'The secondhand T-shirt as archive, biography, and site of decolonial fashion history.',
+    description: `TSHT Tales (T-Shirt Tales) traces the life of the secondhand T-shirt — from production site to donation bin to Kantamanto market in Accra — as an archive of global fashion systems.
+
+The project includes: the T-Shirt Tales Library, an Academic Paper, a Video Essay, a Publication and Newspaper, a Travelling Exhibition, and a Video Collage and Film.
+
+Each T-shirt carries a story the global North has forgotten. TSHT Tales refuses the forgetting.`,
+    images: ['/images/dwmc/1.jpg', '/images/dwmc/2.jpg'],
+    coverImage: '/images/dwmc/1.jpg',
+    fieldSize: 'medium',
+  },
+  {
     slug: 'the-ecologies-of-repair',
     title: 'The Ecologies of Repair',
     year: '2024 —',
@@ -114,8 +152,8 @@ The project produced a series of object studies, photographic works, and researc
   },
   {
     slug: 'the-fine-art-of-fakery',
-    title: 'The Fine Art of Fakery',
-    subtitle: 'The New Fake is Real',
+    title: 'The New Fake is Real',
+    subtitle: 'Ceramic Material Research · China 2015',
     year: '2015',
     location: 'Jingdezhen, China',
     status: 'complete',
@@ -154,6 +192,25 @@ The MMM laid the conceptual foundation for doc. Berendje's current practice — 
       '/images/mmm/2.jpg',
     ],
     coverImage: '/images/mmm/1.jpg',
+    fieldSize: 'medium',
+  },
+  {
+    slug: 'textile-trade-book',
+    title: 'Textile Trade Book',
+    subtitle: 'Ghana 2013',
+    year: '2013',
+    location: 'Ghana / Netherlands',
+    status: 'complete',
+    category: 'archive',
+    tags: ['textile', 'Ghana', 'trade', 'photography', 'book'],
+    excerpt: 'A photographic book documenting the textile trade between Ghana and the Netherlands — fabrics, markets, and the people who move them across geographies.',
+    description: `Textile Trade Book is a photographic research project documenting the trade in fabrics between Ghana and the Netherlands — Dutch wax prints made in the Netherlands and sold in West Africa, alongside locally produced kente and batik.
+
+Produced during fieldwork in Ghana in 2013, the book traces the material journeys of cloth: from loom to market to body. It documents the people — traders, tailors, market women — who make the textile trade work across vast distances.
+
+The book was the beginning of a longer inquiry into the global circuits of material culture, which continues through Dead White Man's Clothes and Waste Colonialism.`,
+    images: ['/images/blueprint/1.jpg', '/images/blueprint/2.jpg'],
+    coverImage: '/images/blueprint/1.jpg',
     fieldSize: 'medium',
   },
   {

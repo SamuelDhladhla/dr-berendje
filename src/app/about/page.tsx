@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 
 const HEADING = "'Instrument Serif', Georgia, serif"
-const BODY = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif"
+const BODY = "'Suisse Intl', 'Neue Haas Grotesk Text', Inter, -apple-system, Arial, sans-serif"
 const ACCENT = '#C8553D'
 
 export default function AboutPage() {
@@ -28,8 +28,9 @@ export default function AboutPage() {
           {[
             { label: 'Research Projects', href: '/archive' },
             { label: 'Writing', href: '/writing' },
-            { label: 'Pedagogies', href: '#' },
-            { label: 'Consultancy', href: '#' },
+            { label: 'Education', href: '/education' },
+            { label: 'Consultancy', href: '/consultancy' },
+            { label: 'Playtime', href: '/playtime' },
             { label: 'About', href: '/about', active: true },
           ].map(n => (
             <Link key={n.label} href={n.href} style={{
