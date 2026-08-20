@@ -11,6 +11,12 @@
   --spacing-px: 1px;
 }
 
+:root {
+  --font-display: 'Or Type', 'EB Garamond', Georgia, serif;
+  --font-serif: 'Sabon', 'EB Garamond', Georgia, serif;
+  --font-ui: 'Suisse Intl', 'Neue Haas Grotesk Text', Inter, -apple-system, Arial, sans-serif;
+}
+
 *,
 *::before,
 *::after {
@@ -22,7 +28,7 @@
 html {
   background: #fff;
   color: #000;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-ui);
   font-size: 15px;
   line-height: 1.6;
   cursor: none;
@@ -44,14 +50,18 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   background: #002FA7;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: width 0.15s ease, height 0.15s ease;
+  transition: transform 0.15s ease;
+}
+
+.cursor-dot.is-hover {
+  transform: translate(-50%, -50%) scale(1.6);
 }
 
 ::-webkit-scrollbar {
