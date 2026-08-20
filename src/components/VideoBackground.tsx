@@ -1,6 +1,14 @@
 'use client'
 
-export default function VideoBackground() {
+interface Props {
+  inset?: boolean
+}
+
+export default function VideoBackground({ inset = false }: Props) {
+  // When inset (variant B), video fills an 84vh container (100vh minus 2×8vh bars)
+  const minH = inset ? '84vh' : '100vh'
+  const minW = inset ? '149.33vh' : '177.78vh'
+
   return (
     <div style={{
       position: 'absolute',
@@ -9,14 +17,6 @@ export default function VideoBackground() {
       zIndex: 0,
       background: '#0a0a0a',
     }}>
-      {/*
-        Vimeo background embed:
-        background=1 → no controls, no title, no byline, autoplay, loop, muted
-        The iframe is sized to always cover the viewport (object-fit: cover equivalent)
-        width = 100vw, height = 56.25vw (16:9)
-        minHeight = 100vh forces full coverage when viewport is portrait
-        minWidth = 177.78vh covers the horizontal axis when viewport is tall
-      */}
       <iframe
         src="https://player.vimeo.com/video/472121042?background=1&autoplay=1&loop=1&muted=1"
         style={{
@@ -25,8 +25,8 @@ export default function VideoBackground() {
           left: '50%',
           width: '100vw',
           height: '56.25vw',
-          minHeight: '100vh',
-          minWidth: '177.78vh',
+          minHeight: minH,
+          minWidth: minW,
           transform: 'translate(-50%, -50%)',
           border: 'none',
           pointerEvents: 'none',
@@ -34,7 +34,6 @@ export default function VideoBackground() {
         allow="autoplay; fullscreen; picture-in-picture"
         title="dr Berendje — background film"
       />
-      {/* Subtle dark overlay — keeps corner text legible over any frame */}
       <div style={{
         position: 'absolute',
         inset: 0,
