@@ -2,9 +2,10 @@
 
 interface Props {
   inset?: boolean
+  iframeRef?: React.RefObject<HTMLIFrameElement | null>
 }
 
-export default function VideoBackground({ inset = false }: Props) {
+export default function VideoBackground({ inset = false, iframeRef }: Props) {
   // When inset (variant B), video fills an 84vh container (100vh minus 2×8vh bars)
   const minH = inset ? '84vh' : '100vh'
   const minW = inset ? '149.33vh' : '177.78vh'
@@ -18,6 +19,7 @@ export default function VideoBackground({ inset = false }: Props) {
       background: '#0a0a0a',
     }}>
       <iframe
+        ref={iframeRef}
         src="https://player.vimeo.com/video/472121042?background=1&autoplay=1&loop=1&muted=1"
         style={{
           position: 'absolute',
