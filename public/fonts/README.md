@@ -1,15 +1,17 @@
 # Fonts
 
-## Loaded
+Nothing outstanding. The type system is complete.
 
-| File | Family | Weight | Source |
+| CSS variable | Family | Source | Weights |
 |---|---|---|---|
-| `suisse-intl.woff2` | Suisse Intl | 400 | SuisseIntlTrial-Regular.otf → converted locally |
-| `suisse-intl-medium.woff2` | Suisse Intl | 500 | SuisseIntlTrial-Medium.otf → converted locally |
+| `--font-display` | Linda | `linda-bold.woff2` — client-licensed Or Type cut, self-hosted | 700 |
+| `--font-ui` | Inter | `next/font/google`, self-hosted at build time | 400, 500 |
+| `--font-serif-d` | Cormorant Garamond | `next/font/google`, Open Font License | 300, 400 |
 
-## Outstanding (not yet licensed / sourced)
+`--font-display` is used **only** for the "DOC. B" wordmark. Everything else uses
+`--font-ui`. `--font-serif-d` is scoped to landing-page Variant D and is not applied
+globally — it is declared with `preload: false` so the browser only fetches it when
+Variant D actually renders.
 
-| File | Family | Notes |
-|---|---|---|
-| `ortype-display.woff2` | Or Type (display) | Used for `--font-display`; EB Garamond fallback active until sourced |
-| `sabon.woff2` | Sabon | Used for `--font-serif`; EB Garamond fallback active until sourced |
+`linda-bold.woff2` is the only font file in this directory. Source `.otf` files are
+gitignored and must never be committed.

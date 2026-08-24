@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
-const BODY = "'Suisse Intl', 'Neue Haas Grotesk Text', Inter, -apple-system, Arial, sans-serif"
-const HEADING = "'Cormorant Garamond', Georgia, serif"
+const BODY = 'var(--font-ui)'
+const HEADING = 'var(--font-serif-d), Georgia, serif'
 const ACCENT = '#C8553D'
 
 const NAV = [

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
 
 @import "tailwindcss";
 
@@ -7,14 +7,13 @@
   --color-white: #FFFFFF;
   --color-accent: #C8553D;
   --font-heading: 'Instrument Serif', Georgia, serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --spacing-px: 1px;
 }
 
 :root {
-  --font-display: 'Or Type', 'EB Garamond', Georgia, serif;
-  --font-serif: 'Sabon', 'EB Garamond', Georgia, serif;
-  --font-ui: 'Suisse Intl', 'Neue Haas Grotesk Text', Inter, -apple-system, Arial, sans-serif;
+  /* Linda — client-licensed display cut. Wordmark only, no webfont fallback. */
+  --font-display: 'Linda';
+  /* --font-ui and --font-serif-d are supplied by next/font/google in layout.tsx */
 }
 
 *,

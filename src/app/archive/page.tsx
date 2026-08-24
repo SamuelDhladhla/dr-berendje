@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Img from '@/components/Img'
 import { projects } from '@/data/projects'
 
-const BODY = "'Suisse Intl', 'Neue Haas Grotesk Text', Inter, -apple-system, Arial, sans-serif"
+const BODY = 'var(--font-ui)'
 const ACCENT = '#C8553D'
 
 const WORK = [
@@ -18,7 +18,7 @@ const WORK = [
   {
     slug: 'the-ecologies-of-repair',
     cat: 'Research', year: '2026 —',
-    font: "'Cormorant Garamond', Georgia, serif",
+    font: 'var(--font-serif-d), Georgia, serif',
     weight: 400, style: 'italic',
     sub: 'Repair as material, social, and epistemic healing',
   },
@@ -102,7 +102,7 @@ const WORK = [
   {
     slug: 'paper-making',
     cat: 'Material', year: '2018 —',
-    font: "'EB Garamond', Georgia, serif",
+    font: 'var(--font-serif-d), Georgia, serif',
     weight: 400, style: 'italic',
     sub: 'Hand papermaking as material transformation and memory',
   },

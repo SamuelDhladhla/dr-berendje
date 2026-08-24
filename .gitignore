@@ -4,3 +4,7 @@ out/
 *.log
 .DS_Store
 Thumbs.db
+
+# Raw font sources — only converted woff2 ships
+*.otf
+*.ttf

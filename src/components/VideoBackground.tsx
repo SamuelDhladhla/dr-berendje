@@ -1,14 +1,12 @@
 'use client'
 
 interface Props {
-  inset?: boolean
   iframeRef?: React.RefObject<HTMLIFrameElement | null>
 }
 
-export default function VideoBackground({ inset = false, iframeRef }: Props) {
-  // When inset (variant B), video fills an 84vh container (100vh minus 2×8vh bars)
-  const minH = inset ? '84vh' : '100vh'
-  const minW = inset ? '149.33vh' : '177.78vh'
+export default function VideoBackground({ iframeRef }: Props) {
+  const minH = '100vh'
+  const minW = '177.78vh'
 
   return (
     <div style={{
