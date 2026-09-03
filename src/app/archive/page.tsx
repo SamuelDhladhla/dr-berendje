@@ -18,7 +18,7 @@ const WORK = [
   {
     slug: 'the-ecologies-of-repair',
     cat: 'Research', year: '2026 —',
-    font: 'var(--font-serif-d), Georgia, serif',
+    font: 'var(--font-serif-archive), Georgia, serif',
     weight: 400, style: 'italic',
     sub: 'Repair as material, social, and epistemic healing',
   },
@@ -102,7 +102,7 @@ const WORK = [
   {
     slug: 'paper-making',
     cat: 'Material', year: '2018 —',
-    font: 'var(--font-serif-d), Georgia, serif',
+    font: 'var(--font-serif-archive), Georgia, serif',
     weight: 400, style: 'italic',
     sub: 'Hand papermaking as material transformation and memory',
   },

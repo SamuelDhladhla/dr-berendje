@@ -11,7 +11,7 @@ const ACCENT = '#C8553D'
 const PROJECT_FONT: Record<string, { font: string; weight: number; style: string }> = {
   'in-no-particular-order':    { font: "'Instrument Serif', Georgia, serif",              weight: 400, style: 'italic'  },
   'tsht-tales':                { font: "'Big Shoulders Display', 'Arial Black', sans-serif", weight: 900, style: 'normal' },
-  'the-ecologies-of-repair':   { font: 'var(--font-serif-d), Georgia, serif',            weight: 400, style: 'italic'  },
+  'the-ecologies-of-repair':   { font: 'var(--font-serif-archive), Georgia, serif',            weight: 400, style: 'italic'  },
   'dead-white-mans-clothes':   { font: "'Space Grotesk', Arial, sans-serif",              weight: 700, style: 'normal' },
   'sender-receiver-residence': { font: "'Courier Prime', 'Courier New', monospace",       weight: 700, style: 'normal' },
   'secondhand-speculation':    { font: "'DM Sans', 'Helvetica Neue', sans-serif",         weight: 700, style: 'normal' },
@@ -22,7 +22,7 @@ const PROJECT_FONT: Record<string, { font: string; weight: number; style: string
   'post-fossils':              { font: "Inter, 'Helvetica Neue', Arial, sans-serif",      weight: 300, style: 'normal' },
   'waste-colonialism':         { font: "'Syne', sans-serif",                              weight: 800, style: 'normal' },
   'moving-material-museum':    { font: "'IBM Plex Sans', 'Helvetica Neue', sans-serif",   weight: 700, style: 'normal' },
-  'paper-making':              { font: 'var(--font-serif-d), Georgia, serif',                   weight: 400, style: 'italic' },
+  'paper-making':              { font: 'var(--font-serif-archive), Georgia, serif',                   weight: 400, style: 'italic' },
 }
 
 export interface LayoutProps {

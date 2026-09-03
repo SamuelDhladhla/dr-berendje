@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 const BODY = 'var(--font-ui)'
-const HEADING = 'var(--font-serif-d), Georgia, serif'
+const HEADING = 'var(--font-serif-archive), Georgia, serif'
 const ACCENT = '#C8553D'
 
 type Category = 'All' | 'Academic Writing' | 'Policy' | 'Lectures & Talks' | 'Video Essay' | 'Catalogue Essays'

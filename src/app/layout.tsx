@@ -13,21 +13,20 @@ export const metadata: Metadata = {
   },
 }
 
-// ── UI face: Inter. 400 + 500 for body/nav, 700 for the Variant B display list
-//    (spec'd font-weight:700 — without a real cut the browser fakes it). ──
+// ── UI face: Inter, 400 + 500. ──
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
+  weight: ['400', '500'],
   variable: '--font-ui',
   display: 'swap',
 })
 
-// ── Landing Variant D index face. preload:false so the woff2 is only fetched
-//    when something actually renders in it — never on variants a/b/c. ──
+// ── Archive / project-page serif. preload:false so the woff2 is only fetched on
+//    the pages that actually set it — never on the homepage. ──
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   weight: ['300', '400'],
-  variable: '--font-serif-d',
+  variable: '--font-serif-archive',
   display: 'swap',
   preload: false,
 })
@@ -46,13 +45,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@700&family=Syne:wght@700;800&family=Courier+Prime:ital,wght@0,700;1,400&family=DM+Sans:wght@700&family=Libre+Baskerville:ital,wght@0,700;1,700&family=Archivo+Black&family=IBM+Plex+Sans:wght@700&family=Big+Shoulders+Display:wght@800;900&family=Jost:wght@400;700&family=Great+Vibes&display=swap"
           rel="stylesheet"
         />
-        {/* Linda — client-licensed Or Type display cut. Wordmark only. */}
+        {/* Self-hosted faces. These live here rather than in globals.css because
+            the src URL has to carry the GitHub Pages basePath. */}
         <style dangerouslySetInnerHTML={{ __html: `
           @font-face {
             font-family: 'Linda';
             src: url('${BASE}/fonts/linda-bold.woff2') format('woff2');
             font-weight: 700;
             font-style: normal;
+            font-display: swap;
+          }
+          @font-face {
+            font-family: 'Sabon';
+            src: url('${BASE}/fonts/sabon-italic.woff2') format('woff2');
+            font-weight: 400;
+            font-style: italic;
             font-display: swap;
           }
         ` }} />

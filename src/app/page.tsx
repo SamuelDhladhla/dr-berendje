@@ -1,5 +1,5 @@
-import LandingClient from '@/components/LandingClient'
+import Homepage from '@/components/Homepage'
 
-export default function LandingPage() {
-  return <LandingClient />
+export default function Page() {
+  return <Homepage />
 }
