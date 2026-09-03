@@ -13,11 +13,12 @@ export const metadata: Metadata = {
   },
 }
 
-// ── UI face: Inter, 400 + 500. ──
+// ── Inter. Fallback inside --font-body on the homepage; still the body face on
+//    the archive / project pages. A bare family handle, not a role. ──
 const inter = Inter({
   subsets: ['latin'],
   weight: ['400', '500'],
-  variable: '--font-ui',
+  variable: '--font-inter',
   display: 'swap',
 })
 
@@ -51,6 +52,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           @font-face {
             font-family: 'Linda';
             src: url('${BASE}/fonts/linda-bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+          }
+          @font-face {
+            font-family: 'Sabon';
+            src: url('${BASE}/fonts/sabon-regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+          }
+          @font-face {
+            font-family: 'Sabon';
+            src: url('${BASE}/fonts/sabon-bold.woff2') format('woff2');
             font-weight: 700;
             font-style: normal;
             font-display: swap;

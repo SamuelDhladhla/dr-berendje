@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 
 const HEADING = "'Instrument Serif', Georgia, serif"
-const BODY = 'var(--font-ui)'
+const BODY = 'var(--font-inter)'
 const ACCENT = '#C8553D'
 
 export default function AboutPage() {

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Img from '@/components/Img'
 import { projects } from '@/data/projects'
 
-const BODY = 'var(--font-ui)'
+const BODY = 'var(--font-inter)'
 const ACCENT = '#C8553D'
 
 const WORK = [

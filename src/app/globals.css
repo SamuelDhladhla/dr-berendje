@@ -11,12 +11,18 @@
 }
 
 :root {
-  /* Linda — client-licensed display cut. Wordmark only, no webfont fallback. */
+  /* Linda — client-licensed display cut. The DOC.B wordmark ONLY, nowhere else. */
   --font-display: 'Linda';
-  /* Sabon italic — the quoted asides. @font-face lives in layout.tsx so the
-     src URL can carry the GitHub Pages basePath. */
-  --font-serif: 'Sabon', Georgia, serif;
-  /* --font-ui and --font-serif-archive come from next/font/google in layout.tsx */
+
+  /* Sabon — primary face for the homepage: nav, controls, all text.
+     Real 400 / 700 / 400-italic cuts are self-hosted, so nothing is synthesised.
+     Inter is a fallback inside this stack only, not a role of its own.
+     @font-face rules live in layout.tsx so their src can carry the Pages basePath. */
+  --font-body: 'Sabon', var(--font-inter), sans-serif;
+
+  /* --font-inter and --font-serif-archive come from next/font/google in layout.tsx.
+     --font-inter is a bare family handle for the non-homepage pages; the archive
+     serif is unrelated to the homepage. */
 }
 
 *,
@@ -30,7 +36,7 @@
 html {
   background: #fff;
   color: #000;
-  font-family: var(--font-ui);
+  font-family: var(--font-inter);
   font-size: 15px;
   line-height: 1.6;
   cursor: none;

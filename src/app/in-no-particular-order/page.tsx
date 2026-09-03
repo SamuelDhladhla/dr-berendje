@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Img from '@/components/Img'
 
-const BODY = 'var(--font-ui)'
+const BODY = 'var(--font-inter)'
 const ACCENT = '#C8553D'
 
 /*

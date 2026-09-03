@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Img from '@/components/Img'
 import { Project } from '@/types'
 
-const BODY = 'var(--font-ui)'
+const BODY = 'var(--font-inter)'
 const ACCENT = '#C8553D'
 
 // Per-project font identity

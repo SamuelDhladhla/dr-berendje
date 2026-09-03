@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 
-const BODY = 'var(--font-ui)'
+const BODY = 'var(--font-inter)'
 const HEADING = 'var(--font-serif-archive), Georgia, serif'
 const ACCENT = '#C8553D'
 

@@ -21,20 +21,22 @@ const WORDMARK_HOLD_MS = 3500
 const WORDMARK_FADE_MS = 800
 
 // ── TYPE ──────────────────────────────────────────────────────────────────────
+// Sabon throughout. 12px rather than Inter's 11px because Sabon's x-height is
+// markedly smaller at the same nominal size, and 0.05em rather than 0.08em —
+// the wider tracking was tuned for a grotesque and opens a serif up too much.
 const navBase: React.CSSProperties = {
-  fontFamily: 'var(--font-ui)',
-  fontSize: '11px',
-  fontWeight: 500,
-  letterSpacing: '0.08em',
+  fontFamily: 'var(--font-body)',
+  fontSize: '12px',
+  fontWeight: 400,
+  letterSpacing: '0.05em',
   textTransform: 'uppercase',
   color: '#fff',
   textDecoration: 'none',
 }
 
-// "In No Particular Order" reads as a quoted aside — Sabon italic, not the UI face.
+// "In No Particular Order" reads as a quoted aside — same family, italic cut.
 const navSerif: React.CSSProperties = {
   ...navBase,
-  fontFamily: 'var(--font-serif)',
   fontStyle: 'italic',
 }
 
@@ -132,13 +134,16 @@ export default function Homepage() {
       overflow: 'hidden',
       position: 'fixed',
       inset: 0,
+      // Sabon is the homepage's primary face; everything inherits from here
+      // except the wordmark, which sets --font-display itself.
+      fontFamily: 'var(--font-body)',
     }}>
       <style>{`
         .hov-6 { transition: opacity 150ms ease; }
         .hov-6:hover { opacity: 0.6; }
         .play-btn {
-          font-family: var(--font-ui); font-size: 11px; font-weight: 500;
-          letter-spacing: 0.08em; color: #fff; background: none; border: none;
+          font-family: var(--font-body); font-size: 12px; font-weight: 400;
+          letter-spacing: 0.05em; color: #fff; background: none; border: none;
           padding: 0; transition: opacity 150ms ease;
         }
         .play-btn:hover { opacity: 0.6; }
