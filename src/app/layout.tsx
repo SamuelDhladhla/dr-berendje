@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Cormorant_Garamond } from 'next/font/google'
+import { Inter, Cormorant_Garamond, Jost } from 'next/font/google'
 import './globals.css'
 import CustomCursor from '@/components/CustomCursor'
 
@@ -17,9 +17,20 @@ export const metadata: Metadata = {
 //    the archive / project pages. A bare family handle, not a role. ──
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500'],
+  // 300 is the Post Fossils title override; 400/500 are body and nav.
+  weight: ['300', '400', '500'],
   variable: '--font-inter',
   display: 'swap',
+})
+
+// Title override for The New Fake is Real only. preload:false — fetched solely
+// when that title renders.
+const jost = Jost({
+  subsets: ['latin'],
+  weight: ['500'],
+  variable: '--font-jost',
+  display: 'swap',
+  preload: false,
 })
 
 // ── Archive / project-page serif. preload:false so the woff2 is only fetched on
@@ -36,7 +47,7 @@ const BASE = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
+    <html lang="en" className={`${inter.variable} ${cormorant.variable} ${jost.variable}`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import Img from '@/components/Img'
+import SiteHeader from '@/components/SiteHeader'
 
-const BODY = 'var(--font-inter)'
-const ACCENT = '#C8553D'
+const BODY = 'var(--font-body)'
 
 /*
   Layout reference: amiedicke.com
@@ -110,36 +110,7 @@ export default function InNoParticularOrderPage() {
         .inpo-item:hover .inpo-img { opacity: 0.88; }
       `}</style>
 
-      {/* ── NAV — amiedicke.com style: minimal, 3 items ── */}
-      <nav style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '20px 32px',
-        position: 'sticky',
-        top: 0,
-        background: '#fff',
-        zIndex: 50,
-      }}>
-        <Link href="/" style={{
-          fontFamily: "'Instrument Serif', Georgia, serif",
-          fontSize: '15px',
-          fontWeight: 400,
-          fontStyle: 'italic',
-          color: '#000',
-          textDecoration: 'none',
-        }}>
-          dr<span style={{ color: ACCENT }}>.</span> Berendje
-        </Link>
-        <div style={{ display: 'flex', gap: 28 }}>
-          <Link href="/archive" style={{ fontFamily: BODY, fontSize: '11px', fontWeight: 400, color: '#000', textDecoration: 'none', letterSpacing: '0.04em', opacity: 0.55 }}>
-            Work
-          </Link>
-          <Link href="/about" style={{ fontFamily: BODY, fontSize: '11px', fontWeight: 400, color: '#000', textDecoration: 'none', letterSpacing: '0.04em', opacity: 0.55 }}>
-            Info
-          </Link>
-        </div>
-      </nav>
+      <SiteHeader active="/archive" />
 
       {/* ── TITLE ROW ── */}
       <div style={{ padding: '48px 32px 40px' }}>
@@ -156,7 +127,7 @@ export default function InNoParticularOrderPage() {
           Ongoing — 2008 —
         </p>
         <h1 style={{
-          fontFamily: "'Instrument Serif', Georgia, serif",
+          fontFamily: 'var(--font-body)',
           fontSize: 'clamp(1.8rem, 3.5vw, 3rem)',
           fontWeight: 400,
           fontStyle: 'italic',

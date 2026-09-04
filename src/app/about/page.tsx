@@ -1,50 +1,15 @@
-import Link from 'next/link'
 import React from 'react'
+import SiteHeader from '@/components/SiteHeader'
+import Wordmark from '@/components/Wordmark'
+import Placeholder from '@/components/Placeholder'
 
-const HEADING = "'Instrument Serif', Georgia, serif"
-const BODY = 'var(--font-inter)'
-const ACCENT = '#C8553D'
+const HEADING = 'var(--font-body)'
+const BODY = 'var(--font-body)'
 
 export default function AboutPage() {
   return (
     <main style={{ background: '#fff', minHeight: '100vh' }}>
-
-      {/* ── NAV ── */}
-      <nav style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '14px 40px',
-        borderBottom: '1px solid #000',
-        position: 'sticky',
-        top: 0,
-        background: '#fff',
-        zIndex: 50,
-      }}>
-        <Link href="/" style={{ fontFamily: HEADING, fontSize: '15px', fontWeight: 400, color: '#000', textDecoration: 'none', fontStyle: 'italic' }}>
-          dr<span style={{ color: ACCENT }}>.</span> Berendje
-        </Link>
-        <div style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
-          {[
-            { label: 'Research Projects', href: '/archive' },
-            { label: 'Writing', href: '/writing' },
-            { label: 'Education', href: '/education' },
-            { label: 'Consultancy', href: '/consultancy' },
-            { label: 'Playtime', href: '/playtime' },
-            { label: 'About', href: '/about', active: true },
-          ].map(n => (
-            <Link key={n.label} href={n.href} style={{
-              fontFamily: BODY, fontSize: '11px',
-              fontWeight: n.active ? 500 : 400,
-              color: '#000', textDecoration: 'none',
-              letterSpacing: '0.04em',
-              borderBottom: n.active ? '1px solid #000' : 'none',
-              paddingBottom: n.active ? 1 : 0,
-            }}>{n.label}</Link>
-          ))}
-        </div>
-        <div />
-      </nav>
+      <SiteHeader active="/about" />
 
       {/* ══ OKRA EDITORIAL GRID ══ */}
 
@@ -69,17 +34,8 @@ export default function AboutPage() {
             }}>
               Linda Valkeman — PhD Design Researcher
             </p>
-            <h1 style={{
-              fontFamily: HEADING,
-              fontSize: 'clamp(3rem, 7vw, 6.5rem)',
-              fontWeight: 400,
-              fontStyle: 'italic',
-              color: '#000',
-              lineHeight: 0.9,
-              letterSpacing: '-0.03em',
-              margin: 0,
-            }}>
-              dr<span style={{ color: ACCENT }}>.</span> Berendje
+            <h1 style={{ margin: 0, lineHeight: 0.9 }}>
+              <Wordmark fontSize="clamp(3rem, 7vw, 6.5rem)" style={{ color: '#000' }} />
             </h1>
           </div>
           <div style={{ paddingBottom: 8 }}>
@@ -151,9 +107,15 @@ export default function AboutPage() {
 
       {/* Section 3 — Selected publications, full width */}
       <div style={{ padding: '80px 40px 80px' }}>
-        <p style={{ fontFamily: BODY, fontSize: '10px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#000', marginBottom: 40 }}>
+        <p style={{ fontFamily: BODY, fontSize: '10px', fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#000', marginBottom: 16 }}>
           Selected Publications &amp; Lectures
         </p>
+        {/* These citations — journals, venues and years — are not in the client's
+            work-flow doc and could not be verified. Bibliographic records must not
+            be guessed; marked until the client supplies the real list. */}
+        <div style={{ marginBottom: 32 }}>
+          <Placeholder note="publication list unverified — venues and years not sourced from client documents" />
+        </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 80px' }}>
           <div>
             {[

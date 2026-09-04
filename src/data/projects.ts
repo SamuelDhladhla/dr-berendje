@@ -1,5 +1,24 @@
 import { Project } from '@/types'
 
+/*
+  CONTENT PROVENANCE — audited against the client's own documents
+  (Work Flow Doc_dr Berendje, Content/Portfolio Linda Valkeman.pdf).
+
+  The work-flow doc supplies project NAMES, dates, locations and sub-item
+  structure, but contains running prose for only one project: the Moving
+  Material Museum. Every other `description` previously on this site was written
+  to fill the template, not supplied by the client.
+
+  Those paragraphs have been removed rather than reworded — `contentStatus:
+  'placeholder'` makes the gap render a visible on-page marker. Do not write
+  replacement prose here. The removed text remains recoverable in git history
+  (commit 643cff8) if any of it turns out to be wanted.
+
+  The portfolio PDF is image-only (43 pages, no extractable text), so it could
+  not be machine-checked; if it contains written project copy, that copy still
+  needs transcribing into this file.
+*/
+
 export const projects: Project[] = [
   {
     slug: 'in-no-particular-order',
@@ -10,12 +29,9 @@ export const projects: Project[] = [
     status: 'ongoing',
     category: 'studio',
     tags: ['visual essay', 'film', 'archive', 'photography'],
-    excerpt: 'An ongoing visual archive — personal, political, poetic. Images and film collected in no particular order, across no particular geography.',
-    description: `In No Particular Order is a long-running visual essay practice — a parallel archive that runs alongside all other projects, collecting images and film without a predetermined structure or hierarchy.
-
-Started in 2008, it grows continuously. It is not organised by project or theme. It follows attention, curiosity, and the image as a form of thinking.
-
-It includes stills, film fragments, found photographs, and documentation that doesn't belong anywhere else — and therefore belongs here.`,
+    excerpt: '',
+    description: '',
+    contentStatus: 'placeholder',
     images: ['/images/ecologies/1.jpg', '/images/ecologies/2.jpg'],
     coverImage: '/images/ecologies/1.jpg',
     fieldSize: 'large',
@@ -29,12 +45,12 @@ It includes stills, film fragments, found photographs, and documentation that do
     status: 'in-progress',
     category: 'studio',
     tags: ['t-shirt', 'archive', 'textile trade', 'video essay', 'exhibition'],
-    excerpt: 'The secondhand T-shirt as archive, biography, and site of decolonial fashion history.',
-    description: `TSHT Tales (T-Shirt Tales) traces the life of the secondhand T-shirt — from production site to donation bin to Kantamanto market in Accra — as an archive of global fashion systems.
-
-The project includes: the T-Shirt Tales Library, an Academic Paper, a Video Essay, a Publication and Newspaper, a Travelling Exhibition, and a Video Collage and Film.
-
-Each T-shirt carries a story the global North has forgotten. TSHT Tales refuses the forgetting.`,
+    excerpt: '',
+    description: '',
+    contentStatus: 'placeholder',
+    // Client doc lists sub-parts: Academic Paper #1, Travelling Exhibition,
+    // Video Collage / Film, T-Shirt Tales Library. Structure only, no prose.
+    titleFont: { family: '"Helvetica Neue", Helvetica, Arial, sans-serif', weight: 700 },
     images: ['/images/dwmc/1.jpg', '/images/dwmc/2.jpg'],
     coverImage: '/images/dwmc/1.jpg',
     fieldSize: 'medium',
@@ -47,12 +63,10 @@ Each T-shirt carries a story the global North has forgotten. TSHT Tales refuses 
     status: 'ongoing',
     category: 'studio',
     tags: ['repair', 'ecology', 'material healing', 'spatial'],
-    excerpt: 'Repair as a method of material, social, and epistemic healing — operating in the liminal space between damage and care.',
-    description: `The Ecologies of Repair investigates repair not merely as a technical act, but as a cultural and social practice through which more just and equitable futures can be imagined.
-
-Working at the intersection of fashion, materials, and spatial practice, this research unfolds across multiple geographies — tracing how repair functions differently when understood through decolonial, non-Western frameworks.
-
-The project operates in the in-between: between Global North and South, between theory and practice, between material and body. Repair here is relational, spatial, and material — a form of healing that extends beyond objects.`,
+    excerpt: '',
+    description: '',
+    contentStatus: 'placeholder',
+    titleFont: { family: 'var(--font-body)', style: 'italic', weight: 400 },
     images: [
       '/images/ecologies/1.jpg',
       '/images/ecologies/2.jpg',
@@ -70,12 +84,9 @@ The project operates in the in-between: between Global North and South, between 
     status: 'ongoing',
     category: 'archive',
     tags: ['waste colonialism', 'fashion', 'Ghana', 'secondhand', 'textile trade'],
-    excerpt: 'Obroni Wa Wu — the Ghanaian term for the secondhand clothing trade — tracing how the Global North\'s discarded fashion floods Kantamanto market in Accra.',
-    description: `"Obroni Wa Wu" — literally "the white man has died" in Twi — is the Ghanaian term for the secondhand clothing that arrives in bales from Europe and North America, flooding Kantamanto market in Accra.
-
-This long-term research project, spanning 2011 to 2025, traces the systems behind this trade: who benefits, who bears the environmental and social cost, and what repair might look like at a policy level.
-
-The work spans photography, video, textile trade documentation, academic writing, and the Stop Waste Colonialism campaign — a policy design initiative for systemic change.`,
+    excerpt: '',
+    description: '',
+    contentStatus: 'placeholder',
     images: [
       '/images/dwmc/1.jpg',
       '/images/dwmc/2.jpg',
@@ -93,12 +104,11 @@ The work spans photography, video, textile trade documentation, academic writing
     status: 'ongoing',
     category: 'studio',
     tags: ['botany', 'colonialism', 'plant dyeing', 'textiles', 'India', 'Netherlands'],
-    excerpt: 'An ongoing investigation into the politics of plants — tracing colonial botanical history through dyeing, weaving, and material research across India, the Netherlands, and South Africa.',
-    description: `Black Botanicals is an ongoing research project exploring the colonial history embedded in plant-based dyes and botanical knowledge systems.
-
-Chapter One (India — Netherlands, 2017/18) traces indigo, madder, and other cash crops through their colonial circuits — from plantation to textile, from extraction to aesthetic value. The research materialises through plant dyeing experiments, Riso print series, X-ray photography of textiles, and weaving workshops.
-
-Chapter Two (Cash Crops — The Cape, 2025) extends this inquiry to South African botanical history and its entanglements with Dutch colonial trade.`,
+    excerpt: '',
+    description: '',
+    contentStatus: 'placeholder',
+    // Client doc: Chapter 1 India—Netherlands 2017/18 (Paper/Riso series, X-ray
+    // series, Textiles); Chapter 2 Cash Crops — The Cape 2025. Structure only.
     images: [
       '/images/botanicals/1.jpg',
       '/images/botanicals/2.jpg',
@@ -116,12 +126,9 @@ Chapter Two (Cash Crops — The Cape, 2025) extends this inquiry to South Africa
     status: 'complete',
     category: 'archive',
     tags: ['Delftware', 'China', 'ceramics', 'textile', 'copying', 'cross-cultural'],
-    excerpt: 'A textile research project investigating the cross-cultural exchange between Dutch Delftware and Chinese blue-and-white porcelain — and how copying becomes a form of translation.',
-    description: `Blueprint began as a material investigation in China in 2014, tracing the circular exchange of blue-and-white aesthetics between Dutch Delftware and Chinese porcelain.
-
-The project asks: when an aesthetic form travels across cultures and centuries, what is lost, what is gained, and who owns the copy? The research produced textile designs, photographic documentation, and archival research into the colonial trade routes that made this cross-pollination possible.
-
-Blueprint was the starting point for a longer inquiry into imitation, authenticity, and the politics of material aesthetics — a thread that continues through The Fine Art of Fakery.`,
+    excerpt: '',
+    description: '',
+    contentStatus: 'placeholder',
     images: [
       '/images/blueprint/1.jpg',
       '/images/blueprint/2.jpg',
@@ -137,12 +144,10 @@ Blueprint was the starting point for a longer inquiry into imitation, authentici
     status: 'complete',
     category: 'archive',
     tags: ['fossils', 'materials', 'future', 'objects', 'speculative'],
-    excerpt: 'Speculative material research into the objects and materials we will leave behind — what future archaeologists might find, and what they will conclude.',
-    description: `Post Fossils is a speculative material research project that asks: what will our era leave as its fossil record?
-
-Beginning from the observation that every geological era leaves characteristic material traces, Post Fossils investigates the synthetic, plastic, and composite materials of the present day as future archaeological artifacts. What does a plastic bottle tell a civilisation 10,000 years from now? What stories do our waste materials carry?
-
-The project produced a series of object studies, photographic works, and research into material futures.`,
+    excerpt: '',
+    description: '',
+    contentStatus: 'placeholder',
+    titleFont: { family: 'var(--font-inter)', weight: 300 },
     images: [
       '/images/postfossils/1.jpg',
       '/images/postfossils/2.jpg',
@@ -159,12 +164,10 @@ The project produced a series of object studies, photographic works, and researc
     status: 'complete',
     category: 'archive',
     tags: ['ceramics', 'authenticity', 'China', 'copy', 'porcelain', 'fakery'],
-    excerpt: 'In Jingdezhen — the porcelain capital of the world — the copy and the original have coexisted for centuries. A material research project into what it means to fake, and why.',
-    description: `In Jingdezhen, China's porcelain capital, the production of copies — of antiques, of famous pieces, of museum objects — is not considered forgery. It is considered craft.
-
-The Fine Art of Fakery is a ceramic material research project exploring what happens when the boundary between original and copy dissolves. What does authenticity mean in a city built on masterful imitation? What does this tell us about the Western obsession with originality?
-
-The project draws on archival research, material experiments, and conversations with craftspeople in Jingdezhen, producing objects and documentation that sit deliberately between categories.`,
+    excerpt: '',
+    description: '',
+    contentStatus: 'placeholder',
+    titleFont: { family: 'var(--font-jost)', weight: 500 },
     images: [
       '/images/fakery/1.jpg',
       '/images/fakery/2.jpg',
@@ -181,12 +184,17 @@ The project draws on archival research, material experiments, and conversations 
     status: 'complete',
     category: 'archive',
     tags: ['nomadic', 'museum', 'material culture', 'globalisation', 'migration', 'MMM'],
+    // CLIENT-SOURCED. Traces directly to the work-flow doc's MMM paragraphs and
+    // its "From examining globalisation / To being responsible within its
+    // consequences" and "curatorial observation toward participatory
+    // intervention" lines. The only project prose the client supplied.
     excerpt: 'A nomadic, research-driven platform exploring the cultural dimensions of globalisation — tracing how the meaning of objects, styles, and materials shifts across time and place.',
     description: `The Moving Material Museum (MMM) was an open, nomadic, travelling platform that explored the cultural dimensions of globalisation, with a focus on the mobility of material culture, global interconnectivity, and the power dynamics that shape them.
 
 MMM operated as frame, format, and content for new object and material generation — combining design thinking and anthropological research to invite audiences not only to view, but to relate to and work with materials and their stories.
 
 The MMM laid the conceptual foundation for doc. Berendje's current practice — the move from examining globalisation to being responsible within its consequences. From curatorial observation toward participatory intervention.`,
+    contentStatus: 'client',
     images: [
       '/images/mmm/1.jpg',
       '/images/mmm/2.jpg',
@@ -203,12 +211,11 @@ The MMM laid the conceptual foundation for doc. Berendje's current practice — 
     status: 'complete',
     category: 'archive',
     tags: ['textile', 'Ghana', 'trade', 'photography', 'book'],
-    excerpt: 'A photographic book documenting the textile trade between Ghana and the Netherlands — fabrics, markets, and the people who move them across geographies.',
-    description: `Textile Trade Book is a photographic research project documenting the trade in fabrics between Ghana and the Netherlands — Dutch wax prints made in the Netherlands and sold in West Africa, alongside locally produced kente and batik.
-
-Produced during fieldwork in Ghana in 2013, the book traces the material journeys of cloth: from loom to market to body. It documents the people — traders, tailors, market women — who make the textile trade work across vast distances.
-
-The book was the beginning of a longer inquiry into the global circuits of material culture, which continues through Dead White Man's Clothes and Waste Colonialism.`,
+    excerpt: '',
+    description: '',
+    contentStatus: 'placeholder',
+    // TODO: client wants Zapfino for this title. No licensed free equivalent has
+    // been agreed — confirm with client before implementing. Default Sabon until then.
     images: ['/images/blueprint/1.jpg', '/images/blueprint/2.jpg'],
     coverImage: '/images/blueprint/1.jpg',
     fieldSize: 'medium',
@@ -222,12 +229,12 @@ The book was the beginning of a longer inquiry into the global circuits of mater
     status: 'ongoing',
     category: 'studio',
     tags: ['waste', 'colonialism', 'policy', 'fashion', 'Ghana', 'campaign'],
-    excerpt: 'A policy design and advocacy campaign challenging the systems that allow the Global North to export its fashion waste to the Global South under the banner of charity.',
-    description: `Waste Colonialism is a policy design initiative and advocacy campaign challenging the systems that frame the Global North's textile waste export as aid — when in reality it devastates local textile industries and creates environmental catastrophe.
-
-The campaign includes the Stop Waste Colonialism platform, the Kantamanto Social Club, and the Utopian Resurgence initiative — working at the intersection of design research, policy advocacy, and community organizing.
-
-The work asks: what would it look like to design systems that are genuinely equitable? What does repair look like at the scale of global trade?`,
+    excerpt: '',
+    description: '',
+    contentStatus: 'placeholder',
+    // Client doc files this under Sender–Receiver Residence as "Stop Waste
+    // Colonialism Campaign / Policy Design", with Kantamanto Social Club and
+    // Utopian Resurgence as its sub-items.
     images: [
       '/images/waste/1.jpg',
       '/images/waste/2.jpg',
@@ -245,12 +252,9 @@ The work asks: what would it look like to design systems that are genuinely equi
     status: 'in-progress',
     category: 'studio',
     tags: ['residency', 'curriculum', 'pedagogy', 'clothing passport', 'repair'],
-    excerpt: 'A residency programme developing a curriculum for repair — including Clothing Passports, Closet Audits, and The Good Ancestor To-Do List.',
-    description: `Sender — Receiver is a residency programme developing a curriculum for thinking about repair at the scale of individual wardrobes and global systems.
-
-The programme includes a series of workshops and methodological tools: the Clothing Passport (documenting the life of a garment), the Closet Audit, and The Good Ancestor To-Do List — a speculative exercise in thinking about our current actions as future ancestors.
-
-The residency connects participants across geographies, tracing the journeys that clothes make and asking what responsibility looks like at each step.`,
+    excerpt: '',
+    description: '',
+    contentStatus: 'placeholder',
     images: [
       '/images/sender/1.jpg',
       '/images/sender/2.jpg',
@@ -268,12 +272,9 @@ The residency connects participants across geographies, tracing the journeys tha
     status: 'ongoing',
     category: 'gallery',
     tags: ['pedagogy', 'oracle', 'speculative', 'secondhand', 'methodology'],
-    excerpt: 'An oracle deck as pedagogical methodology — used across Berlin, Arnhem, Accra, Ihambane, and Johannesburg to facilitate speculative conversations about fashion futures.',
-    description: `Secondhand Speculation uses the format of the oracle deck as a pedagogical methodology — a set of cards that opens conversations about the past, present, and future of secondhand fashion.
-
-Used across multiple cities and contexts — Berlin, Arnhem, Accra, Ihambane, Johannesburg — the deck generates different conversations depending on who is in the room and what they bring to it.
-
-The methodology is deliberately non-prescriptive: it invites speculation rather than answers, and treats uncertainty as a generative space.`,
+    excerpt: '',
+    description: '',
+    contentStatus: 'placeholder',
     images: [
       '/images/speculation/1.jpg',
     ],
@@ -288,12 +289,9 @@ The methodology is deliberately non-prescriptive: it invites speculation rather 
     status: 'ongoing',
     category: 'gallery',
     tags: ['paper', 'process', 'material', 'handmade'],
-    excerpt: 'Hand papermaking as material research — exploring paper as a medium for carrying the traces of other materials, other processes, other stories.',
-    description: `Paper Making is a recurring material practice within doc. Berendje's studio — using hand papermaking as a way to think through material transformation, trace, and memory.
-
-Each sheet of paper carries the material history of what it was made from: textile fibres, plant matter, found materials. The process of making paper is itself a form of repair — taking what has been discarded and giving it new form.
-
-The practice produces material for other projects, and is documented as a research process in its own right.`,
+    excerpt: '',
+    description: '',
+    contentStatus: 'placeholder',
     images: [
       '/images/paper/1.jpg',
       '/images/paper/2.jpg',
@@ -303,8 +301,50 @@ The practice produces material for other projects, and is documented as a resear
   },
 ]
 
+/** Category and date shown on List / Grid. Sourced from the client's structure. */
+export const PROJECT_META: Record<string, { category: string }> = {
+  'in-no-particular-order': { category: 'Visual Essays & Film' },
+  'tsht-tales': { category: 'Publication & Exhibition' },
+  'the-ecologies-of-repair': { category: 'Research' },
+  'dead-white-mans-clothes': { category: 'Fashion Research' },
+  'black-botanicals': { category: 'Publication' },
+  'blueprint': { category: 'Textile Research' },
+  'post-fossils': { category: 'Speculative' },
+  'the-fine-art-of-fakery': { category: 'Ceramic Research' },
+  'moving-material-museum': { category: 'Platform' },
+  'textile-trade-book': { category: 'Photography' },
+  'waste-colonialism': { category: 'Policy Design' },
+  'sender-receiver-residence': { category: 'Residency' },
+  'secondhand-speculation': { category: 'Pedagogy' },
+  'paper-making': { category: 'Material' },
+}
+
+/** Display order on List and Grid — follows the client's Practice Pathway. */
+export const PROJECT_ORDER = [
+  'the-ecologies-of-repair',
+  'dead-white-mans-clothes',
+  'textile-trade-book',
+  'sender-receiver-residence',
+  'waste-colonialism',
+  'tsht-tales',
+  'black-botanicals',
+  'the-fine-art-of-fakery',
+  'blueprint',
+  'post-fossils',
+  'secondhand-speculation',
+  'moving-material-museum',
+  'paper-making',
+  'in-no-particular-order',
+]
+
 export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug)
+}
+
+export function getOrderedProjects(): Project[] {
+  return PROJECT_ORDER
+    .map(slug => projects.find(p => p.slug === slug))
+    .filter((p): p is Project => Boolean(p))
 }
 
 export function getProjectsByCategory(category: string): Project[] {

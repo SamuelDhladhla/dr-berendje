@@ -2,27 +2,23 @@
 import React, { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Img from '@/components/Img'
+import SiteHeader from '@/components/SiteHeader'
+import Placeholder from '@/components/Placeholder'
 import { Project } from '@/types'
 
-const BODY = 'var(--font-inter)'
-const ACCENT = '#C8553D'
+const BODY = 'var(--font-body)'
 
-// Per-project font identity
-const PROJECT_FONT: Record<string, { font: string; weight: number; style: string }> = {
-  'in-no-particular-order':    { font: "'Instrument Serif', Georgia, serif",              weight: 400, style: 'italic'  },
-  'tsht-tales':                { font: "'Big Shoulders Display', 'Arial Black', sans-serif", weight: 900, style: 'normal' },
-  'the-ecologies-of-repair':   { font: 'var(--font-serif-archive), Georgia, serif',            weight: 400, style: 'italic'  },
-  'dead-white-mans-clothes':   { font: "'Space Grotesk', Arial, sans-serif",              weight: 700, style: 'normal' },
-  'sender-receiver-residence': { font: "'Courier Prime', 'Courier New', monospace",       weight: 700, style: 'normal' },
-  'secondhand-speculation':    { font: "'DM Sans', 'Helvetica Neue', sans-serif",         weight: 700, style: 'normal' },
-  'black-botanicals':          { font: "'Libre Baskerville', Georgia, serif",             weight: 700, style: 'italic' },
-  'the-fine-art-of-fakery':    { font: "'Jost', 'Futura', Arial, sans-serif",             weight: 700, style: 'normal' },
-  'blueprint':                 { font: "'Archivo Black', 'Arial Black', sans-serif",      weight: 400, style: 'normal' },
-  'textile-trade-book':        { font: "'Great Vibes', cursive",                          weight: 400, style: 'normal' },
-  'post-fossils':              { font: "Inter, 'Helvetica Neue', Arial, sans-serif",      weight: 300, style: 'normal' },
-  'waste-colonialism':         { font: "'Syne', sans-serif",                              weight: 800, style: 'normal' },
-  'moving-material-museum':    { font: "'IBM Plex Sans', 'Helvetica Neue', sans-serif",   weight: 700, style: 'normal' },
-  'paper-making':              { font: 'var(--font-serif-archive), Georgia, serif',                   weight: 400, style: 'italic' },
+/*
+  Titles default to Sabon. Only projects carrying an explicit `titleFont` in the
+  config override it, and the override applies to the TITLE only — body copy and
+  metadata stay Sabon throughout.
+*/
+function titleFontOf(project: Project) {
+  return {
+    font: project.titleFont?.family ?? BODY,
+    weight: project.titleFont?.weight ?? 400,
+    style: project.titleFont?.style ?? 'normal',
+  }
 }
 
 export interface LayoutProps {
@@ -70,34 +66,19 @@ function BwImg({ src, alt, wrapStyle, reveal = true }: { src: string; alt: strin
 
 function ProjectNav({ designPrefix }: { designPrefix: string; project: Project }) {
   return (
-    <nav style={{ borderBottom: '1px solid #000', background: '#fff', position: 'sticky', top: 0, zIndex: 100 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 40px' }}>
-        <Link href={designPrefix} style={{ fontFamily: BODY, fontSize: '11px', fontWeight: 400, color: '#000', letterSpacing: '0.04em', textDecoration: 'none' }}>
+    <>
+      <SiteHeader active={designPrefix} />
+      <div style={{ padding: '0 40px 8px' }}>
+        <Link href={designPrefix} style={{ fontFamily: BODY, fontSize: '12px', fontWeight: 400, color: '#000', letterSpacing: '0.05em', textDecoration: 'none', opacity: 0.55 }}>
           ← Research Projects
         </Link>
-        <Link href="/" style={{ textDecoration: 'none' }}>
-          <span style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '15px', fontWeight: 400, color: '#000', fontStyle: 'italic' }}>
-            dr<span style={{ color: ACCENT }}>.</span> Berendje
-          </span>
-        </Link>
-        <div style={{ display: 'flex', gap: 24 }}>
-          {[
-            { label: 'Writing', href: '/writing' },
-            { label: 'Education', href: '/education' },
-            { label: 'About', href: '/about' },
-          ].map(n => (
-            <Link key={n.label} href={n.href} style={{ fontFamily: BODY, fontSize: '11px', fontWeight: 400, color: '#000', textDecoration: 'none', letterSpacing: '0.04em', opacity: 0.5 }}>
-              {n.label}
-            </Link>
-          ))}
-        </div>
       </div>
-    </nav>
+    </>
   )
 }
 
 function TitleBlock({ project }: { project: Project }) {
-  const pf = PROJECT_FONT[project.slug] ?? { font: "'Instrument Serif', Georgia, serif", weight: 400, style: 'italic' }
+  const pf = titleFontOf(project)
   return (
     <div>
       {project.subtitle && (
@@ -134,6 +115,10 @@ function MetaBlock({ project }: { project: Project }) {
 }
 
 function Paras({ text }: { text: string }) {
+  // No client copy for this project — show the marker, never invent filler.
+  if (!text || !text.trim()) {
+    return <Placeholder note="project description" />
+  }
   return (
     <>
       {text.split('\n\n').map((p, i) => (
@@ -144,8 +129,8 @@ function Paras({ text }: { text: string }) {
 }
 
 function PrevNext({ prev, next, designPrefix }: { prev?: Project; next?: Project; designPrefix: string }) {
-  const pPf = prev ? (PROJECT_FONT[prev.slug] ?? { font: "'Instrument Serif'", style: 'italic' }) : null
-  const nPf = next ? (PROJECT_FONT[next.slug] ?? { font: "'Instrument Serif'", style: 'italic' }) : null
+  const pPf = prev ? titleFontOf(prev) : null
+  const nPf = next ? titleFontOf(next) : null
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', marginTop: 80 }}>
       {prev && pPf ? (
@@ -191,7 +176,7 @@ export function LayoutEcologies({ project, prev, next, designPrefix }: LayoutPro
           <div style={{ margin: '40px 0 32px' }}>
             <MetaBlock project={project} />
           </div>
-          <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 40 }}>
+          <p style={{ fontFamily: BODY, fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 40 }}>
             {project.excerpt}
           </p>
           <Paras text={project.description} />
@@ -226,7 +211,7 @@ export function LayoutDWMC({ project, prev, next, designPrefix }: LayoutProps) {
           <div style={{ margin: '40px 0 32px' }}>
             <MetaBlock project={project} />
           </div>
-          <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 40 }}>
+          <p style={{ fontFamily: BODY, fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 40 }}>
             {project.excerpt}
           </p>
           <Paras text={project.description} />
@@ -265,7 +250,7 @@ export function LayoutSender({ project, prev, next, designPrefix }: LayoutProps)
             </div>
           </div>
           <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-            <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.15rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7 }}>
+            <p style={{ fontFamily: BODY, fontSize: '1.15rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7 }}>
               {project.excerpt}
             </p>
           </div>
@@ -325,7 +310,7 @@ export function LayoutTShirt({ project, prev, next, designPrefix }: LayoutProps)
         {/* Two-column body */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 80px', padding: '72px 40px 100px' }}>
           <div>
-            <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 32 }}>{project.excerpt}</p>
+            <p style={{ fontFamily: BODY, fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 32 }}>{project.excerpt}</p>
             <MetaBlock project={project} />
           </div>
           <Paras text={project.description} />
@@ -350,7 +335,7 @@ export function LayoutBotanicals({ project, prev, next, designPrefix }: LayoutPr
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
           <div style={{ padding: '80px 64px 80px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <TitleBlock project={project} />
-            <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.05rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginTop: 32 }}>{project.excerpt}</p>
+            <p style={{ fontFamily: BODY, fontSize: '1.05rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginTop: 32 }}>{project.excerpt}</p>
           </div>
           <div style={{ position: 'relative', minHeight: 440, background: '#f0f0f0', overflow: 'hidden' }}>
             <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${project.coverImage}`} alt={project.title}
@@ -362,7 +347,7 @@ export function LayoutBotanicals({ project, prev, next, designPrefix }: LayoutPr
         <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr 200px', gap: '0 48px', padding: '60px 40px 80px', alignItems: 'start' }}>
           <div>
             <div style={{ marginBottom: 40 }}>
-              <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '0.9rem', fontStyle: 'italic', color: '#000', lineHeight: 1.75 }}>"{project.excerpt.slice(0, 130)}…"</p>
+              <p style={{ fontFamily: BODY, fontSize: '0.9rem', fontStyle: 'italic', color: '#000', lineHeight: 1.75 }}>"{project.excerpt.slice(0, 130)}…"</p>
             </div>
             {project.images[1] && (
               <div style={{ position: 'relative', height: 240, background: '#f0f0f0', overflow: 'hidden' }}>
@@ -425,7 +410,7 @@ export function LayoutFakery({ project, prev, next, designPrefix }: LayoutProps)
           <div style={{ margin: '40px 0 32px' }}>
             <MetaBlock project={project} />
           </div>
-          <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 40 }}>{project.excerpt}</p>
+          <p style={{ fontFamily: BODY, fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 40 }}>{project.excerpt}</p>
           <Paras text={project.description} />
         </div>
       </div>
@@ -452,7 +437,7 @@ export function LayoutBlueprint({ project, prev, next, designPrefix }: LayoutPro
           <div style={{ margin: '40px 0 32px' }}>
             <MetaBlock project={project} />
           </div>
-          <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 40 }}>{project.excerpt}</p>
+          <p style={{ fontFamily: BODY, fontSize: '1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 40 }}>{project.excerpt}</p>
           <Paras text={project.description} />
           {project.images[1] && (
             <div style={{ marginTop: 32, position: 'relative', height: 280, background: '#f0f0f0', overflow: 'hidden' }}>
@@ -490,7 +475,7 @@ export function LayoutPostFossils({ project, prev, next, designPrefix }: LayoutP
             <div style={{ height: 40 }} />
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 64px' }}>
               <div>
-                <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.05rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 36 }}>{project.excerpt}</p>
+                <p style={{ fontFamily: BODY, fontSize: '1.05rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 36 }}>{project.excerpt}</p>
                 <Paras text={project.description} />
               </div>
               <div style={{ paddingLeft: 40 }}>
@@ -520,7 +505,7 @@ export function LayoutDefault({ project, prev, next, designPrefix }: LayoutProps
           <div style={{ margin: '40px 0 32px' }}>
             <MetaBlock project={project} />
           </div>
-          <p style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 40 }}>{project.excerpt}</p>
+          <p style={{ fontFamily: BODY, fontSize: '1.1rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginBottom: 40 }}>{project.excerpt}</p>
           <Paras text={project.description} />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>

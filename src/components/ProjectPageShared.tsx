@@ -2,7 +2,7 @@
 import { Project } from '@/types'
 import { LAYOUT_MAP, LayoutDefault } from './ProjectPageLayouts'
 
-const HEADING = "'Instrument Serif', Georgia, serif"
+const HEADING = 'var(--font-body)'
 
 interface Props {
   project: Project
