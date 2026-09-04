@@ -4,21 +4,20 @@ import Link from 'next/link'
 import Placeholder from './Placeholder'
 
 /*
-  The shared centred hover list.
+  The shared centred hover list. TEXT ONLY.
 
   Default state is title only, centred, with generous white space. Everything else
   — category, description, date, sub-items — is revealed BENEATH the title on
   hover, stacked and centred as one block. Nothing sits in permanent edge columns.
+  Hover also dims every other title to 0.45.
 
-  Hover also dims every other title to 0.45 and, where items carry an image,
-  crossfades a full-bleed background behind the list.
+  No imagery: the hover background image, its crossfade and the LEGIBILITY_MODE
+  scrim were cut. Nothing is layered behind this list, so there is nothing to
+  scrim against.
 
   Hover state is tracked once on the container and derived from data-hl-idx, not
   per-item CSS — the same pattern used on the homepage.
 */
-
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ''
-const LEGIBILITY_MODE: 'scrim' | 'none' = 'scrim'
 
 export interface TitleFont {
   family: string
@@ -36,7 +35,6 @@ export interface HoverListItem {
   /** true when no client-sourced description exists yet */
   descriptionMissing?: boolean
   date?: string
-  image?: string
   titleFont?: TitleFont
   subItems?: string[]
   /** marks the whole item as awaiting a real route */
@@ -47,50 +45,16 @@ interface Props {
   items: HoverListItem[]
   /** CSS length. Archive list runs large; section pages run smaller. */
   titleSize?: string
-  showBackgroundImage?: boolean
 }
 
 export default function HoverList({
   items,
   titleSize = 'clamp(64px, 8vw, 140px)',
-  showBackgroundImage = false,
 }: Props) {
   const [hovered, setHovered] = useState<number | null>(null)
-  const active = hovered !== null ? items[hovered] : null
-  const scrim = showBackgroundImage && LEGIBILITY_MODE === 'scrim'
 
   return (
     <div style={{ position: 'relative' }}>
-      {/* ── Hover background, crossfaded. One layer per image so they blend. ── */}
-      {showBackgroundImage && (
-        <div aria-hidden="true" style={{
-          position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', background: '#fff',
-        }}>
-          {items.filter(i => i.image).map((item, i) => (
-            <img
-              key={item.key + i}
-              src={`${BASE_PATH}${item.image}`}
-              alt=""
-              style={{
-                position: 'absolute', inset: 0,
-                width: '100%', height: '100%',
-                objectFit: 'cover',
-                opacity: active && active.key === item.key ? 1 : 0,
-                transition: 'opacity 500ms ease',
-              }}
-            />
-          ))}
-          {scrim && (
-            <div style={{
-              position: 'absolute', inset: 0,
-              background: 'linear-gradient(to bottom, rgba(255,255,255,0.82), rgba(255,255,255,0.72) 50%, rgba(255,255,255,0.82))',
-              opacity: active ? 1 : 0,
-              transition: 'opacity 500ms ease',
-            }} />
-          )}
-        </div>
-      )}
-
       {/* ── The list ── */}
       <div
         onMouseOver={e => {

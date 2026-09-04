@@ -32,8 +32,9 @@ export const projects: Project[] = [
     excerpt: '',
     description: '',
     contentStatus: 'placeholder',
-    images: ['/images/ecologies/1.jpg', '/images/ecologies/2.jpg'],
-    coverImage: '/images/ecologies/1.jpg',
+    // No images of its own — previously showed The Ecologies of Repair's photos.
+    images: [''],
+    coverImage: '',
     fieldSize: 'large',
   },
   {
@@ -51,8 +52,9 @@ export const projects: Project[] = [
     // Client doc lists sub-parts: Academic Paper #1, Travelling Exhibition,
     // Video Collage / Film, T-Shirt Tales Library. Structure only, no prose.
     titleFont: { family: '"Helvetica Neue", Helvetica, Arial, sans-serif', weight: 700 },
-    images: ['/images/dwmc/1.jpg', '/images/dwmc/2.jpg'],
-    coverImage: '/images/dwmc/1.jpg',
+    // No images of its own — previously showed Dead White Man's Clothes' photos.
+    images: [''],
+    coverImage: '',
     fieldSize: 'medium',
   },
   {
@@ -216,8 +218,9 @@ The MMM laid the conceptual foundation for doc. Berendje's current practice — 
     contentStatus: 'placeholder',
     // TODO: client wants Zapfino for this title. No licensed free equivalent has
     // been agreed — confirm with client before implementing. Default Sabon until then.
-    images: ['/images/blueprint/1.jpg', '/images/blueprint/2.jpg'],
-    coverImage: '/images/blueprint/1.jpg',
+    // No images of its own — previously showed Blueprint's photos.
+    images: [''],
+    coverImage: '',
     fieldSize: 'medium',
   },
   {

@@ -17,13 +17,26 @@ export const SITE_NAV = [
   { label: 'About', href: '/about' },
 ]
 
-const navLink = (active: boolean): React.CSSProperties => ({
+/*
+  THE single source of truth for navigation type, site-wide.
+
+  Every nav-like control — main nav, List/Grid toggle, prev/next, back links —
+  must spread this rather than restating the properties, so the uppercase rule
+  cannot drift out of sync again. Titles, category labels and body copy keep
+  their own case and must NOT use this.
+*/
+export const navText: React.CSSProperties = {
   fontFamily: 'var(--font-body)',
   fontSize: '12px',
   fontWeight: 400,
   letterSpacing: '0.05em',
+  textTransform: 'uppercase',
   color: '#000',
   textDecoration: 'none',
+}
+
+const navLink = (active: boolean): React.CSSProperties => ({
+  ...navText,
   opacity: active ? 1 : 0.55,
   borderBottom: active ? '1px solid #000' : '1px solid transparent',
   paddingBottom: 1,

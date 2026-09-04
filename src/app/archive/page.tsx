@@ -1,13 +1,13 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import SiteHeader from '@/components/SiteHeader'
+import SiteHeader, { navText } from '@/components/SiteHeader'
+import ImageSlot from '@/components/ImageSlot'
 import SiteFooter from '@/components/SiteFooter'
 import HoverList, { type HoverListItem } from '@/components/HoverList'
 import Placeholder from '@/components/Placeholder'
 import { getOrderedProjects, PROJECT_META } from '@/data/projects'
 
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 export default function ArchivePage() {
   const [view, setView] = useState<'list' | 'grid'>('list')
@@ -23,15 +23,15 @@ export default function ArchivePage() {
     description: p.excerpt || undefined,
     descriptionMissing: p.contentStatus === 'placeholder',
     date: p.year,
-    image: p.coverImage,
+
     titleFont: p.titleFont,
   }))
 
   const toggle = (label: string, on: boolean, fn: () => void) => (
     <button onClick={fn} style={{
+      ...navText,
       background: 'none', border: 'none', padding: 0,
-      fontFamily: 'var(--font-body)', fontSize: '12px', letterSpacing: '0.05em',
-      color: '#000', opacity: on ? 1 : 0.35,
+      opacity: on ? 1 : 0.35,
       borderBottom: on ? '1px solid #000' : '1px solid transparent', paddingBottom: 1,
     }}>{label}</button>
   )
@@ -56,7 +56,7 @@ export default function ArchivePage() {
       />
 
       {/* ══ LIST — centred, everything revealed beneath the title on hover ══ */}
-      {view === 'list' && <HoverList items={items} showBackgroundImage />}
+      {view === 'list' && <HoverList items={items} />}
 
       {/* ══ GRID — contain, not crop. B&W toggle. Okra-scale white space. ══ */}
       {view === 'grid' && (
@@ -87,18 +87,17 @@ export default function ArchivePage() {
                   justifyContent: 'center',
                   marginBottom: 24,
                 }}>
-                  <img
+                  <ImageSlot
                     className="gi-img"
-                    src={`${BASE_PATH}${p.coverImage}`}
+                    src={p.coverImage}
                     alt={p.title}
-                    loading="lazy"
                     style={{
                       maxWidth: '100%',
                       maxHeight: '100%',
-                      width: 'auto',
-                      height: 'auto',
+                      width: p.coverImage ? 'auto' : '100%',
+                      height: p.coverImage ? 'auto' : '100%',
                       objectFit: 'contain',
-                      filter: bw ? 'grayscale(100%)' : 'none',
+                      filter: bw && p.coverImage ? 'grayscale(100%)' : 'none',
                     }}
                   />
                 </div>

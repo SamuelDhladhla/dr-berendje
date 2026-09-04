@@ -41,7 +41,7 @@ export default function PlaytimePage() {
         <Placeholder note="layout extrapolated — client gave no reference for this section" />
       </div>
 
-      <HoverList items={PLAYTIME} titleSize="clamp(40px, 5.5vw, 92px)" showBackgroundImage />
+      <HoverList items={PLAYTIME} titleSize="clamp(40px, 5.5vw, 92px)" />
       <SiteFooter />
     </main>
   )

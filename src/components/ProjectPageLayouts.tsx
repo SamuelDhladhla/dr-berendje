@@ -2,8 +2,9 @@
 import React, { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Img from '@/components/Img'
-import SiteHeader from '@/components/SiteHeader'
+import SiteHeader, { navText } from '@/components/SiteHeader'
 import Placeholder from '@/components/Placeholder'
+import ImageSlot from '@/components/ImageSlot'
 import { Project } from '@/types'
 
 const BODY = 'var(--font-body)'
@@ -69,7 +70,7 @@ function ProjectNav({ designPrefix }: { designPrefix: string; project: Project }
     <>
       <SiteHeader active={designPrefix} />
       <div style={{ padding: '0 40px 8px' }}>
-        <Link href={designPrefix} style={{ fontFamily: BODY, fontSize: '12px', fontWeight: 400, color: '#000', letterSpacing: '0.05em', textDecoration: 'none', opacity: 0.55 }}>
+        <Link href={designPrefix} style={{ ...navText, opacity: 0.55 }}>
           ← Research Projects
         </Link>
       </div>
@@ -135,13 +136,13 @@ function PrevNext({ prev, next, designPrefix }: { prev?: Project; next?: Project
     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', marginTop: 80 }}>
       {prev && pPf ? (
         <Link href={`${designPrefix}/${prev.slug}`} style={{ textDecoration: 'none', padding: '40px 40px' }}>
-          <p style={{ fontFamily: BODY, fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#000', marginBottom: 10 }}>← Previous</p>
+          <p style={{ ...navText, marginBottom: 10 }}>← Previous</p>
           <p style={{ fontFamily: pPf.font, fontSize: '1.4rem', fontStyle: pPf.style as 'normal'|'italic', color: '#000' }}>{prev.title}</p>
         </Link>
       ) : <div />}
       {next && nPf ? (
         <Link href={`${designPrefix}/${next.slug}`} style={{ textDecoration: 'none', padding: '40px 40px', textAlign: 'right' }}>
-          <p style={{ fontFamily: BODY, fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#000', marginBottom: 10 }}>Next →</p>
+          <p style={{ ...navText, marginBottom: 10 }}>Next →</p>
           <p style={{ fontFamily: nPf.font, fontSize: '1.4rem', fontStyle: nPf.style as 'normal'|'italic', color: '#000' }}>{next.title}</p>
         </Link>
       ) : <div />}
@@ -186,8 +187,7 @@ export function LayoutEcologies({ project, prev, next, designPrefix }: LayoutPro
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           {project.images.map((img, i) => (
             <div key={i} style={{ position: 'relative', flex: 1, minHeight: 320, background: '#f0f0f0', overflow: 'hidden' }}>
-              <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${img}`} alt={`Fig. ${i + 1}`}
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+              <ImageSlot className="bw-reveal" src={img} alt={`Fig. ${i + 1}`} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           ))}
         </div>
@@ -219,8 +219,7 @@ export function LayoutDWMC({ project, prev, next, designPrefix }: LayoutProps) {
         <div style={{ padding: '60px 40px', display: 'flex', flexDirection: 'column', gap: 2 }}>
           {project.images.map((img, i) => (
             <div key={i} style={{ position: 'relative', flex: 1, minHeight: 260, background: '#f0f0f0', overflow: 'hidden' }}>
-              <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${img}`} alt={`Fig. ${i + 1}`}
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+              <ImageSlot className="bw-reveal" src={img} alt={`Fig. ${i + 1}`} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
               <p style={{ fontFamily: BODY, fontSize: '10px', fontWeight: 300, color: '#000', position: 'absolute', bottom: 8, left: 12, letterSpacing: '0.04em', background: 'rgba(255,255,255,0.85)', padding: '2px 6px' }}>Fig. {i + 1}</p>
             </div>
           ))}
@@ -260,8 +259,7 @@ export function LayoutSender({ project, prev, next, designPrefix }: LayoutProps)
         <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(n, 3)}, 1fr)`, gap: 2 }}>
           {project.images.map((img, i) => (
             <div key={i} style={{ position: 'relative', width: '100%', height: '55vh', background: '#f0f0f0', overflow: 'hidden' }}>
-              <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${img}`} alt={`Fig. ${i + 1}`}
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+              <ImageSlot className="bw-reveal" src={img} alt={`Fig. ${i + 1}`} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           ))}
         </div>
@@ -300,8 +298,7 @@ export function LayoutTShirt({ project, prev, next, designPrefix }: LayoutProps)
           <div style={{ display: 'flex', gap: 2 }}>
             {project.images.map((img, i) => (
               <div key={i} style={{ flexShrink: 0, position: 'relative', width: project.images.length === 1 ? '100vw' : '70vw', height: '65vh', background: '#f0f0f0', overflow: 'hidden' }}>
-                <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${img}`} alt={`${project.title} ${i + 1}`}
-                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                <ImageSlot className="bw-reveal" src={img} alt={`${project.title} ${i + 1}`} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
             ))}
           </div>
@@ -326,7 +323,6 @@ export function LayoutTShirt({ project, prev, next, designPrefix }: LayoutProps)
 
 export function LayoutBotanicals({ project, prev, next, designPrefix }: LayoutProps) {
   const ref = useColorReveal()
-  const paras = project.description.split('\n\n')
   return (
     <main style={{ background: '#fff', minHeight: '100vh' }}>
       <ProjectNav designPrefix={designPrefix} project={project} />
@@ -338,8 +334,7 @@ export function LayoutBotanicals({ project, prev, next, designPrefix }: LayoutPr
             <p style={{ fontFamily: BODY, fontSize: '1.05rem', fontStyle: 'italic', color: '#000', lineHeight: 1.7, marginTop: 32 }}>{project.excerpt}</p>
           </div>
           <div style={{ position: 'relative', minHeight: 440, background: '#f0f0f0', overflow: 'hidden' }}>
-            <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${project.coverImage}`} alt={project.title}
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+            <ImageSlot className="bw-reveal" src={project.coverImage} alt={project.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
         </div>
 
@@ -347,25 +342,26 @@ export function LayoutBotanicals({ project, prev, next, designPrefix }: LayoutPr
         <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr 200px', gap: '0 48px', padding: '60px 40px 80px', alignItems: 'start' }}>
           <div>
             <div style={{ marginBottom: 40 }}>
-              <p style={{ fontFamily: BODY, fontSize: '0.9rem', fontStyle: 'italic', color: '#000', lineHeight: 1.75 }}>"{project.excerpt.slice(0, 130)}…"</p>
+              {project.excerpt.trim()
+                ? <p style={{ fontFamily: BODY, fontSize: '0.9rem', fontStyle: 'italic', color: '#000', lineHeight: 1.75 }}>&ldquo;{project.excerpt.slice(0, 130)}&hellip;&rdquo;</p>
+                : <Placeholder note="pull quote" />}
             </div>
             {project.images[1] && (
               <div style={{ position: 'relative', height: 240, background: '#f0f0f0', overflow: 'hidden' }}>
-                <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${project.images[1]}`} alt="Fig. 2"
-                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                <ImageSlot className="bw-reveal" src={project.images[1]} alt="Fig. 2" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
             )}
           </div>
           <div>
             <div style={{ paddingTop: 8 }}>
-              {paras.map((p, i) => (
-                <p key={i} style={{ fontFamily: BODY, fontSize: '14px', fontWeight: 400, color: '#000', lineHeight: 1.9, marginBottom: 22 }}>{p}</p>
-              ))}
+              {/* Routed through Paras so the placeholder guard applies here too —
+                  this layout previously split the description by hand and so
+                  rendered nothing at all when there was no client copy. */}
+              <Paras text={project.description} />
             </div>
             {project.images[2] && (
               <div style={{ position: 'relative', height: 360, background: '#f0f0f0', overflow: 'hidden', marginTop: 32 }}>
-                <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${project.images[2]}`} alt="Fig. 3"
-                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                <ImageSlot className="bw-reveal" src={project.images[2]} alt="Fig. 3" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
             )}
           </div>
@@ -398,8 +394,7 @@ export function LayoutFakery({ project, prev, next, designPrefix }: LayoutProps)
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           {project.images.map((img, i) => (
             <div key={i} style={{ position: 'relative', flex: 1, minHeight: 320, background: '#f0f0f0', overflow: 'hidden' }}>
-              <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${img}`} alt={`Fig. ${i + 1}`}
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+              <ImageSlot className="bw-reveal" src={img} alt={`Fig. ${i + 1}`} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           ))}
         </div>
@@ -429,8 +424,7 @@ export function LayoutBlueprint({ project, prev, next, designPrefix }: LayoutPro
       <ProjectNav designPrefix={designPrefix} project={project} />
       <div ref={ref} style={{ display: 'grid', gridTemplateColumns: '3fr 2fr' }}>
         <div style={{ position: 'sticky', top: 57, height: 'calc(100vh - 57px)', overflow: 'hidden', background: '#f5f5f5' }}>
-          <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${project.coverImage}`} alt={project.title}
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+          <ImageSlot className="bw-reveal" src={project.coverImage} alt={project.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
         <div style={{ padding: '80px 40px 80px 64px', minHeight: '100vh' }}>
           <TitleBlock project={project} />
@@ -441,8 +435,7 @@ export function LayoutBlueprint({ project, prev, next, designPrefix }: LayoutPro
           <Paras text={project.description} />
           {project.images[1] && (
             <div style={{ marginTop: 32, position: 'relative', height: 280, background: '#f0f0f0', overflow: 'hidden' }}>
-              <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${project.images[1]}`} alt="Fig. 2"
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+              <ImageSlot className="bw-reveal" src={project.images[1]} alt="Fig. 2" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           )}
         </div>
@@ -464,8 +457,7 @@ export function LayoutPostFossils({ project, prev, next, designPrefix }: LayoutP
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 2 }}>
           {project.images.map((img, i) => (
             <div key={i} style={{ position: 'relative', height: i % 2 === 0 ? '56vh' : '44vh', background: '#f0f0f0', overflow: 'hidden' }}>
-              <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${img}`} alt={`${project.title} ${i + 1}`}
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+              <ImageSlot className="bw-reveal" src={img} alt={`${project.title} ${i + 1}`} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           ))}
         </div>
@@ -511,8 +503,7 @@ export function LayoutDefault({ project, prev, next, designPrefix }: LayoutProps
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           {project.images.slice(0, 2).map((img, i) => (
             <div key={i} style={{ position: 'relative', flex: 1, minHeight: 300, background: '#f0f0f0', overflow: 'hidden' }}>
-              <img className="bw-reveal" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${img}`} alt={`Fig. ${i + 1}`}
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+              <ImageSlot className="bw-reveal" src={img} alt={`Fig. ${i + 1}`} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           ))}
         </div>

@@ -16,7 +16,7 @@ export default function ConsultancyPage() {
         <Placeholder note="layout extrapolated — client gave no reference for this section" />
       </div>
 
-      <HoverList items={CONSULTANCY} titleSize="clamp(40px, 5.5vw, 92px)" showBackgroundImage />
+      <HoverList items={CONSULTANCY} titleSize="clamp(40px, 5.5vw, 92px)" />
       <SiteFooter />
     </main>
   )
