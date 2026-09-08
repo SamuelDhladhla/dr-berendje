@@ -4,10 +4,10 @@ import './globals.css'
 import CustomCursor from '@/components/CustomCursor'
 
 export const metadata: Metadata = {
-  title: 'dr Berendje — Studio / Archive / Gallery',
-  description: 'dr Berendje — Design researcher, Linda Valkeman. Material, Environmental & Social Healing.',
+  title: 'DOC.B — Studio / Archive / Gallery',
+  description: 'DOC.B — Design researcher, Linda Valkeman. Material, Environmental & Social Healing.',
   openGraph: {
-    title: 'dr Berendje',
+    title: 'DOC.B',
     description: 'Broken Can Be Fixed — Material, Environmental & Social Healing.',
     type: 'website',
   },

@@ -32,7 +32,7 @@ export default function VideoBackground({ iframeRef }: Props) {
           pointerEvents: 'none',
         }}
         allow="autoplay; fullscreen; picture-in-picture"
-        title="dr Berendje — background film"
+        title="DOC.B — background film"
       />
       <div style={{
         position: 'absolute',

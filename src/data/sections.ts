@@ -11,7 +11,7 @@ import type { HoverListItem } from '@/components/HoverList'
   rather than duplicating the page.
 */
 
-export const INSTAGRAM_URL = 'https://www.instagram.com/drberendje'
+export { INSTAGRAM_URL } from './site'
 
 // ── WRITING ──────────────────────────────────────────────────────────────────
 export const WRITING: HoverListItem[] = [

@@ -1,23 +1,28 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Placeholder from './Placeholder'
 
 /*
-  The shared centred hover list. TEXT ONLY.
+  The shared centred hover list.
 
   Default state is title only, centred, with generous white space. Everything else
-  — category, description, date, sub-items — is revealed BENEATH the title on
-  hover, stacked and centred as one block. Nothing sits in permanent edge columns.
-  Hover also dims every other title to 0.45.
+  — the "TYPE — DATE" index line, description, sub-items — is revealed BENEATH the
+  title on hover, stacked and centred as one block. Nothing sits in permanent edge
+  columns. Hover also dims every other title to 0.45.
 
-  No imagery: the hover background image, its crossfade and the LEGIBILITY_MODE
-  scrim were cut. Nothing is layered behind this list, so there is nothing to
-  scrim against.
+  The hover-triggered project image is layered behind the list and crossfades
+  between projects. It is rendered ONLY on devices that genuinely support hover:
+  a touch screen has no hover state, so on a phone this stays a text-only list
+  rather than flashing an image on tap. Detection is
+  `(hover: hover) and (pointer: fine)`, which is the capability question, not a
+  width guess — a small laptop window keeps the image, a large tablet does not.
 
   Hover state is tracked once on the container and derived from data-hl-idx, not
   per-item CSS — the same pattern used on the homepage.
 */
+
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 export interface TitleFont {
   family: string
@@ -35,6 +40,8 @@ export interface HoverListItem {
   /** true when no client-sourced description exists yet */
   descriptionMissing?: boolean
   date?: string
+  /** Shown behind the list on hover. Pointer devices only. */
+  image?: string
   titleFont?: TitleFont
   subItems?: string[]
   /** marks the whole item as awaiting a real route */
@@ -45,16 +52,60 @@ interface Props {
   items: HoverListItem[]
   /** CSS length. Archive list runs large; section pages run smaller. */
   titleSize?: string
+  showHoverImage?: boolean
 }
 
 export default function HoverList({
   items,
   titleSize = 'clamp(64px, 8vw, 140px)',
+  showHoverImage = false,
 }: Props) {
   const [hovered, setHovered] = useState<number | null>(null)
+  const [canHover, setCanHover] = useState(false)
+
+  // Capability check, not a width check. Starts false so the server-rendered
+  // markup carries no image and touch devices never receive one.
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine)')
+    setCanHover(mq.matches)
+    const onChange = (e: MediaQueryListEvent) => setCanHover(e.matches)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  const imagesOn = showHoverImage && canHover
+  const active = hovered !== null ? items[hovered] : null
 
   return (
     <div style={{ position: 'relative' }}>
+      {/* ── Hover image, crossfaded behind the list. Pointer devices only. ── */}
+      {imagesOn && (
+        <div aria-hidden="true" style={{
+          position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', background: '#fff',
+        }}>
+          {items.filter(i => i.image).map(item => (
+            <img
+              key={item.key}
+              src={`${BASE_PATH}${item.image}`}
+              alt=""
+              style={{
+                position: 'absolute', inset: 0,
+                width: '100%', height: '100%', objectFit: 'cover',
+                opacity: active && active.key === item.key ? 1 : 0,
+                transition: 'opacity 500ms ease',
+              }}
+            />
+          ))}
+          {/* Keeps the type legible over whatever frame is behind it. */}
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: 'rgba(255,255,255,0.78)',
+            opacity: active ? 1 : 0,
+            transition: 'opacity 500ms ease',
+          }} />
+        </div>
+      )}
+
       {/* ── The list ── */}
       <div
         onMouseOver={e => {
@@ -93,7 +144,8 @@ export default function HoverList({
                 transition: 'max-height 350ms ease, opacity 250ms ease',
               }}>
                 <span style={{ display: 'block', paddingTop: 18 }}>
-                  {item.category && (
+                  {/* Index line: TYPE — DATE on a single line. */}
+                  {(item.category || item.date) && (
                     <span style={{
                       display: 'block',
                       fontFamily: 'var(--font-body)',
@@ -102,12 +154,13 @@ export default function HoverList({
                       textTransform: 'uppercase',
                       color: '#000',
                       opacity: 0.55,
-                      marginBottom: 10,
+                      marginBottom: 12,
                     }}>
-                      {item.category}
+                      {[item.category, item.date].filter(Boolean).join(' — ')}
                     </span>
                   )}
 
+                  {/* Subline, wide enough to run to roughly two lines. */}
                   {item.descriptionMissing ? (
                     <span style={{ display: 'block', marginBottom: 10 }}>
                       <Placeholder note="two-sentence project description" align="center" />
@@ -120,7 +173,7 @@ export default function HoverList({
                       lineHeight: 1.65,
                       color: '#000',
                       opacity: 0.8,
-                      maxWidth: 520,
+                      maxWidth: 'min(760px, 80vw)',
                       margin: '0 auto 10px',
                     }}>
                       {item.description}
@@ -142,20 +195,6 @@ export default function HoverList({
                           {s}
                         </span>
                       ))}
-                    </span>
-                  )}
-
-                  {item.date && (
-                    <span style={{
-                      display: 'block',
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '11px',
-                      letterSpacing: '0.12em',
-                      textTransform: 'uppercase',
-                      color: '#000',
-                      opacity: 0.55,
-                    }}>
-                      {item.date}
                     </span>
                   )}
 

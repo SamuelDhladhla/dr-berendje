@@ -9,7 +9,9 @@ import Wordmark from './Wordmark'
 const LEGIBILITY_MODE: 'scrim' | 'blend' = 'scrim'
 
 const NAV = {
-  about: { label: 'DR. B', href: '/about' },
+  // Rendered via <Wordmark /> so the interface line carries the real DOC.B
+  // treatment (blue-dot period) rather than a hardcoded text stand-in.
+  about: { href: '/about' },
   research: { label: 'ARTISTIC RESEARCH' },
   inNoParticularOrder: { label: 'IN NO PARTICULAR ORDER', href: '/in-no-particular-order' },
   archive: { label: 'ARCHIVE', href: '/archive' },
@@ -109,8 +111,8 @@ export default function Homepage() {
 
   const navItems = (
     <>
-      <Link href={NAV.about.href} className="hov-6" style={navBase}>
-        {NAV.about.label}
+      <Link href={NAV.about.href} className="hov-6" style={{ ...navBase, display: 'inline-flex' }}>
+        <Wordmark fontSize="13px" />
       </Link>
       <span style={navBase}>{NAV.research.label}</span>
       <Link href={NAV.inNoParticularOrder.href} className="hov-6" style={navSerif}>
