@@ -30,15 +30,18 @@ import Placeholder from './Placeholder'
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 /*
-  Thumbnail geometry. The list reserves a right-hand column of exactly this width
-  whenever the thumbnail is active, so the two never occupy the same space — the
-  display titles run up to 140px and would otherwise pass straight under the
-  image. Reserving the column is a static layout change, not a hover one, so
-  nothing shifts as the pointer moves.
+  Featured-image geometry (Qode "interactive links" reference).
+
+  The image floats in the centre of the frame and sits OVER the type — the list
+  stays centred and full width, and the image overlaps it rather than pushing it
+  aside. It takes no layout space, so nothing reflows on hover.
+
+  Portrait frame with object-fit: cover, matching the reference. This is the one
+  place on the site that crops: a contained fit would letterbox landscape covers
+  inside a portrait frame and leave the plate half empty.
 */
-const THUMB_W = 'clamp(300px, 26vw, 400px)'
-const THUMB_RIGHT = 'clamp(24px, 4vw, 72px)'
-const THUMB_GUTTER = '56px'
+const IMG_W = 'clamp(260px, 24vw, 430px)'
+const IMG_ASPECT = '5 / 6'
 
 export interface TitleFont {
   family: string
@@ -80,19 +83,13 @@ export default function HoverList({
   const [canHover, setCanHover] = useState(false)
 
   /*
-    Two conditions, both required.
-
-    Capability: a touch screen has no hover state, so it never gets the image —
-    the markup is not rendered at all rather than hidden.
-
-    Width: the thumbnail column has a 300px floor, so on a narrow window it would
-    crush the list to a sliver. Below 1024px the list stays full-width text only,
-    which is also the right call for a phone in landscape.
-
-    Starts false, so server-rendered markup carries no image either way.
+    A touch screen has no hover state, so it never gets the image — the markup is
+    not rendered at all rather than hidden. Capability, not width: the image is an
+    overlay now and takes no layout space, so a narrow window needs no special
+    case. Starts false, so server-rendered markup carries no image either way.
   */
   useEffect(() => {
-    const mq = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 1024px)')
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine)')
     setCanHover(mq.matches)
     const onChange = (e: MediaQueryListEvent) => setCanHover(e.matches)
     mq.addEventListener('change', onChange)
@@ -103,8 +100,8 @@ export default function HoverList({
   const active = hovered !== null ? items[hovered] : null
 
   return (
-    <div style={{ position: 'relative', display: 'flex', alignItems: 'flex-start' }}>
-      {/* ── The list ── */}
+    <div style={{ position: 'relative' }}>
+      {/* ── The list — stays centred and full width at all times ── */}
       <div
         onMouseOver={e => {
           const el = (e.target as HTMLElement).closest('[data-hl-idx]')
@@ -114,14 +111,7 @@ export default function HoverList({
         style={{
           position: 'relative',
           zIndex: 1,
-          // flex:1 with minWidth:0 — the list takes the space the thumbnail
-          // column does not, so the two can never occupy the same pixels.
-          flex: 1,
-          minWidth: 0,
-          paddingTop: 96,
-          paddingBottom: 120,
-          paddingLeft: 40,
-          paddingRight: imagesOn ? THUMB_GUTTER : 40,
+          padding: '96px 40px 120px',
         }}
       >
         {items.map((item, i) => {
@@ -247,48 +237,40 @@ export default function HoverList({
         })}
       </div>
 
-      {/* ── Thumbnail column ──
-          A real flex sibling, not an overlay. It owns its width in the layout,
-          so a 140px display title physically cannot run underneath it. Sticky
-          rather than fixed, so it tracks the viewport while staying in flow. */}
+      {/* ── Featured image — centred, floating over the type ──
+          Fixed and centred in the viewport, above the list. Overlaps the titles
+          by design; it takes no layout space, so the text never reflows. */}
       {imagesOn && (
         <div
           aria-hidden="true"
           style={{
-            width: THUMB_W,
-            flexShrink: 0,
-            paddingRight: THUMB_RIGHT,
-            paddingTop: 96,
-            alignSelf: 'stretch',
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: IMG_W,
+            aspectRatio: IMG_ASPECT,
+            zIndex: 5,
             pointerEvents: 'none',
+            opacity: active && active.image ? 1 : 0,
+            transition: 'opacity 350ms ease',
           }}
         >
-          <div style={{
-            position: 'sticky',
-            top: 'calc(50vh - 12vw)',
-            width: '100%',
-            aspectRatio: '4 / 3',
-            opacity: active && active.image ? 1 : 0,
-            transition: 'opacity 300ms ease',
-          }}>
-            {items.filter(i => i.image).map(item => (
-              <img
-                key={item.key}
-                src={`${BASE_PATH}${item.image}`}
-                alt=""
-                style={{
-                  position: 'absolute', inset: 0,
-                  width: '100%', height: '100%',
-                  // contain, so portrait covers are not cropped — the same
-                  // convention the Grid uses.
-                  objectFit: 'contain',
-                  objectPosition: 'center',
-                  opacity: active && active.key === item.key ? 1 : 0,
-                  transition: 'opacity 300ms ease',
-                }}
-              />
-            ))}
-          </div>
+          {items.filter(i => i.image).map(item => (
+            <img
+              key={item.key}
+              src={`${BASE_PATH}${item.image}`}
+              alt=""
+              style={{
+                position: 'absolute', inset: 0,
+                width: '100%', height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center',
+                opacity: active && active.key === item.key ? 1 : 0,
+                transition: 'opacity 350ms ease',
+              }}
+            />
+          ))}
         </div>
       )}
     </div>
