@@ -11,18 +11,34 @@ import Placeholder from './Placeholder'
   title on hover, stacked and centred as one block. Nothing sits in permanent edge
   columns. Hover also dims every other title to 0.45.
 
-  The hover-triggered project image is layered behind the list and crossfades
-  between projects. It is rendered ONLY on devices that genuinely support hover:
-  a touch screen has no hover state, so on a phone this stays a text-only list
-  rather than flashing an image on tap. Detection is
-  `(hover: hover) and (pointer: fine)`, which is the capability question, not a
-  width guess — a small laptop window keeps the image, a large tablet does not.
+  The hover-triggered project image is a small contained thumbnail pinned to the
+  right of the text (the Okra index convention), not a full-bleed background. It
+  crossfades between projects. Because it no longer sits behind the type, there
+  is nothing to scrim — the legibility wash that the full-bleed version needed is
+  gone.
+
+  It is rendered ONLY on devices that genuinely support hover: a touch screen has
+  no hover state, so on a phone this stays a text-only list rather than flashing
+  an image on tap. Detection is `(hover: hover) and (pointer: fine)`, which is the
+  capability question, not a width guess — a small laptop window keeps the
+  thumbnail, a large tablet does not.
 
   Hover state is tracked once on the container and derived from data-hl-idx, not
   per-item CSS — the same pattern used on the homepage.
 */
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ''
+
+/*
+  Thumbnail geometry. The list reserves a right-hand column of exactly this width
+  whenever the thumbnail is active, so the two never occupy the same space — the
+  display titles run up to 140px and would otherwise pass straight under the
+  image. Reserving the column is a static layout change, not a hover one, so
+  nothing shifts as the pointer moves.
+*/
+const THUMB_W = 'clamp(300px, 26vw, 400px)'
+const THUMB_RIGHT = 'clamp(24px, 4vw, 72px)'
+const THUMB_GUTTER = '56px'
 
 export interface TitleFont {
   family: string
@@ -63,10 +79,20 @@ export default function HoverList({
   const [hovered, setHovered] = useState<number | null>(null)
   const [canHover, setCanHover] = useState(false)
 
-  // Capability check, not a width check. Starts false so the server-rendered
-  // markup carries no image and touch devices never receive one.
+  /*
+    Two conditions, both required.
+
+    Capability: a touch screen has no hover state, so it never gets the image —
+    the markup is not rendered at all rather than hidden.
+
+    Width: the thumbnail column has a 300px floor, so on a narrow window it would
+    crush the list to a sliver. Below 1024px the list stays full-width text only,
+    which is also the right call for a phone in landscape.
+
+    Starts false, so server-rendered markup carries no image either way.
+  */
   useEffect(() => {
-    const mq = window.matchMedia('(hover: hover) and (pointer: fine)')
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 1024px)')
     setCanHover(mq.matches)
     const onChange = (e: MediaQueryListEvent) => setCanHover(e.matches)
     mq.addEventListener('change', onChange)
@@ -77,35 +103,7 @@ export default function HoverList({
   const active = hovered !== null ? items[hovered] : null
 
   return (
-    <div style={{ position: 'relative' }}>
-      {/* ── Hover image, crossfaded behind the list. Pointer devices only. ── */}
-      {imagesOn && (
-        <div aria-hidden="true" style={{
-          position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', background: '#fff',
-        }}>
-          {items.filter(i => i.image).map(item => (
-            <img
-              key={item.key}
-              src={`${BASE_PATH}${item.image}`}
-              alt=""
-              style={{
-                position: 'absolute', inset: 0,
-                width: '100%', height: '100%', objectFit: 'cover',
-                opacity: active && active.key === item.key ? 1 : 0,
-                transition: 'opacity 500ms ease',
-              }}
-            />
-          ))}
-          {/* Keeps the type legible over whatever frame is behind it. */}
-          <div style={{
-            position: 'absolute', inset: 0,
-            background: 'rgba(255,255,255,0.78)',
-            opacity: active ? 1 : 0,
-            transition: 'opacity 500ms ease',
-          }} />
-        </div>
-      )}
-
+    <div style={{ position: 'relative', display: 'flex', alignItems: 'flex-start' }}>
       {/* ── The list ── */}
       <div
         onMouseOver={e => {
@@ -113,7 +111,18 @@ export default function HoverList({
           setHovered(el ? Number(el.getAttribute('data-hl-idx')) : null)
         }}
         onMouseLeave={() => setHovered(null)}
-        style={{ position: 'relative', zIndex: 1, padding: '96px 40px 120px' }}
+        style={{
+          position: 'relative',
+          zIndex: 1,
+          // flex:1 with minWidth:0 — the list takes the space the thumbnail
+          // column does not, so the two can never occupy the same pixels.
+          flex: 1,
+          minWidth: 0,
+          paddingTop: 96,
+          paddingBottom: 120,
+          paddingLeft: 40,
+          paddingRight: imagesOn ? THUMB_GUTTER : 40,
+        }}
       >
         {items.map((item, i) => {
           const isActive = hovered === i
@@ -237,6 +246,51 @@ export default function HoverList({
           )
         })}
       </div>
+
+      {/* ── Thumbnail column ──
+          A real flex sibling, not an overlay. It owns its width in the layout,
+          so a 140px display title physically cannot run underneath it. Sticky
+          rather than fixed, so it tracks the viewport while staying in flow. */}
+      {imagesOn && (
+        <div
+          aria-hidden="true"
+          style={{
+            width: THUMB_W,
+            flexShrink: 0,
+            paddingRight: THUMB_RIGHT,
+            paddingTop: 96,
+            alignSelf: 'stretch',
+            pointerEvents: 'none',
+          }}
+        >
+          <div style={{
+            position: 'sticky',
+            top: 'calc(50vh - 12vw)',
+            width: '100%',
+            aspectRatio: '4 / 3',
+            opacity: active && active.image ? 1 : 0,
+            transition: 'opacity 300ms ease',
+          }}>
+            {items.filter(i => i.image).map(item => (
+              <img
+                key={item.key}
+                src={`${BASE_PATH}${item.image}`}
+                alt=""
+                style={{
+                  position: 'absolute', inset: 0,
+                  width: '100%', height: '100%',
+                  // contain, so portrait covers are not cropped — the same
+                  // convention the Grid uses.
+                  objectFit: 'contain',
+                  objectPosition: 'center',
+                  opacity: active && active.key === item.key ? 1 : 0,
+                  transition: 'opacity 300ms ease',
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

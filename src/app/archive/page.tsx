@@ -11,7 +11,6 @@ import { getOrderedProjects, PROJECT_META } from '@/data/projects'
 
 export default function ArchivePage() {
   const [view, setView] = useState<'list' | 'grid'>('list')
-  const [bw, setBw] = useState(true)
 
   const ordered = getOrderedProjects()
 
@@ -36,41 +35,6 @@ export default function ArchivePage() {
     }}>{label}</button>
   )
 
-  /*
-    The B&W control is drawn as a pill, not as plain nav type.
-
-    It reads as a control rather than as text. Styled like the other toggles it
-    sat in the top-right of the sticky header, directly above the right-hand grid
-    column, and scanned as though it were part of that image's caption — which is
-    exactly what the client reported. The string was never inside a caption; the
-    ambiguity was purely visual, so the fix is to make it unmistakably a button.
-  */
-  const bwToggle = () => (
-    <button
-      onClick={() => setBw(!bw)}
-      aria-pressed={bw}
-      style={{
-        ...navText,
-        fontSize: '11px',
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: 7,
-        padding: '5px 11px',
-        borderRadius: 999,
-        border: '1px solid rgba(0,0,0,0.35)',
-        background: bw ? '#000' : 'transparent',
-        color: bw ? '#fff' : '#000',
-      }}
-    >
-      <span style={{
-        width: 7, height: 7, borderRadius: '50%',
-        background: bw ? '#fff' : 'rgba(0,0,0,0.3)',
-        display: 'inline-block', flexShrink: 0,
-      }} />
-      B&amp;W
-    </button>
-  )
-
   return (
     <main style={{ background: '#fff', minHeight: '100vh' }}>
       <SiteHeader
@@ -80,12 +44,6 @@ export default function ArchivePage() {
             {toggle('List', view === 'list', () => setView('list'))}
             <span style={{ opacity: 0.2, fontSize: 12 }}>/</span>
             {toggle('Grid', view === 'grid', () => setView('grid'))}
-            {view === 'grid' && (
-              <>
-                <span style={{ width: 12 }} />
-                {bwToggle()}
-              </>
-            )}
           </>
         }
       />
@@ -93,13 +51,9 @@ export default function ArchivePage() {
       {/* ══ LIST — centred, everything revealed beneath the title on hover ══ */}
       {view === 'list' && <HoverList items={items} showHoverImage />}
 
-      {/* ══ GRID — contain, not crop. B&W toggle. Okra-scale white space. ══ */}
+      {/* ══ GRID — contain, not crop. Always full colour. Okra-scale white space. ══ */}
       {view === 'grid' && (
         <>
-          <style>{`
-            .gi-img { transition: filter 600ms ease; }
-            .gi:hover .gi-img { filter: none !important; }
-          `}</style>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
@@ -123,7 +77,6 @@ export default function ArchivePage() {
                   marginBottom: 24,
                 }}>
                   <ImageSlot
-                    className="gi-img"
                     src={p.coverImage}
                     alt={p.title}
                     style={{
@@ -132,8 +85,7 @@ export default function ArchivePage() {
                       width: p.coverImage ? 'auto' : '100%',
                       height: p.coverImage ? 'auto' : '100%',
                       objectFit: 'contain',
-                      filter: bw && p.coverImage ? 'grayscale(100%)' : 'none',
-                    }}
+                      }}
                   />
                 </div>
                 <p style={{
