@@ -1,8 +1,15 @@
 'use client'
 import { Project } from '@/types'
-import { LAYOUT_MAP, LayoutDefault } from './ProjectPageLayouts'
+import ProjectPage from './ProjectPage'
 
-const HEADING = 'var(--font-body)'
+/*
+  Every research project now renders through one template.
+
+  This previously dispatched to eight bespoke per-project layouts via LAYOUT_MAP.
+  The client asked for the A4 Arts structure and hierarchy across the research
+  project pages, which means one consistent template rather than eight — so the
+  map is retired and ProjectPageLayouts is no longer in the render path.
+*/
 
 interface Props {
   project: Project
@@ -12,16 +19,12 @@ interface Props {
 }
 
 export default function ProjectPageShared({ project, prev, next, designPrefix }: Props) {
-  const Layout = LAYOUT_MAP[project.slug] ?? LayoutDefault
-
   return (
-    <Layout
+    <ProjectPage
       project={project}
       prev={prev}
       next={next}
       designPrefix={designPrefix}
-      font={HEADING}
-      color="#000"
     />
   )
 }
