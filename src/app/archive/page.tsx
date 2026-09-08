@@ -51,9 +51,22 @@ export default function ArchivePage() {
       {/* ══ LIST — centred, everything revealed beneath the title on hover ══ */}
       {view === 'list' && <HoverList items={items} showHoverImage />}
 
-      {/* ══ GRID — contain, not crop. Always full colour. Okra-scale white space. ══ */}
+      {/* ══ GRID — contain, not crop. B&W, colour on hover. Okra-scale space. ══ */}
       {view === 'grid' && (
         <>
+          {/*
+            Greyscale at rest, full colour on hover.
+
+            Scoped to `.gi img` rather than a class on ImageSlot, because
+            ImageSlot puts its className on the missing-image placeholder too —
+            and greying that out would mute the red marker that exists precisely
+            to be noticed. A bare `img` selector can only ever match a real
+            photograph.
+          */}
+          <style>{`
+            .gi img { filter: grayscale(100%); transition: filter 600ms ease; }
+            .gi:hover img { filter: grayscale(0%); }
+          `}</style>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
