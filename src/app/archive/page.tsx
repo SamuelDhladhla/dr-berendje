@@ -77,16 +77,18 @@ export default function ArchivePage() {
           }}>
             {ordered.map(p => (
               <Link key={p.slug} href={`/archive/${p.slug}`} className="gi"
-                style={{ display: 'block', textDecoration: 'none' }}>
+                style={{ display: 'block', textDecoration: 'none', textAlign: 'center' }}>
                 {/* Sized container, image contained inside it — portrait and
-                    landscape both sit whole, neither is cropped to fill. */}
+                    landscape both sit whole, neither is cropped to fill.
+                    Captions sit close under the image, centred and tightly
+                    leaded, after the Okra reference. */}
                 <div style={{
                   width: '100%',
                   height: 420,
                   display: 'flex',
                   alignItems: 'flex-end',
                   justifyContent: 'center',
-                  marginBottom: 24,
+                  marginBottom: 12,
                 }}>
                   <ImageSlot
                     src={p.coverImage}
@@ -104,19 +106,17 @@ export default function ArchivePage() {
                   fontFamily: p.titleFont?.family ?? 'var(--font-body)',
                   fontWeight: p.titleFont?.weight ?? 400,
                   fontStyle: p.titleFont?.style ?? 'normal',
-                  fontSize: '21px', color: '#000', lineHeight: 1.25, marginBottom: 7,
+                  fontSize: '21px', color: '#000', lineHeight: 1.15, marginBottom: 3,
                 }}>
                   {p.title}
                 </p>
-                {/* Caption: title, medium, year — italic Sabon.
-                    Sizing is a judgement call; exact scale still pending the
-                    client's A4 Arts reference. */}
+                {/* Caption: title, medium, year — italic Sabon. */}
                 <p style={{
                   fontFamily: 'var(--font-body)',
                   fontStyle: 'italic',
                   fontSize: '15px',
                   color: '#000',
-                  lineHeight: 1.5,
+                  lineHeight: 1.25,
                   marginBottom: 8,
                 }}>
                   {p.title}, {PROJECT_META[p.slug]?.category}, {p.year}
@@ -129,8 +129,9 @@ export default function ArchivePage() {
                     fontFamily: 'var(--font-body)',
                     fontSize: '14px',
                     color: '#000',
-                    lineHeight: 1.6,
+                    lineHeight: 1.35,
                     maxWidth: 460,
+                    margin: '0 auto',
                   }}>
                     {p.excerpt}
                   </p>

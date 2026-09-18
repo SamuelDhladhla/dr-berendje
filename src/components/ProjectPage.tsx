@@ -34,7 +34,7 @@ const titleStyle = (p: Project): React.CSSProperties => ({
   fontFamily: p.titleFont?.family ?? 'var(--font-body)',
   fontWeight: p.titleFont?.weight ?? 400,
   fontStyle: p.titleFont?.style ?? 'normal',
-  fontSize: 'clamp(34px, 4.4vw, 56px)',
+  fontSize: 'clamp(44px, 5.8vw, 80px)',
   lineHeight: 1.05,
   letterSpacing: '-0.02em',
   color: '#000',
@@ -52,7 +52,7 @@ const subInfo: React.CSSProperties = {
 
 const metaLabel: React.CSSProperties = {
   fontFamily: 'var(--font-body)',
-  fontSize: '9px',
+  fontSize: '10px',
   letterSpacing: '0.14em',
   textTransform: 'uppercase',
   color: '#000',
@@ -62,19 +62,23 @@ const metaLabel: React.CSSProperties = {
 
 const metaValue: React.CSSProperties = {
   fontFamily: 'var(--font-body)',
-  fontSize: '11px',
-  lineHeight: 1.55,
+  fontSize: '13px',
+  lineHeight: 1.45,
   color: '#000',
   display: 'block',
 }
 
-/** The reading column — the size the client specifically asked to keep. */
+/*
+  The reading column. Sized after the Okra reference the client supplied: a
+  large serif reading size with fairly close leading, so the text reads as the
+  main event of the page rather than as small print beside the metadata.
+*/
 const readingText: React.CSSProperties = {
   fontFamily: 'var(--font-body)',
-  fontSize: '16px',
-  lineHeight: 1.7,
+  fontSize: '20px',
+  lineHeight: 1.45,
   color: '#000',
-  marginBottom: 22,
+  marginBottom: 24,
 }
 
 const credit: React.CSSProperties = {
