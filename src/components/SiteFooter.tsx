@@ -15,7 +15,6 @@ const label: React.CSSProperties = {
   letterSpacing: '0.14em',
   textTransform: 'uppercase',
   color: '#000',
-  opacity: 0.4,
   marginBottom: 10,
   display: 'block',
 }
@@ -74,7 +73,6 @@ export default function SiteFooter() {
           letterSpacing: '0.14em',
           textTransform: 'uppercase',
           color: '#000',
-          opacity: 0.4,
         }}>
           {SITE_INFO.rights}
         </span>

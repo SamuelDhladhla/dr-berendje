@@ -47,7 +47,6 @@ const subInfo: React.CSSProperties = {
   letterSpacing: '0.14em',
   textTransform: 'uppercase',
   color: '#000',
-  opacity: 0.55,
   marginTop: 14,
 }
 
@@ -57,7 +56,6 @@ const metaLabel: React.CSSProperties = {
   letterSpacing: '0.14em',
   textTransform: 'uppercase',
   color: '#000',
-  opacity: 0.4,
   marginBottom: 5,
   display: 'block',
 }
@@ -84,7 +82,6 @@ const credit: React.CSSProperties = {
   fontSize: '11px',
   lineHeight: 1.5,
   color: '#000',
-  opacity: 0.55,
   marginTop: 12,
 }
 
@@ -105,7 +102,17 @@ interface Props {
 }
 
 export default function ProjectPage({ project, prev, next, designPrefix }: Props) {
-  const groups = project.imageGroups ?? deriveImageGroups(project.images.slice(1))
+  /*
+    Every image group carries a caption beneath it, matching In No Particular
+    Order. An explicit `credit` on a group always wins; otherwise the caption is
+    composed from the same fields the metadata column shows — title, location,
+    dates — so there is one source for that information, not two.
+  */
+  const defaultCaption = [project.title, project.location, project.year]
+    .filter(Boolean)
+    .join(', ')
+  const groups = (project.imageGroups ?? deriveImageGroups(project.images.slice(1)))
+    .map(g => ({ ...g, credit: g.credit ?? defaultCaption }))
   const paragraphs = project.description.trim()
     ? project.description.split('\n\n')
     : []
@@ -115,7 +122,7 @@ export default function ProjectPage({ project, prev, next, designPrefix }: Props
       <SiteHeader active={designPrefix} />
 
       <div style={{ padding: `0 ${PAGE_X}px 8px` }}>
-        <Link href={designPrefix} style={{ ...navText, opacity: 0.55 }}>
+        <Link href={designPrefix} style={navText}>
           ← Research Projects
         </Link>
       </div>
@@ -209,13 +216,13 @@ export default function ProjectPage({ project, prev, next, designPrefix }: Props
       }}>
         {prev ? (
           <Link href={`${designPrefix}/${prev.slug}`} style={{ textDecoration: 'none' }}>
-            <p style={{ ...navText, opacity: 0.5, marginBottom: 10 }}>← Previous</p>
+            <p style={{ ...navText, marginBottom: 10 }}>← Previous</p>
             <p style={{ ...titleStyle(prev), fontSize: '22px' }}>{prev.title}</p>
           </Link>
         ) : <div />}
         {next ? (
           <Link href={`${designPrefix}/${next.slug}`} style={{ textDecoration: 'none', textAlign: 'right' }}>
-            <p style={{ ...navText, opacity: 0.5, marginBottom: 10 }}>Next →</p>
+            <p style={{ ...navText, marginBottom: 10 }}>Next →</p>
             <p style={{ ...titleStyle(next), fontSize: '22px' }}>{next.title}</p>
           </Link>
         ) : <div />}

@@ -264,6 +264,18 @@ The MMM laid the conceptual foundation for doc. Berendje's current practice — 
       '/images/sender/3.jpg',
     ],
     coverImage: '/images/sender/1.jpg',
+    /*
+      Explicit grouping, per the client's note that these images should appear
+      "in changing relationships to one another, rather than as a fixed
+      sequence". Derived grouping left the two non-hero images as two stacked
+      singles; here they sit side by side as a pair.
+
+      Read as CURATED variety — a deliberate mix of single and grouped images —
+      not a shuffled order on each visit. Awaiting her confirmation.
+    */
+    imageGroups: [
+      { images: ['/images/sender/2.jpg', '/images/sender/3.jpg'] },
+    ],
     fieldSize: 'medium',
   },
   {

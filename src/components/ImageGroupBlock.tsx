@@ -58,7 +58,6 @@ export default function ImageGroupBlock({ group, maxHeight }: Props) {
           fontSize: '11px',
           lineHeight: 1.5,
           color: '#000',
-          opacity: 0.55,
           marginTop: 12,
         }}>
           {group.credit}

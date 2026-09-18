@@ -30,7 +30,6 @@ export default function ArchivePage() {
     <button onClick={fn} style={{
       ...navText,
       background: 'none', border: 'none', padding: 0,
-      opacity: on ? 1 : 0.35,
       borderBottom: on ? '1px solid #000' : '1px solid transparent', paddingBottom: 1,
     }}>{label}</button>
   )
@@ -42,7 +41,7 @@ export default function ArchivePage() {
         right={
           <>
             {toggle('List', view === 'list', () => setView('list'))}
-            <span style={{ opacity: 0.2, fontSize: 12 }}>/</span>
+            <span style={{ fontSize: 12 }}>/</span>
             {toggle('Grid', view === 'grid', () => setView('grid'))}
           </>
         }
@@ -117,7 +116,6 @@ export default function ArchivePage() {
                   fontStyle: 'italic',
                   fontSize: '15px',
                   color: '#000',
-                  opacity: 0.55,
                   lineHeight: 1.5,
                   marginBottom: 8,
                 }}>
@@ -131,7 +129,6 @@ export default function ArchivePage() {
                     fontFamily: 'var(--font-body)',
                     fontSize: '14px',
                     color: '#000',
-                    opacity: 0.75,
                     lineHeight: 1.6,
                     maxWidth: 460,
                   }}>

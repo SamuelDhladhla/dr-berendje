@@ -11,17 +11,24 @@ import Placeholder from './Placeholder'
   title on hover, stacked and centred as one block. Nothing sits in permanent edge
   columns. Hover also dims every other title to 0.45.
 
-  The hover-triggered project image is a small contained thumbnail pinned to the
-  right of the text (the Okra index convention), not a full-bleed background. It
-  crossfades between projects. Because it no longer sits behind the type, there
-  is nothing to scrim — the legibility wash that the full-bleed version needed is
-  gone.
+  The hover-triggered project image is a thumbnail pinned to the top-right corner
+  of the viewport (position: fixed), so it stays put however far the page
+  scrolls. It crossfades between projects. Nothing sits behind the type, so there
+  is no scrim.
 
-  It is rendered ONLY on devices that genuinely support hover: a touch screen has
-  no hover state, so on a phone this stays a text-only list rather than flashing
-  an image on tap. Detection is `(hover: hover) and (pointer: fine)`, which is the
-  capability question, not a width guess — a small laptop window keeps the
-  thumbnail, a large tablet does not.
+  A fixed corner alone would still collide with the text: the display titles run
+  nearly the full page width, so any title scrolling past the corner would pass
+  underneath it. The list therefore reserves the thumbnail's width on BOTH sides
+  whenever the thumbnail is active — the text column stays centred on the page,
+  and the corner is structurally clear at every scroll position.
+
+  Top-right rather than bottom-right: it sits below the sticky header, and it can
+  never meet the footer, which only rises into view below the hovered item.
+
+  It is rendered ONLY on devices that genuinely support hover and have the width
+  to spare: a touch screen has no hover state, and below 1100px the reserved
+  gutters would squeeze the titles too hard. Either way the list stays full-width
+  text only.
 
   Hover state is tracked once on the container and derived from data-hl-idx, not
   per-item CSS — the same pattern used on the homepage.
@@ -30,18 +37,22 @@ import Placeholder from './Placeholder'
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 /*
-  Featured-image geometry (Qode "interactive links" reference).
-
-  The image floats in the centre of the frame and sits OVER the type — the list
-  stays centred and full width, and the image overlaps it rather than pushing it
-  aside. It takes no layout space, so nothing reflows on hover.
-
-  Portrait frame with object-fit: cover, matching the reference. This is the one
-  place on the site that crops: a contained fit would letterbox landscape covers
-  inside a portrait frame and leave the plate half empty.
+  Thumbnail geometry. Portrait frame, object-fit: cover — the one place on the
+  site that crops, since a contained fit would letterbox landscape covers inside
+  a portrait plate.
 */
-const IMG_W = 'clamp(260px, 24vw, 430px)'
-const IMG_ASPECT = '5 / 6'
+const IMG_W = 'clamp(180px, 15vw, 260px)'
+const IMG_ASPECT = '4 / 5'
+const IMG_EDGE = 32   // gap from the viewport edge
+const IMG_TOP = 104   // clears the sticky header
+const IMG_GUTTER = 40 // gap between the thumbnail and the text column
+
+/*
+  The capability gate, shared by the JS (whether to render the image) and the CSS
+  (whether to reserve the gutters). Doing the reservation in CSS means the server
+  markup already has the right padding, so the text does not jump on hydration.
+*/
+const IMAGE_MQ = '(hover: hover) and (pointer: fine) and (min-width: 1100px)'
 
 export interface TitleFont {
   family: string
@@ -84,12 +95,11 @@ export default function HoverList({
 
   /*
     A touch screen has no hover state, so it never gets the image — the markup is
-    not rendered at all rather than hidden. Capability, not width: the image is an
-    overlay now and takes no layout space, so a narrow window needs no special
-    case. Starts false, so server-rendered markup carries no image either way.
+    not rendered at all rather than hidden. Starts false, so server-rendered
+    markup carries no image either way.
   */
   useEffect(() => {
-    const mq = window.matchMedia('(hover: hover) and (pointer: fine)')
+    const mq = window.matchMedia(IMAGE_MQ)
     setCanHover(mq.matches)
     const onChange = (e: MediaQueryListEvent) => setCanHover(e.matches)
     mq.addEventListener('change', onChange)
@@ -101,8 +111,21 @@ export default function HoverList({
 
   return (
     <div style={{ position: 'relative' }}>
-      {/* ── The list — stays centred and full width at all times ── */}
+      {showHoverImage && (
+        <style>{`
+          @media ${IMAGE_MQ} {
+            .hl-reserve {
+              padding-left: calc(${IMG_W} + ${IMG_EDGE + IMG_GUTTER}px) !important;
+              padding-right: calc(${IMG_W} + ${IMG_EDGE + IMG_GUTTER}px) !important;
+            }
+          }
+        `}</style>
+      )}
+
+      {/* ── The list — centred; gutters reserved on both sides when the
+             thumbnail is active so the corner can never meet the text ── */}
       <div
+        className={showHoverImage ? 'hl-reserve' : undefined}
         onMouseOver={e => {
           const el = (e.target as HTMLElement).closest('[data-hl-idx]')
           setHovered(el ? Number(el.getAttribute('data-hl-idx')) : null)
@@ -152,7 +175,6 @@ export default function HoverList({
                       letterSpacing: '0.12em',
                       textTransform: 'uppercase',
                       color: '#000',
-                      opacity: 0.55,
                       marginBottom: 12,
                     }}>
                       {[item.category, item.date].filter(Boolean).join(' — ')}
@@ -171,7 +193,6 @@ export default function HoverList({
                       fontSize: '15px',
                       lineHeight: 1.65,
                       color: '#000',
-                      opacity: 0.8,
                       maxWidth: 'min(760px, 80vw)',
                       margin: '0 auto 10px',
                     }}>
@@ -188,7 +209,6 @@ export default function HoverList({
                           fontStyle: 'italic',
                           fontSize: '13px',
                           color: '#000',
-                          opacity: 0.6,
                           margin: '0 10px 4px',
                         }}>
                           {s}
@@ -237,17 +257,14 @@ export default function HoverList({
         })}
       </div>
 
-      {/* ── Featured image — centred, floating over the type ──
-          Fixed and centred in the viewport, above the list. Overlaps the titles
-          by design; it takes no layout space, so the text never reflows. */}
+      {/* ── Thumbnail — fixed to the top-right of the viewport ── */}
       {imagesOn && (
         <div
           aria-hidden="true"
           style={{
             position: 'fixed',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
+            top: IMG_TOP,
+            right: IMG_EDGE,
             width: IMG_W,
             aspectRatio: IMG_ASPECT,
             zIndex: 5,

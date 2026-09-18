@@ -17,7 +17,6 @@ export default function PlaytimePage() {
           fontStyle: 'italic',
           fontSize: '17px',
           color: '#000',
-          opacity: 0.75,
           marginBottom: 14,
         }}>
           Other filtered parts of the practice live on Instagram

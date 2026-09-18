@@ -62,7 +62,6 @@ export default function InNoParticularOrderPage() {
           letterSpacing: '0.14em',
           textTransform: 'uppercase',
           color: '#000',
-          opacity: 0.55,
           marginTop: 14,
         }}>
           Visual Essays &amp; Film — 2008 —

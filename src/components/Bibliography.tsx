@@ -38,7 +38,7 @@ function Entry({ e }: { e: BibliographyEntry }) {
       {e.publisher && <>, {e.publisher}</>}
       {e.location && <>, {e.location}</>}
       {e.note && (
-        <span style={{ opacity: 0.55 }}> — {e.note}</span>
+        <span> — {e.note}</span>
       )}
     </li>
   )
@@ -54,7 +54,6 @@ export default function Bibliography({ entries }: { entries?: BibliographyEntry[
         letterSpacing: '0.14em',
         textTransform: 'uppercase',
         color: '#000',
-        opacity: 0.45,
         marginBottom: 24,
       }}>
         Bibliography &amp; Resources

@@ -37,10 +37,8 @@ export const navText: React.CSSProperties = {
 
 const navLink = (active: boolean): React.CSSProperties => ({
   ...navText,
-  opacity: active ? 1 : 0.55,
   borderBottom: active ? '1px solid #000' : '1px solid transparent',
   paddingBottom: 1,
-  transition: 'opacity 150ms ease',
 })
 
 interface Props {
