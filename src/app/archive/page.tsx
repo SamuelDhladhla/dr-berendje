@@ -6,7 +6,7 @@ import ImageSlot from '@/components/ImageSlot'
 import SiteFooter from '@/components/SiteFooter'
 import HoverList, { type HoverListItem } from '@/components/HoverList'
 import Placeholder from '@/components/Placeholder'
-import { getOrderedProjects, PROJECT_META } from '@/data/projects'
+import { getOrderedProjects, PROJECT_META, formatYears } from '@/data/projects'
 
 
 export default function ArchivePage() {
@@ -21,7 +21,7 @@ export default function ArchivePage() {
     category: PROJECT_META[p.slug]?.category,
     description: p.excerpt || undefined,
     descriptionMissing: p.contentStatus === 'placeholder',
-    date: p.year,
+    date: formatYears(p),
     image: p.coverImage || undefined,
     titleFont: p.titleFont,
   }))
@@ -77,18 +77,18 @@ export default function ArchivePage() {
           }}>
             {ordered.map(p => (
               <Link key={p.slug} href={`/archive/${p.slug}`} className="gi"
-                style={{ display: 'block', textDecoration: 'none', textAlign: 'center' }}>
-                {/* Sized container, image contained inside it — portrait and
-                    landscape both sit whole, neither is cropped to fill.
-                    Captions sit close under the image, centred and tightly
-                    leaded, after the Okra reference. */}
+                style={{ display: 'block', textDecoration: 'none', textAlign: 'left' }}>
+                {/* Image sits flush left in its cell so the caption beneath can
+                    line up with the image's own left edge — the images are
+                    contained at their natural proportions, so a centred image
+                    would leave the caption floating against nothing. */}
                 <div style={{
                   width: '100%',
                   height: 420,
                   display: 'flex',
                   alignItems: 'flex-end',
-                  justifyContent: 'center',
-                  marginBottom: 12,
+                  justifyContent: 'flex-start',
+                  marginBottom: 10,
                 }}>
                   <ImageSlot
                     src={p.coverImage}
@@ -102,40 +102,45 @@ export default function ArchivePage() {
                       }}
                   />
                 </div>
+                {/* Caption block — belongs to the image above it. No margins
+                    inside: the white space on this page sits BETWEEN blocks
+                    (the grid's row gap), never within one. Sizes are fixed, so
+                    they are identical whatever the image's size or shape. */}
                 <p style={{
                   fontFamily: p.titleFont?.family ?? 'var(--font-body)',
                   fontWeight: p.titleFont?.weight ?? 400,
                   fontStyle: p.titleFont?.style ?? 'normal',
-                  fontSize: '21px', color: '#000', lineHeight: 1.15, marginBottom: 3,
+                  fontSize: '16px', color: '#000', lineHeight: 1.25, margin: 0,
                 }}>
                   {p.title}
                 </p>
-                {/* Caption: title, medium, year — italic Sabon. */}
+                {/* Category and year. The title is NOT repeated here, and a
+                    single-year project shows no dash. */}
                 <p style={{
                   fontFamily: 'var(--font-body)',
-                  fontStyle: 'italic',
-                  fontSize: '15px',
+                  fontSize: '13px',
                   color: '#000',
-                  lineHeight: 1.25,
-                  marginBottom: 8,
+                  lineHeight: 1.3,
+                  margin: '3px 0 0',
                 }}>
-                  {p.title}, {PROJECT_META[p.slug]?.category}, {p.year}
+                  {[PROJECT_META[p.slug]?.category, formatYears(p)].filter(Boolean).join(', ')}
                 </p>
                 {/* Subline — same source as the List page's subline. */}
-                {p.contentStatus === 'placeholder' ? (
-                  <Placeholder note="subline" />
-                ) : p.excerpt ? (
-                  <p style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '14px',
-                    color: '#000',
-                    lineHeight: 1.35,
-                    maxWidth: 460,
-                    margin: '0 auto',
-                  }}>
-                    {p.excerpt}
-                  </p>
-                ) : null}
+                <div style={{ marginTop: 3 }}>
+                  {p.contentStatus === 'placeholder' ? (
+                    <Placeholder note="subline" />
+                  ) : p.excerpt ? (
+                    <p style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '13px',
+                      color: '#000',
+                      lineHeight: 1.35,
+                      margin: 0,
+                    }}>
+                      {p.excerpt}
+                    </p>
+                  ) : null}
+                </div>
               </Link>
             ))}
           </div>

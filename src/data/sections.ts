@@ -13,46 +13,8 @@ import type { HoverListItem } from '@/components/HoverList'
 
 export { INSTAGRAM_URL } from './site'
 
-// ── WRITING ──────────────────────────────────────────────────────────────────
-export const WRITING: HoverListItem[] = [
-  {
-    key: 'stop-waste-colonialism',
-    title: 'Stop Waste Colonialism',
-    category: 'Campaign / Policy Design',
-    href: '/archive/waste-colonialism',
-    descriptionMissing: true,
-  },
-  {
-    key: 'kantabeast',
-    title: 'Kantabeast',
-    category: 'Video Essay',
-    href: '#', // TODO: no route yet — client to confirm destination
-    hrefTodo: true,
-    descriptionMissing: true,
-  },
-  {
-    key: 'utopian-resurgence',
-    title: 'Utopian Resurgence',
-    href: '#', // TODO: no route yet — client to confirm destination
-    hrefTodo: true,
-    descriptionMissing: true,
-  },
-  {
-    key: 'kantamanto-social-club',
-    title: 'Kantamanto Social Club',
-    href: '#', // TODO: no route yet — client to confirm destination
-    hrefTodo: true,
-    descriptionMissing: true,
-  },
-  {
-    key: 'clothing-passports',
-    title: 'Clothing Passports',
-    category: 'Paper + Passport Photo Shoot',
-    href: '#', // TODO: no route yet — client to confirm destination
-    hrefTodo: true,
-    descriptionMissing: true,
-  },
-]
+// ── WRITING — removed. Writing now has its own content file at src/content/writing.ts.
+
 
 // ── EDUCATION ────────────────────────────────────────────────────────────────
 export const EDUCATION: HoverListItem[] = [
@@ -162,31 +124,5 @@ export const CONSULTANCY: HoverListItem[] = [
   },
 ]
 
-// ── PLAYTIME ─────────────────────────────────────────────────────────────────
-// NOTE: also no layout reference from the client. Same extrapolated pattern.
-export const PLAYTIME: HoverListItem[] = [
-  {
-    key: 'a-striped-family',
-    title: 'A Striped Family',
-    category: 'Print & Textile Design',
-    href: '#', // TODO: client has not supplied a destination for this item
-    hrefTodo: true,
-    descriptionMissing: true,
-  },
-  {
-    key: 'florals',
-    title: 'Florals',
-    category: 'Print & Textile Design',
-    href: '#', // TODO: client has not supplied a destination for this item
-    hrefTodo: true,
-    descriptionMissing: true,
-  },
-  {
-    key: 'tie-dye-and-ink',
-    title: 'Tie Dye & Ink',
-    category: 'Print & Textile Design',
-    href: '#', // TODO: client has not supplied a destination for this item
-    hrefTodo: true,
-    descriptionMissing: true,
-  },
-]
+// ── PLAYTIME — removed. Playtime is a heading and an Instagram link; it has no list.
+

@@ -7,6 +7,7 @@ import Placeholder from './Placeholder'
 import ImageSlot from './ImageSlot'
 import ImageGroupBlock, { deriveImageGroups } from './ImageGroupBlock'
 import Bibliography from './Bibliography'
+import { formatYears } from '@/data/projects'
 
 /*
   One structure for every research project, following the A4 Arts template:
@@ -135,7 +136,7 @@ export default function ProjectPage({ project, prev, next, designPrefix }: Props
       <header style={{ padding: `56px ${PAGE_X}px 40px` }}>
         <h1 style={titleStyle(project)}>{project.title}</h1>
         <p style={subInfo}>
-          {[project.subtitle, project.year].filter(Boolean).join(' — ')}
+          {[project.subtitle, formatYears(project)].filter(Boolean).join(' — ')}
         </p>
       </header>
 
@@ -168,7 +169,7 @@ export default function ProjectPage({ project, prev, next, designPrefix }: Props
         {/* Left — small, quiet */}
         <div>
           <MetaRow label="Title">{project.title}</MetaRow>
-          <MetaRow label="Dates">{project.year}</MetaRow>
+          <MetaRow label="Dates">{formatYears(project)}</MetaRow>
           <MetaRow label="Location">{project.location}</MetaRow>
           <MetaRow label="Status">
             {project.status === 'complete' ? 'Complete'
@@ -210,7 +211,7 @@ export default function ProjectPage({ project, prev, next, designPrefix }: Props
 
       {/* ── BIBLIOGRAPHY ── */}
       <div style={{ padding: `0 ${PAGE_X}px` }}>
-        <Bibliography entries={project.bibliography} />
+        <Bibliography entries={project.bibliography} resources={project.resources} />
       </div>
 
       {/* ── PREV / NEXT ── */}

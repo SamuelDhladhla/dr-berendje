@@ -1,70 +1,103 @@
-import type { BibliographyEntry } from '@/types'
-import Placeholder from './Placeholder'
+import type { BibliographyEntry, ResourceLink } from '@/types'
 
 /*
-  Bibliography / Resources.
+  Bibliography and Resources, following the A4 reference.
 
-  Entries follow the academic order of the A4 reference — author (year) Title,
-  publisher, location — with the title in italics. Any entry can carry a `url`,
-  which turns the title into a link; entries without one render as plain text, so
-  a reference that simply has no online home still sits correctly in the list.
+  Entries are Harvard-style single lines; *asterisks* mark a work title to be
+  italicised. An entry with a url becomes an underlined link. Resources are a
+  plain list of links beneath.
+
+  Nothing renders at all — not even a heading — when a project has neither, so
+  the thirteen projects still awaiting content show no empty furniture.
 */
 
-const meta: React.CSSProperties = {
+const linkProps = {
+  target: '_blank' as const,
+  rel: 'noopener noreferrer',
+}
+
+const heading: React.CSSProperties = {
   fontFamily: 'var(--font-body)',
-  fontSize: '14px',
-  lineHeight: 1.7,
+  fontSize: '11px',
+  fontWeight: 400,
+  letterSpacing: '0.14em',
+  textTransform: 'uppercase',
+  color: '#000',
+  marginBottom: 20,
+}
+
+const entryText: React.CSSProperties = {
+  fontFamily: 'var(--font-body)',
+  fontSize: '15px',
+  lineHeight: 1.5,
   color: '#000',
 }
 
-function Entry({ e }: { e: BibliographyEntry }) {
-  const title = (
-    <em style={{ fontStyle: 'italic' }}>{e.title}</em>
-  )
+/** Renders *asterisk-wrapped* runs as italic; everything else as plain text. */
+function Italicised({ text }: { text: string }) {
   return (
-    <li style={{ ...meta, marginBottom: 14, listStyle: 'none', paddingLeft: 0 }}>
-      {e.author && <>{e.author} </>}
-      {e.year && <>({e.year}) </>}
-      {e.url ? (
-        <a
-          href={e.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: '#000', textDecoration: 'underline', textUnderlineOffset: 3 }}
-        >
-          {title}
-        </a>
-      ) : title}
-      {e.publisher && <>, {e.publisher}</>}
-      {e.location && <>, {e.location}</>}
-      {e.note && (
-        <span> — {e.note}</span>
+    <>
+      {text.split(/(\*[^*]+\*)/g).filter(Boolean).map((part, i) =>
+        part.startsWith('*') && part.endsWith('*')
+          ? <em key={i} style={{ fontStyle: 'italic' }}>{part.slice(1, -1)}</em>
+          : <span key={i}>{part}</span>
       )}
-    </li>
+    </>
   )
 }
 
-export default function Bibliography({ entries }: { entries?: BibliographyEntry[] }) {
-  return (
-    <section style={{ marginBottom: 120 }}>
-      <h2 style={{
-        fontFamily: 'var(--font-body)',
-        fontSize: '11px',
-        fontWeight: 400,
-        letterSpacing: '0.14em',
-        textTransform: 'uppercase',
-        color: '#000',
-        marginBottom: 24,
-      }}>
-        Bibliography &amp; Resources
-      </h2>
+interface Props {
+  entries?: BibliographyEntry[]
+  resources?: ResourceLink[]
+}
 
-      {entries && entries.length > 0 ? (
-        <ul style={{ margin: 0, padding: 0, maxWidth: 720 }}>
-          {entries.map((e, i) => <Entry key={i} e={e} />)}
-        </ul>
-      ) : (
-        <Placeholder note="sources, references, further reading — entries can be hyperlinked" />
+export default function Bibliography({ entries, resources }: Props) {
+  const hasEntries = Boolean(entries && entries.length > 0)
+  const hasResources = Boolean(resources && resources.length > 0)
+  if (!hasEntries && !hasResources) return null
+
+  return (
+    <section style={{ marginBottom: 120, maxWidth: 760 }}>
+      {hasEntries && (
+        <>
+          <h2 style={heading}>Bibliography</h2>
+          <ul style={{ margin: '0 0 56px', padding: 0, listStyle: 'none' }}>
+            {entries!.map((e, i) => (
+              <li key={i} style={{ ...entryText, marginBottom: 12 }}>
+                {e.url ? (
+                  <a
+                    href={e.url}
+                    {...linkProps}
+                    style={{ color: '#000', textDecoration: 'underline', textUnderlineOffset: 3 }}
+                  >
+                    <Italicised text={e.text} />
+                  </a>
+                ) : (
+                  <Italicised text={e.text} />
+                )}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      {hasResources && (
+        <>
+          <h2 style={heading}>Resources</h2>
+          <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+            {resources!.map((r, i) => (
+              <li key={i} style={{ ...entryText, marginBottom: 10 }}>
+                <a
+                  href={r.url}
+                  {...linkProps}
+                  style={{ color: '#000', textDecoration: 'underline', textUnderlineOffset: 3 }}
+                >
+                  {r.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
       )}
     </section>
   )

@@ -69,6 +69,23 @@ export const projects: Project[] = [
     description: '',
     contentStatus: 'placeholder',
     titleFont: { family: 'var(--font-body)', style: 'italic', weight: 400 },
+    /*
+      SAMPLE DATA — structure demonstration only, on this one project.
+
+      Deliberately marked [SAMPLE ENTRY] / [SAMPLE LINK] rather than written as
+      plausible citations. A realistic-looking reference list published under
+      the client's name would be a fabricated scholarly record, which is a worse
+      failure than an obviously empty one. Replace wholesale with real sources.
+    */
+    bibliography: [
+      { text: '[SAMPLE ENTRY] Surname, I. (Year) *Title of work*. City: Publisher.' },
+      { text: '[SAMPLE ENTRY] Surname, I. (Year) *Title of linked work*. City: Publisher.', url: '#' },
+      { text: '[SAMPLE ENTRY] Surname, I. and Surname, A. (Year) *Title of chapter*, in *Title of edited volume*. City: Publisher, pp. 00—00.' },
+    ],
+    resources: [
+      { label: '[SAMPLE LINK] Related archive or collection', url: '#' },
+      { label: '[SAMPLE LINK] Further reading', url: '#' },
+    ],
     images: [
       '/images/ecologies/1.jpg',
       '/images/ecologies/2.jpg',
@@ -351,6 +368,33 @@ export const PROJECT_ORDER = [
   'paper-making',
   'in-no-particular-order',
 ]
+
+/*
+  One place that decides how a project's dates read, so the Grid, the List and
+  the project page cannot drift apart.
+
+    "2011 — 2025"  a real end year, shown as written
+    "2017 —"       still running, closed with "Ongoing" rather than a bare dash
+    "2015"         a single year, no dash at all
+
+  `status` is treated as open-ended for both 'ongoing' and 'in-progress'; an
+  explicit end year in the string always wins over status, being the more
+  specific statement. See the report for the three projects where the two
+  disagree.
+*/
+export function formatYears(project: Project): string {
+  const y = project.year.trim()
+  const closed = y.match(/^(\d{4})\s*[—–-]\s*(\d{4})$/)
+  if (closed) return `${closed[1]} — ${closed[2]}`
+
+  const open = y.match(/^(\d{4})\s*[—–-]\s*$/)
+  if (open) {
+    const stillRunning = project.status === 'ongoing' || project.status === 'in-progress'
+    return stillRunning ? `${open[1]} — Ongoing` : open[1]
+  }
+
+  return y
+}
 
 export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug)

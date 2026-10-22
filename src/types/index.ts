@@ -32,18 +32,20 @@ export interface CreditBlock {
 }
 
 /*
-  Bibliography / resources. Formatted in the academic order the A4 reference
-  uses — author (year) Title, publisher, location — with any entry optionally
-  hyperlinked.
+  Bibliography. One Harvard-style line per entry, written as a single string so
+  the client can punctuate a citation however the source demands rather than
+  being forced into fixed fields. Wrap a work title in *asterisks* to italicise
+  it. An entry with a `url` renders as a link.
 */
 export interface BibliographyEntry {
-  author?: string
-  year?: string
-  title: string
-  publisher?: string
-  location?: string
+  text: string
   url?: string
-  note?: string
+}
+
+/** A plain labelled link in the Resources list beneath the bibliography. */
+export interface ResourceLink {
+  label: string
+  url: string
 }
 
 export interface Project {
@@ -66,6 +68,7 @@ export interface Project {
   /** Extra labelled rows for the left metadata column. */
   credits?: CreditBlock[]
   bibliography?: BibliographyEntry[]
+  resources?: ResourceLink[]
   // Field positioning — seeded per project so consistent across renders
   fieldSize?: 'small' | 'medium' | 'large'
   /** Overrides var(--font-body) for this project's title on List, Grid and page. */
