@@ -30,10 +30,15 @@ export default function Placeholder({ note, align = 'left' }: Props) {
         lineHeight: 1.5,
         textAlign: align,
         margin: 0,
+        // Must not push the page wider than the viewport on a narrow screen:
+        // the marker is a dev signal, not a reason for a horizontal scrollbar.
+        maxWidth: '100%',
+        boxSizing: 'border-box',
+        overflowWrap: 'anywhere',
       }}
     >
       [Placeholder — replace with client copy]
-      {note ? <span style={{ opacity: 0.7, textTransform: 'none' }}> · {note}</span> : null}
+      {note ? <span style={{ textTransform: 'none' }}> · {note}</span> : null}
     </p>
   )
 }

@@ -36,14 +36,17 @@ export const WRITING_ENTRIES: WritingEntry[] = [
     date: '[MM.YYYY]',
     details: '[PLACEHOLDER: details]',
     image: '',
-    url: '#', // TODO: client to supply destination
+    // TODO: the link the client supplied is a private folder and must not be
+    // published in this repo. Awaiting a public destination.
+    url: '#'
   },
   {
     title: 'Kantamanto Social Club',
     date: '[MM.YYYY]',
     details: '[PLACEHOLDER: details]',
     image: '',
-    url: '#', // TODO: client to supply destination
+    url: 'https://www.instagram.com/kantamantosocialclub/',
+    hasRealUrl: true,
   },
   {
     title: 'Stop Waste Colonialism Campaign / Policy Design',

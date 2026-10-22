@@ -6,6 +6,7 @@ import SiteFooter from './SiteFooter'
 import Placeholder from './Placeholder'
 import ImageSlot from './ImageSlot'
 import ImageGroupBlock, { deriveImageGroups } from './ImageGroupBlock'
+import SeriesRows from './SeriesRows'
 import Bibliography from './Bibliography'
 import { formatYears } from '@/data/projects'
 
@@ -116,6 +117,7 @@ export default function ProjectPage({ project, prev, next, designPrefix }: Props
   const defaultCaption = [project.title, project.location, project.year]
     .filter(Boolean)
     .join(', ')
+  const layout = project.layout ?? 'research'
   const groups = (project.imageGroups ?? deriveImageGroups(project.images.slice(1)))
     .map(g => ({ ...g, credit: g.credit ?? defaultCaption }))
   const paragraphs = project.description.trim()
@@ -187,6 +189,37 @@ export default function ProjectPage({ project, prev, next, designPrefix }: Props
               {project.tags.join(', ')}
             </MetaRow>
           )}
+
+          {/* Named sub-parts of the project — a plain list, no links. */}
+          {project.parts && project.parts.length > 0 && (
+            <MetaRow label="Parts">
+              {project.parts.map(p => (
+                <span key={p} style={{ display: 'block' }}>{p}</span>
+              ))}
+            </MetaRow>
+          )}
+
+          {/* Public project links only. */}
+          {project.externalLinks && project.externalLinks.length > 0 && (
+            <MetaRow label="Links">
+              {project.externalLinks.map(l => (
+                <a
+                  key={l.url}
+                  href={l.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'block',
+                    color: '#000',
+                    textDecoration: 'underline',
+                    textUnderlineOffset: 3,
+                  }}
+                >
+                  {l.label} ↗
+                </a>
+              ))}
+            </MetaRow>
+          )}
         </div>
 
         {/* Right — the reading column */}
@@ -202,12 +235,17 @@ export default function ProjectPage({ project, prev, next, designPrefix }: Props
         </div>
       </section>
 
-      {/* ── FLEXIBLE IMAGE GROUPS ── */}
-      {groups.length > 0 && (
-        <div style={{ padding: `56px ${PAGE_X}px 0` }}>
-          {groups.map((g, i) => <ImageGroupBlock key={i} group={g} />)}
-        </div>
-      )}
+      {/* ── IMAGE AREA — the only part that differs between layouts ── */}
+      <style>{`
+        @media (max-width: 767px) {
+          .ig-split-row { flex-direction: column; gap: 16px !important; }
+        }
+      `}</style>
+      <div style={{ padding: `56px ${PAGE_X}px 0` }}>
+        {layout === 'series'
+          ? <SeriesRows rows={project.series ?? []} />
+          : groups.map((g, i) => <ImageGroupBlock key={i} group={g} />)}
+      </div>
 
       {/* ── BIBLIOGRAPHY ── */}
       <div style={{ padding: `0 ${PAGE_X}px` }}>

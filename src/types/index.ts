@@ -23,6 +23,39 @@ export interface ImageGroup {
   images: string[]
   /** Credit line printed under the group. */
   credit?: string
+  /**
+   * 'split' renders exactly two images 50/50 of the content width with an 8px
+   * gap, top-aligned. Anything else flows as the normal single/pair/triple run.
+   */
+  kind?: 'split'
+  /** Per-image captions. When both are absent, `credit` captions the pair once. */
+  captions?: (string | undefined)[]
+}
+
+/*
+  Which image treatment a project page uses. Header, title, metadata column,
+  bibliography and external links are shared by all three; only the image area
+  differs.
+
+    'research'  A4 Arts: hero, metadata left / reading right, flexible groups
+    'split'     amiedicke.com: side-by-side pairs mixed with singles and triples
+    'series'    zohraopoku.com: one centred image per row, optional companion
+*/
+export type ProjectLayout = 'research' | 'split' | 'series'
+
+/*
+  A row in a 'series' layout: one main image, an optional smaller companion
+  offset to the right, and structured caption fields.
+*/
+export interface SeriesRow {
+  image: string
+  companion?: string
+  /** Line 1, rendered uppercase as "TITLE | YEAR". */
+  title?: string
+  year?: string
+  medium?: string
+  variation?: string
+  dimensions?: string
 }
 
 /** A labelled block in the left-hand metadata column, e.g. "Producer". */
@@ -69,6 +102,14 @@ export interface Project {
   credits?: CreditBlock[]
   bibliography?: BibliographyEntry[]
   resources?: ResourceLink[]
+  /** Image treatment. Defaults to 'research' when absent. */
+  layout?: ProjectLayout
+  /** Rows for a 'series' layout. Ignored by the other two. */
+  series?: SeriesRow[]
+  /** Named sub-parts of the project, listed plainly under the metadata. */
+  parts?: string[]
+  /** Public links only. Rendered in the left column, underlined, new tab. */
+  externalLinks?: ResourceLink[]
   // Field positioning — seeded per project so consistent across renders
   fieldSize?: 'small' | 'medium' | 'large'
   /** Overrides var(--font-body) for this project's title on List, Grid and page. */

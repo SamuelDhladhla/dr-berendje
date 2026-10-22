@@ -35,6 +35,10 @@ export const projects: Project[] = [
     // No images of its own — previously showed The Ecologies of Repair's photos.
     images: [''],
     coverImage: '',
+    layout: 'split',
+    imageGroups: [
+      { kind: 'split', images: [] },
+    ],
     fieldSize: 'large',
   },
   {
@@ -55,12 +59,20 @@ export const projects: Project[] = [
     // No images of its own — previously showed Dead White Man's Clothes' photos.
     images: [''],
     coverImage: '',
+    parts: [
+      'Academic Paper #1',
+      'Video Essay / How I do research',
+      'Publication (Newspaper)',
+      'Travelling Exhibition',
+      'Video Collage / Film',
+    ],
     fieldSize: 'medium',
   },
   {
     slug: 'the-ecologies-of-repair',
     title: 'The Ecologies of Repair',
-    year: '2024 —',
+    // Client doc says 2026; config previously said 2024. See FLAGS.
+    year: '2026 —',
     location: 'Netherlands / Ghana',
     status: 'ongoing',
     category: 'studio',
@@ -92,6 +104,9 @@ export const projects: Project[] = [
       '/images/ecologies/3.jpg',
     ],
     coverImage: '/images/ecologies/1.jpg',
+    externalLinks: [
+      { label: 'Milanote', url: 'https://app.milanote.com/1VK2BS1ZXwvF7J/the-ecologies-of-repair--toxic-archives--material-policy--material-justice?p=As9HMEF1FgJ' },
+    ],
     fieldSize: 'large',
   },
   {
@@ -112,6 +127,18 @@ export const projects: Project[] = [
       '/images/dwmc/3.jpg',
     ],
     coverImage: '/images/dwmc/1.jpg',
+    layout: 'split',
+    parts: [
+      'Split screen design',
+      'Textile Trade Book',
+      'Kantabeast',
+    ],
+    externalLinks: [
+      { label: 'Project website', url: 'https://obroni-wawu.com/' },
+    ],
+    imageGroups: [
+      { kind: 'split', images: ['/images/dwmc/2.jpg', '/images/dwmc/3.jpg'] },
+    ],
     fieldSize: 'medium',
   },
   {
@@ -135,6 +162,14 @@ export const projects: Project[] = [
       '/images/botanicals/4.jpg',
     ],
     coverImage: '/images/botanicals/1.jpg',
+    parts: [
+      'Chapter: India — The Netherlands 2017/18',
+      'Riso Print Series',
+      'x-ray series',
+      'Natural dyeing & plant-based textiles',
+      'Chapter: South Africa — The Netherlands',
+      'Cash Crops — The Cape 2025',
+    ],
     fieldSize: 'medium',
   },
   {
@@ -158,7 +193,8 @@ export const projects: Project[] = [
   {
     slug: 'post-fossils',
     title: 'Post Fossils',
-    year: '2015',
+    // No date supplied by the client; renders nothing rather than a guess.
+    year: '',
     location: 'Netherlands',
     status: 'complete',
     category: 'archive',
@@ -172,6 +208,11 @@ export const projects: Project[] = [
       '/images/postfossils/2.jpg',
     ],
     coverImage: '/images/postfossils/1.jpg',
+    layout: 'series',
+    series: [
+      { image: '/images/postfossils/1.jpg' },
+      { image: '/images/postfossils/2.jpg' },
+    ],
     fieldSize: 'small',
   },
   {
@@ -238,6 +279,11 @@ The MMM laid the conceptual foundation for doc. Berendje's current practice — 
     // No images of its own — previously showed Blueprint's photos.
     images: [''],
     coverImage: '',
+    layout: 'series',
+    series: [
+      { image: '/images/blueprint/1.jpg' },
+      { image: '/images/blueprint/2.jpg' },
+    ],
     fieldSize: 'medium',
   },
   {
@@ -291,8 +337,9 @@ The MMM laid the conceptual foundation for doc. Berendje's current practice — 
       not a shuffled order on each visit. Awaiting her confirmation.
     */
     imageGroups: [
-      { images: ['/images/sender/2.jpg', '/images/sender/3.jpg'] },
+      { kind: 'split', images: ['/images/sender/2.jpg', '/images/sender/3.jpg'] },
     ],
+    layout: 'split',
     fieldSize: 'medium',
   },
   {

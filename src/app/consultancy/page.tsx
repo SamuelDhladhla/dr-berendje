@@ -1,22 +1,21 @@
-'use client'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
-import HoverList from '@/components/HoverList'
+import NestedList from '@/components/NestedList'
 import Placeholder from '@/components/Placeholder'
-import { CONSULTANCY } from '@/data/sections'
+import { CONSULTANCY_ITEMS } from '@/content/consultancy'
 
 export default function ConsultancyPage() {
   return (
     <main style={{ background: '#fff', minHeight: '100vh' }}>
       <SiteHeader active="/consultancy" />
 
-      {/* This section has no layout reference from the client — the pattern here
-          is extrapolated from Writing/Education and needs her confirmation. */}
-      <div style={{ padding: '40px 40px 0', textAlign: 'center' }}>
+      {/* The client gave no layout reference for this section — the structure
+          here is extrapolated from Education and needs her confirmation. */}
+      <div style={{ padding: '40px 40px 0' }}>
         <Placeholder note="layout extrapolated — client gave no reference for this section" />
       </div>
 
-      <HoverList items={CONSULTANCY} titleSize="clamp(40px, 5.5vw, 92px)" />
+      <NestedList items={CONSULTANCY_ITEMS} />
       <SiteFooter />
     </main>
   )

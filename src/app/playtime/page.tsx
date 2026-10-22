@@ -1,6 +1,7 @@
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import { INSTAGRAM_URL } from '@/data/site'
+import { PLAYTIME_ITEMS } from '@/content/playtime'
 
 /*
   Playtime by B — a heading and a link to Instagram, nothing else.
@@ -44,6 +45,11 @@ export default function PlaytimePage() {
         >
           Instagram
         </a>
+        {/* Retained in the content file with show:false — nothing renders
+            until the client supplies destinations. */}
+        {PLAYTIME_ITEMS.filter(i => i.show).map(i => (
+          <a key={i.label} href={i.url} style={{ display: 'block' }}>{i.label}</a>
+        ))}
       </div>
 
       <SiteFooter />

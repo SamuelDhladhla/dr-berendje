@@ -14,5 +14,7 @@ export const SITE_INFO = {
   email: 'linda@drberendje.com',
   instagram: { handle: '@drberendje', url: INSTAGRAM_URL },
   affiliation: 'PhD Design Research · ArtEZ University of the Arts',
-  rights: `© ${new Date().getFullYear()} All rights reserved`,
+  // Fixed, not the live year: a static export would otherwise silently
+  // change this on the first build of each new year.
+  rights: '© 2026 All rights reserved',
 }

@@ -26,14 +26,14 @@ const BODY = 'var(--font-body)'
 */
 const SEQUENCE: ImageGroup[] = [
   { images: ['/images/ecologies/1.jpg'], credit: 'Arnhem, 2024' },
-  { images: ['/images/botanicals/1.jpg', '/images/botanicals/2.jpg'], credit: 'India, 2017 · Indigo, Netherlands, 2018' },
+  { kind: 'split', images: ['/images/botanicals/1.jpg', '/images/botanicals/2.jpg'], credit: 'India, 2017 · Indigo, Netherlands, 2018' },
   { images: ['/images/dwmc/1.jpg'], credit: 'Kantamanto, Accra, 2019' },
   { images: ['/images/waste/1.jpg', '/images/waste/2.jpg', '/images/waste/3.jpg'], credit: 'Ghana, 2020' },
   { images: ['/images/sender/1.jpg'], credit: 'Sender–Receiver Residence, 2023' },
-  { images: ['/images/paper/1.jpg', '/images/mmm/1.jpg'], credit: 'Studio, 2018 · Moving Material Museum, 2015' },
+  { kind: 'split', images: ['/images/paper/1.jpg', '/images/mmm/1.jpg'], credit: 'Studio, 2018 · Moving Material Museum, 2015' },
   { images: ['/images/fakery/1.jpg'], credit: 'Jingdezhen, China, 2015' },
   { images: ['/images/postfossils/1.jpg', '/images/blueprint/1.jpg', '/images/botanicals/3.jpg'], credit: 'Netherlands, 2015 · China, 2014 · Natural dyeing, 2017' },
-  { images: ['/images/ecologies/2.jpg', '/images/dwmc/2.jpg'], credit: 'Repair Session, 2024 · Accra, 2021' },
+  { kind: 'split', images: ['/images/ecologies/2.jpg', '/images/dwmc/2.jpg'], credit: 'Repair Session, 2024 · Accra, 2021' },
   { images: ['/images/speculation/1.jpg'], credit: 'Secondhand Speculation, Berlin, 2019' },
 ]
 

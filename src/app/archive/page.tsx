@@ -41,7 +41,7 @@ export default function ArchivePage() {
         right={
           <>
             {toggle('List', view === 'list', () => setView('list'))}
-            <span style={{ fontSize: 12 }}>/</span>
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: '#000' }}>/</span>
             {toggle('Grid', view === 'grid', () => setView('grid'))}
           </>
         }
